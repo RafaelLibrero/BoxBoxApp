@@ -36,8 +36,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        val navHost = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
-        navController= navHost.navController
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        navController = navHost.navController
         binding.bottomNavView.setupWithNavController(navController)
     }
 }
