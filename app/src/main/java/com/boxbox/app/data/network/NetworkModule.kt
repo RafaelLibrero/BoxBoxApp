@@ -1,5 +1,7 @@
 package com.boxbox.app.data.network
 
+import com.boxbox.app.data.RepositoryImp
+import com.boxbox.app.domain.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +22,15 @@ object NetworkModule {
             .baseUrl("https://boxboxapi.azurewebsites.net/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    fun provideRepository(apiService: ApiService): Repository {
+        return RepositoryImp(apiService)
     }
 }
