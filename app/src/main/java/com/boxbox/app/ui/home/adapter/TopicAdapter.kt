@@ -7,10 +7,10 @@ import com.boxbox.app.R
 import com.boxbox.app.domain.model.VTopic
 
 class TopicAdapter(
-    private var topicsList: List<VTopic> = emptyList()
+    private var topicsList: MutableList<VTopic> = mutableListOf()
 ) : RecyclerView.Adapter<TopicViewHolder>() {
 
-    fun updateList(list: List<VTopic>) {
+    fun updateList(list: MutableList<VTopic>) {
         topicsList = list
         notifyDataSetChanged()
     }

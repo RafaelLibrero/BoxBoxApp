@@ -6,8 +6,8 @@ import com.boxbox.app.domain.model.VTopic
 import javax.inject.Inject
 
 class RepositoryImp @Inject constructor(private val apiService: ApiService): Repository {
-    override suspend fun getVTopics(): List<VTopic>? {
-        runCatching { apiService.getVTopics().map { it.toDomain() } }
+    override suspend fun getVTopics(): MutableList<VTopic>? {
+        runCatching { apiService.getVTopics().map { it.toDomain() }.toMutableList() }
             .onSuccess { return it }
 
         return null

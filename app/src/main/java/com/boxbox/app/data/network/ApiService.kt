@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface ApiService {
 
     @GET("/api/topics")
-    suspend fun getVTopics(): List<VTopicResponse>
+    suspend fun getVTopics(): MutableList<VTopicResponse>
 
     @GET("/api/topics/{id}")
     suspend fun getTopic(@Path("id") id: Int): TopicResponse
