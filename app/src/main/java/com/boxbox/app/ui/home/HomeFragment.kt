@@ -12,10 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boxbox.app.databinding.FragmentHomeBinding
-import com.boxbox.app.domain.model.VTopic
 import com.boxbox.app.ui.home.adapter.TopicAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.channels.ticker
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,6 +31,7 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         initUI()
+        homeViewModel.getVTopics()
 
         return binding.root
     }
@@ -58,7 +57,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        homeViewModel.getVTopics()
+
     }
 
     private fun loadingState() {
