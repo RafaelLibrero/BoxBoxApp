@@ -7,5 +7,9 @@
     <string name="conversations">Hilos: %1$d</string>
     <string name="posts">Publicaciones: %1$d</string>
 
+    <!-- Season -->
+    <string name="drivers">Pilotos</string>
+    <string name="teams">Constructores</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
