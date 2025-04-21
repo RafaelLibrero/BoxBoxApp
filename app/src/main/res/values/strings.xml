@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">BoxBox</string>
-    <string name="season">Season</string>
-    <string name="home">Home</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="season">Temporada</string>
+    <string name="home">Inicio</string>
+
+    <!-- Home -->
+    <string name="conversations">Hilos: %1$d</string>
+    <string name="posts">Publicaciones: %1$d</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
