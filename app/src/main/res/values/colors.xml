@@ -4,4 +4,7 @@
     <color name="primaryVariant">#F5F5F5</color>
     <color name="secondary">#E10600</color>
     <color name="accent">#000000</color>
+
+
+    <color name="transparent">#00000000</color>
 </resources>

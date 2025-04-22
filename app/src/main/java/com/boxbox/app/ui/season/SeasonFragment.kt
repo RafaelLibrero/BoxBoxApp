@@ -33,6 +33,7 @@ class SeasonFragment : Fragment() {
             when (position) {
                 0 -> tab.text = getString(R.string.drivers)
                 1 -> tab.text = getString(R.string.teams)
+                2 -> tab.text = getString(R.string.calendar)
             }
         }.attach()
     }
