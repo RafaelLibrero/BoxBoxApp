@@ -15,8 +15,8 @@
         app:tabBackground="@drawable/tab_background"
         app:tabIndicatorHeight="0dp"
         app:tabRippleColor="@color/transparent"
-        app:tabSelectedTextColor="@color/accent"
-        app:tabTextColor="@color/accent"
+        app:tabSelectedTextColor="@color/onPrimary"
+        app:tabTextColor="@color/onPrimary"
         app:tabMode="scrollable"
         android:elevation="0dp"/>
 

@@ -2,9 +2,8 @@
 <resources>
     <color name="primary">#FFFFFF</color>
     <color name="primaryVariant">#F5F5F5</color>
+    <color name="onPrimary">#000000</color>
     <color name="secondary">#E10600</color>
-    <color name="accent">#000000</color>
-
-
+    <color name="secondaryVariant">#B10C00</color>
     <color name="transparent">#00000000</color>
 </resources>
