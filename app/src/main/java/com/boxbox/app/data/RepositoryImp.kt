@@ -2,7 +2,6 @@ package com.boxbox.app.data
 
 import android.util.Log
 import com.boxbox.app.data.network.ApiService
-import com.boxbox.app.data.network.response.LoginRequest
 import com.boxbox.app.domain.Repository
 import com.boxbox.app.domain.model.Login
 import com.boxbox.app.domain.model.VTopic
