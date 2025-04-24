@@ -1,6 +1,6 @@
 package com.boxbox.app.domain.usecase
 
-import com.boxbox.app.domain.Repository
+import com.boxbox.app.domain.repository.Repository
 import com.boxbox.app.domain.model.VTopic
 import javax.inject.Inject
 

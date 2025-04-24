@@ -1,9 +1,8 @@
-package com.boxbox.app.data
+package com.boxbox.app.data.repository
 
 import android.util.Log
 import com.boxbox.app.data.network.ApiService
-import com.boxbox.app.domain.Repository
-import com.boxbox.app.domain.model.Login
+import com.boxbox.app.domain.repository.Repository
 import com.boxbox.app.domain.model.VTopic
 import javax.inject.Inject
 
@@ -22,13 +21,5 @@ class RepositoryImp @Inject constructor(private val apiService: ApiService): Rep
                 emptyList()
             }
         return null
-    }
-
-    override suspend fun login(login: Login): Result<String> {
-        return runCatching {
-            val data = login.toData()
-            val response = apiService.login(data)
-            response.token
-        }
     }
 }
