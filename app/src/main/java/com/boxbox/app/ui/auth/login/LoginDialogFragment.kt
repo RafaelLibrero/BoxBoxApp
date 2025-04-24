@@ -1,4 +1,4 @@
-package com.boxbox.app.ui.login
+package com.boxbox.app.ui.auth.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.boxbox.app.databinding.FragmentLoginDialogBinding
+import com.boxbox.app.ui.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 class LoginDialogFragment : DialogFragment() {
 
     private val loginViewModel by viewModels<LoginViewModel>()
+    private val authViewModel by viewModels<AuthViewModel>()
 
     private var _binding: FragmentLoginDialogBinding? = null
     private val binding get() = _binding!!
@@ -48,11 +50,10 @@ class LoginDialogFragment : DialogFragment() {
                             // Mostrar un spinner o algo similar
                         }
                         is LoginState.Success -> {
-                            // Login exitoso, manejar el token
-                            dismiss() // Cerrar el diálogo
+                            authViewModel.saveToken(state.token)
+                            dismiss()
                         }
                         is LoginState.Error -> {
-                            // Mostrar error
                             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
                         }
                     }

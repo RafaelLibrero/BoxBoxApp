@@ -3,23 +3,33 @@ package com.boxbox.app.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.boxbox.app.R
 import com.boxbox.app.databinding.ActivityMainBinding
-import com.boxbox.app.ui.login.LoginDialogFragment
+import com.boxbox.app.ui.auth.AuthState
+import com.boxbox.app.ui.auth.AuthViewModel
+import com.boxbox.app.ui.auth.login.LoginDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +41,52 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                authViewModel.authState.collect { authState ->
+                    when (authState) {
+                        is AuthState.Authenticated -> {
+                            invalidateOptionsMenu()
+                        }
+                        is AuthState.Unauthenticated -> {
+                            invalidateOptionsMenu()
+                        }
+                        is AuthState.Loading -> {
+
+                        }
+                        is AuthState.Error -> {
+                            Toast.makeText(this@MainActivity, authState.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
+
         initUI()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        when (authViewModel.authState.value) {
+            is AuthState.Authenticated -> {
+                menuInflater.inflate(R.menu.toolbar_menu_authenticated, menu)
+            }
+            is AuthState.Unauthenticated -> {
+                menuInflater.inflate(R.menu.toolbar_menu_unauthenticated, menu)
+            }
+            else -> return false
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.profile -> {
+            R.id.btnLogin -> {
                 LoginDialogFragment().show(supportFragmentManager, "loginDialog")
+                true
+            }
+            R.id.profile -> {
+                authViewModel.clearToken()
                 true
             }
             else -> super.onOptionsItemSelected(item)

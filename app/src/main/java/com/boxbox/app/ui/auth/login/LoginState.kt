@@ -1,4 +1,4 @@
-package com.boxbox.app.ui.login
+package com.boxbox.app.ui.auth.login
 
 sealed class LoginState {
     object Idle: LoginState()
