@@ -1,7 +1,10 @@
 package com.boxbox.app.data.network
 
+import com.boxbox.app.data.network.response.DriverResponse
 import com.boxbox.app.data.network.response.LoginRequest
 import com.boxbox.app.data.network.response.LoginResponse
+import com.boxbox.app.data.network.response.RaceResponse
+import com.boxbox.app.data.network.response.TeamResponse
 import com.boxbox.app.data.network.response.TopicResponse
 import com.boxbox.app.data.network.response.VTopicResponse
 import retrofit2.http.Body
@@ -19,4 +22,13 @@ interface ApiService {
 
     @POST("api/auth/login")
     suspend fun login(@Body login: LoginRequest): LoginResponse
+
+    @GET("api/teams")
+    suspend fun getTeams(): List<TeamResponse>
+
+    @GET("api/drivers")
+    suspend fun getDrivers(): List<DriverResponse>
+
+    @GET("api/races")
+    suspend fun getRaces(): List<RaceResponse>
 }

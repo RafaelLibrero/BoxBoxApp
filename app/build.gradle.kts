@@ -57,6 +57,9 @@ dependencies {
     //EncryptedSharedPreferences
     implementation(libs.androidx.security.crypto.ktx)
 
+    //Picasso
+    implementation(libs.picasso)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
