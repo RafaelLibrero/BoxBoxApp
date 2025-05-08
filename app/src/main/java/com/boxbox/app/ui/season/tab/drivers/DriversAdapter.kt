@@ -24,7 +24,7 @@ class DriversAdapter(
     override fun getItemCount() = driversList.size
 
     override fun onBindViewHolder(holder: DriversViewHolder, position: Int) {
-        holder.render(driversList[position])
+        holder.render(driversList[position], position + 1)
     }
 
 }

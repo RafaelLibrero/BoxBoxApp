@@ -6,13 +6,15 @@ import com.google.gson.annotations.SerializedName
 data class TeamResponse(
     @SerializedName("teamID") val teamID: Int,
     @SerializedName("teamName") val teamName: String,
-    @SerializedName("logo") val logo: String
+    @SerializedName("logo") val logo: String,
+    @SerializedName("points") val points: Int
 ) {
     fun toDomain(): Team {
         return Team(
             teamID = teamID,
             teamName = teamName,
-            logo = logo
+            logo = logo,
+            points = points
         )
     }
 }

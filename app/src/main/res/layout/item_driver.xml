@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    card_view:cardElevation="4dp"
-    card_view:cardCornerRadius="8dp">
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical">
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="1" />
 
         <ImageView
             android:id="@+id/ivDriver"
@@ -31,17 +42,17 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Driver Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Driver Name" />
 
             <TextView
                 android:id="@+id/tvCarNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Car #00"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#666666" />
+                android:textColor="#666666"
+                tools:text="Car #00" />
 
             <ImageView
                 android:id="@+id/ivFlag"
@@ -56,6 +67,16 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp" />
+
+        <TextView
+            android:id="@+id/tvPoints"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="100" />
 
     </LinearLayout>
 

@@ -9,7 +9,8 @@ data class DriverResponse(
     @SerializedName("carNumber") val carNumber: Int,
     @SerializedName("teamID") val teamID: Int,
     @SerializedName("flag") val flag: String,
-    @SerializedName("imagen") val imagen: String
+    @SerializedName("imagen") val imagen: String,
+    @SerializedName("points") val points: Int
 ) {
     fun toDomain(): Driver {
         return Driver(
@@ -18,7 +19,8 @@ data class DriverResponse(
             carNumber = carNumber,
             teamID = teamID,
             flag = flag,
-            imagen = imagen
+            imagen = imagen,
+            points = points
         )
     }
 }

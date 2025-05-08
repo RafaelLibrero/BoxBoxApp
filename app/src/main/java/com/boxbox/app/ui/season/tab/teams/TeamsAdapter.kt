@@ -24,6 +24,6 @@ class TeamsAdapter(
     override fun getItemCount() = teamsList.size
 
     override fun onBindViewHolder(holder: TeamsViewHolder, position: Int) {
-        holder.render(teamsList[position])
+        holder.render(teamsList[position], position + 1)
     }
 }

@@ -10,8 +10,10 @@ class TeamsViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private val binding = ItemTeamBinding.bind(view)
 
-    fun render(team: Team) {
+    fun render(team: Team, position: Int) {
+        binding.tvPosition.text = position.toString()
         Picasso.get().load(team.logo).into(binding.ivLogo)
         binding.tvName.text = team.teamName
+        binding.tvPoints.text = team.points.toString()
     }
 }

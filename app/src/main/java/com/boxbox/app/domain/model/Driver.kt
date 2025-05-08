@@ -6,5 +6,6 @@ data class Driver(
     val carNumber: Int,
     val teamID: Int,
     val flag: String,
-    val imagen: String
+    val imagen: String,
+    val points: Int
 )
