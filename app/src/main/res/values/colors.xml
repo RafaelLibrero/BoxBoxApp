@@ -6,4 +6,8 @@
     <color name="secondary">#E10600</color>
     <color name="secondaryVariant">#B10C00</color>
     <color name="transparent">#00000000</color>
+
+    <color name="gold">#FFD700</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="bronze">#CD7F32</color>
 </resources>
