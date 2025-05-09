@@ -3,6 +3,7 @@ package com.boxbox.app.domain.repository
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Race
 import com.boxbox.app.domain.model.Team
+import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.model.VTopic
 
 interface Repository {
@@ -10,4 +11,5 @@ interface Repository {
     suspend fun getTeams(): List<Team>?
     suspend fun getDrivers(): List<Driver>?
     suspend fun getRaces(): List<Race>?
+    suspend fun getProfile(): User?
 }

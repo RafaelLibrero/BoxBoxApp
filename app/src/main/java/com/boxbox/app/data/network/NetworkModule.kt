@@ -37,8 +37,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiService: ApiService): Repository {
-        return RepositoryImp(apiService)
+    fun provideRepository(apiService: ApiService, tokenStorage: TokenStorage): Repository {
+        return RepositoryImp(apiService, tokenStorage)
     }
 
     @Provides

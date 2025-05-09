@@ -6,9 +6,11 @@ import com.boxbox.app.data.network.response.LoginResponse
 import com.boxbox.app.data.network.response.RaceResponse
 import com.boxbox.app.data.network.response.TeamResponse
 import com.boxbox.app.data.network.response.TopicResponse
+import com.boxbox.app.data.network.response.UserResponse
 import com.boxbox.app.data.network.response.VTopicResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -31,4 +33,7 @@ interface ApiService {
 
     @GET("api/races")
     suspend fun getRaces(): List<RaceResponse>
+
+    @GET("api/users/profile")
+    suspend fun getProfile(@Header("Authorization") token: String): UserResponse
 }

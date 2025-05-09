@@ -5,11 +5,15 @@ import com.boxbox.app.data.network.ApiService
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Race
 import com.boxbox.app.domain.model.Team
+import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.repository.Repository
 import com.boxbox.app.domain.model.VTopic
+import com.tuapp.data.storage.TokenStorage
 import javax.inject.Inject
 
-class RepositoryImp @Inject constructor(private val apiService: ApiService) : Repository {
+class RepositoryImp @Inject constructor(
+    private val apiService: ApiService, private val tokenStorage: TokenStorage
+) : Repository {
 
     override suspend fun getVTopics(): List<VTopic>? {
         runCatching { apiService.getVTopics().map { it.toDomain() }.toMutableList() }
@@ -53,5 +57,14 @@ class RepositoryImp @Inject constructor(private val apiService: ApiService) : Re
                 emptyList()
             }
         return null
+    }
+
+    override suspend fun getProfile(): User? {
+        val token = tokenStorage.getToken()?: throw Exception("Token no encontrado")
+        return runCatching {
+            apiService.getProfile("Bearer $token").toDomain()
+        }.onFailure {
+            Log.e("API Error", "Error en la llamada a la API", it)
+        }.getOrThrow()
     }
 }
