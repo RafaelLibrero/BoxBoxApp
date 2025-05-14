@@ -1,9 +1,11 @@
 package com.boxbox.app.ui.auth.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -14,6 +16,7 @@ import com.boxbox.app.databinding.FragmentLoginDialogBinding
 import com.boxbox.app.ui.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.core.graphics.drawable.toDrawable
 
 @AndroidEntryPoint
 class LoginDialogFragment : DialogFragment() {
@@ -29,6 +32,10 @@ class LoginDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginDialogBinding.inflate(layoutInflater, container, false)
+
+        dialog?.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
         return binding.root
     }
 
