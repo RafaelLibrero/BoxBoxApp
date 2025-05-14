@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FFFFFF"/>  <!-- Color de fondo del diálogo, puedes cambiarlo -->
+    <solid android:color="?attr/colorSurface"/>  <!-- Color de fondo del diálogo, puedes cambiarlo -->
     <corners android:radius="16dp"/>  <!-- Esquinas redondeadas -->
     <stroke android:color="#DDDDDD" android:width="1dp"/>  <!-- Borde del fondo -->
 </shape>

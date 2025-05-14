@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="RoundedDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">@drawable/bg_rounded</item>
+    </style>
+
+    <style name="MyHintTextStyle" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColorHint">?attr/colorOnSurface</item>
+    </style>
+
     <style name="Titles">
         <item name="android:fontFamily">@font/bebasneue</item>
     </style>

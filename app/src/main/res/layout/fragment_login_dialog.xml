@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:background="@drawable/rounded_background"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardElevation="8dp"
     app:strokeColor="?attr/colorPrimary"
     app:strokeWidth="2dp">
@@ -22,43 +21,57 @@
             android:layout_gravity="center"
             android:layout_marginBottom="24dp"
             android:text="@string/access"
+            android:textColor="?attr/colorOnBackground"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/box_stroke_selector"
+            app:hintTextAppearance="@style/MyHintTextStyle"
+            app:hintTextColor="@color/onSurface">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/box_stroke_selector"
+            app:hintTextAppearance="@style/MyHintTextStyle"
+            app:hintTextColor="@color/onSurface">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/login"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_marginTop="8dp" />
+            android:textColor="?attr/colorOnSecondary"
+            app:backgroundTint="?attr/colorSecondary"
+            app:strokeColor="?attr/colorOnSecondary" />
 
         <TextView
             android:id="@+id/tvForgotPassword"
@@ -67,7 +80,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:text="@string/forgot_password"
-            android:textColor="?attr/colorOnPrimary" />
+            android:textColor="?attr/colorOnBackground" />
 
         <TextView
             android:id="@+id/tvRegister"
@@ -76,7 +89,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:text="@string/no_account_register"
-            android:textColor="?attr/colorOnPrimary" />
+            android:textColor="?attr/colorOnBackground" />
 
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

@@ -7,6 +7,14 @@
     <color name="secondaryVariant">#B10C00</color>
     <color name="transparent">#00000000</color>
 
+    <color name="surface">#FAFAFA</color>
+    <color name="onSurface">#111111</color>
+    <color name="background">#FFFFFF</color>
+    <color name="onBackground">#000000</color>
+
+    <color name="gray">#9E9E9E</color>
+    <color name="darkGray">#616161</color>
+
     <color name="gold">#FFD700</color>
     <color name="silver">#C0C0C0</color>
     <color name="bronze">#CD7F32</color>
