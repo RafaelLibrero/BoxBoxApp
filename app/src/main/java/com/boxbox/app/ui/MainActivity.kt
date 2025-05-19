@@ -3,6 +3,7 @@ package com.boxbox.app.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -86,11 +87,37 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.profile -> {
-                authViewModel.clearToken()
+                showPopupMenu()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showPopupMenu() {
+        val popupMenu = PopupMenu(this, findViewById(R.id.profile)) // `findViewById(R.id.toolbar)` es la referencia de tu Toolbar
+
+        menuInflater.inflate(R.menu.toolbar_popup_menu, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.profile -> {
+                    navController.navigate(R.id.profileFragment)
+                    true
+                }
+                R.id.settings -> {
+                    // Acción para la configuración
+                    true
+                }
+                R.id.logout -> {
+                    authViewModel.clearToken()
+                    true
+                }
+                else -> false
+            }
+        }
+
+        popupMenu.show()
     }
 
     private fun initUI() {

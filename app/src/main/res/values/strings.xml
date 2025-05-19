@@ -31,6 +31,12 @@
     <string name="race_name">GP de %1s</string>
     <string name="race_image_description">Circuito</string>
 
+    <!--Profile -->
+    <string name="profile">Mi perfil</string>
+    <string name="settings">Ajustes</string>
+    <string name="logout">Cerrar sesión</string>
+
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
