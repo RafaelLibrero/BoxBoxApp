@@ -17,12 +17,13 @@ import com.boxbox.app.ui.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.core.graphics.drawable.toDrawable
+import androidx.fragment.app.activityViewModels
 
 @AndroidEntryPoint
 class LoginDialogFragment : DialogFragment() {
 
     private val loginViewModel by viewModels<LoginViewModel>()
-    private val authViewModel by viewModels<AuthViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
 
     private var _binding: FragmentLoginDialogBinding? = null
     private val binding get() = _binding!!
