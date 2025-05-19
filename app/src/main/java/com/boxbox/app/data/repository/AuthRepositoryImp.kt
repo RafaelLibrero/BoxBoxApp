@@ -28,4 +28,8 @@ class AuthRepositoryImp @Inject constructor(
     override fun logout() {
         tokenStorage.clearToken()
     }
+
+    override suspend fun register(username: String, email: String, password: String) {
+        apiService.register(username, email, password)
+    }
 }

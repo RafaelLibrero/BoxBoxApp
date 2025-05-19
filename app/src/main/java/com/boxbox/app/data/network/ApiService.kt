@@ -36,4 +36,11 @@ interface ApiService {
 
     @GET("api/users/profile")
     suspend fun getProfile(@Header("Authorization") token: String): UserResponse
+
+    @POST("api/users")
+    suspend fun register(
+        @Path("username") username: String,
+        @Path("email") email: String,
+        @Path("password") password: String
+    )
 }
