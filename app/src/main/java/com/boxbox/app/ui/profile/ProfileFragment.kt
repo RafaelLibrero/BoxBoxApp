@@ -44,7 +44,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initUIState() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 profileViewModel.state.collect { state ->
                     when (state) {
