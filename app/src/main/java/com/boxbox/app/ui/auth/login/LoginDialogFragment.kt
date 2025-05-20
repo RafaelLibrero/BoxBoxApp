@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
+import com.boxbox.app.ui.auth.register.RegisterDialogFragment
 
 @AndroidEntryPoint
 class LoginDialogFragment : DialogFragment() {
@@ -47,6 +48,11 @@ class LoginDialogFragment : DialogFragment() {
             val email = binding.edtEmail.text.toString()
             val password = binding.edtPassword.text.toString()
             loginViewModel.login(email, password)
+        }
+
+        binding.tvRegisterClickable.setOnClickListener {
+            dismiss()
+            RegisterDialogFragment().show(requireActivity().supportFragmentManager, "registerDialog")
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
