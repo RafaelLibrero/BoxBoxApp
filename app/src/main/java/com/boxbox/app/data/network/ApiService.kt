@@ -8,7 +8,10 @@ import com.boxbox.app.data.network.response.TeamResponse
 import com.boxbox.app.data.network.response.TopicResponse
 import com.boxbox.app.data.network.response.UserResponse
 import com.boxbox.app.data.network.response.VTopicResponse
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -37,10 +40,11 @@ interface ApiService {
     @GET("api/users/profile")
     suspend fun getProfile(@Header("Authorization") token: String): UserResponse
 
+    @FormUrlEncoded
     @POST("api/users")
     suspend fun register(
-        @Path("username") username: String,
-        @Path("email") email: String,
-        @Path("password") password: String
-    )
+        @Field("username") username: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Response<Unit>
 }

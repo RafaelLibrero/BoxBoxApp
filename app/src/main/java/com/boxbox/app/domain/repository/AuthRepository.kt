@@ -7,5 +7,5 @@ interface AuthRepository {
     fun saveToken(token: String)
     fun getToken(): String?
     fun logout()
-    suspend fun register(username: String, email: String, password: String)
+    suspend fun register(username: String, email: String, password: String): Result<Unit>
 }

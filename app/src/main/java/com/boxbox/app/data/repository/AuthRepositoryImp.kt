@@ -29,7 +29,15 @@ class AuthRepositoryImp @Inject constructor(
         tokenStorage.clearToken()
     }
 
-    override suspend fun register(username: String, email: String, password: String) {
-        apiService.register(username, email, password)
+    override suspend fun register(username: String, email: String, password: String): Result<Unit> {
+        return runCatching {
+            val response = apiService.register(username, email, password)
+
+            if (response.isSuccessful) {
+                Unit
+            } else {
+                throw Exception(response.errorBody()?.string() ?: "Unknown error")
+            }
+        }
     }
 }

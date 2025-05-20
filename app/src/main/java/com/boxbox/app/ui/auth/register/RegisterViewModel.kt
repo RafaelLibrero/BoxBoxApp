@@ -19,6 +19,12 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
         viewModelScope.launch {
             _state.value = RegisterState.Loading
             registerUseCase(username, email, password)
+                .onSuccess {
+                    _state.value = RegisterState.Success
+                }
+                .onFailure { exception ->
+                    _state.value = RegisterState.Error(exception.message ?: "Error desconocido")
+                }
         }
     }
 }
