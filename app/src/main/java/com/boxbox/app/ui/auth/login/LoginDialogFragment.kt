@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
+import com.boxbox.app.R
 import com.boxbox.app.ui.auth.register.RegisterDialogFragment
 
 @AndroidEntryPoint
@@ -44,11 +45,7 @@ class LoginDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogin.setOnClickListener {
-            val email = binding.edtEmail.text.toString()
-            val password = binding.edtPassword.text.toString()
-            loginViewModel.login(email, password)
-        }
+        login()
 
         binding.tvRegisterClickable.setOnClickListener {
             dismiss()
@@ -79,5 +76,59 @@ class LoginDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun login() {
+        with (binding) {
+            btnLogin.setOnClickListener {
+                val email = edtEmail.text.toString().trim()
+                val password = edtPassword.text.toString().trim()
+
+                var isValid = true
+
+                if (!validateEmail()) {
+                    isValid = false
+                }
+
+                if (!validatePassword()) {
+                    isValid = false
+                }
+
+                if (isValid) {
+                    loginViewModel.login(email, password)
+                }
+            }
+        }
+    }
+
+    private fun validateEmail(): Boolean {
+        with(binding) {
+            val email = edtEmail.text.toString().trim()
+
+            if (email.isEmpty()) {
+                edtEmail.error = getString(R.string.required_field)
+                return false
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                edtEmail.error = getString(R.string.email_no_valid_format)
+                return false
+            }
+
+            edtEmail.error = null
+            return true
+        }
+    }
+
+    private fun validatePassword(): Boolean {
+        with(binding) {
+            val password = edtPassword.text.toString().trim()
+
+            if (password.isEmpty()) {
+                edtPassword.error = getString(R.string.required_field)
+                return false
+            }
+
+            edtPassword.error = null
+            return true
+        }
     }
 }
