@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentRegisterDialogBinding
 import com.boxbox.app.ui.auth.login.LoginDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,13 +49,7 @@ class RegisterDialogFragment : DialogFragment() {
             LoginDialogFragment().show(requireActivity().supportFragmentManager, "loginDialog")
         }
 
-        binding.btnRegister.setOnClickListener {
-            registerViewModel.register(
-                binding.edtUsername.toString(),
-                binding.edtEmail.toString(),
-                binding.edtPassword.toString()
-            )
-        }
+        register()
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -64,10 +59,15 @@ class RegisterDialogFragment : DialogFragment() {
                         is RegisterState.Loading -> {
 
                         }
+
                         is RegisterState.Success -> {
                             dismiss()
-                            LoginDialogFragment().show(requireActivity().supportFragmentManager, "loginDialog")
+                            LoginDialogFragment().show(
+                                requireActivity().supportFragmentManager,
+                                "loginDialog"
+                            )
                         }
+
                         is RegisterState.Error -> {
                             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
                             Log.e("Register", state.message)
@@ -81,5 +81,109 @@ class RegisterDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun validateForm(): Boolean {
+        var isValid = true
+
+        if (!validateUsername()) {
+            isValid = false
+        }
+
+        if (!validateEmail()) {
+            isValid = false
+        }
+
+        if (!validatePassword()) {
+            isValid = false
+        }
+
+        return isValid
+    }
+
+    private fun validateUsername(): Boolean {
+        with(binding) {
+            val username = edtUsername.text.toString().trim()
+
+            if (username.isEmpty()) {
+                edtUsername.error = getString(R.string.required_field)
+                return false
+            }
+
+            edtUsername.error = null
+            return true
+        }
+    }
+
+    private fun validateEmail(): Boolean {
+        with(binding) {
+            val email = edtEmail.text.toString().trim()
+
+            if (email.isEmpty()) {
+                edtEmail.error = getString(R.string.required_field)
+                return false
+            } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                edtEmail.error = getString(R.string.email_no_valid_format)
+                return false
+            }
+
+            edtEmail.error = null
+            return true
+        }
+    }
+
+    private fun validatePassword(): Boolean {
+        with(binding) {
+            val password = edtPassword.text.toString().trim()
+            val repeatPassword = edtRepeatPassword.text.toString().trim()
+
+            if (password.isEmpty()) {
+                edtPassword.error = getString(R.string.required_field)
+                return false
+            }
+
+            if (password.length < 12) {
+                edtPassword.error = getString(R.string.password_characters_required)
+                return false
+            }
+
+            if (!password.any { it.isUpperCase() }) {
+                edtPassword.error = getString(R.string.password_minus_required)
+                return false
+            }
+
+            if (!password.any { it.isLowerCase() }) {
+                edtPassword.error = getString(R.string.password_mayus_required)
+                return false
+            }
+
+            if (!password.any { it.isDigit() }) {
+                edtPassword.error = getString(R.string.password_number_required)
+                return false
+            }
+
+            if (password != repeatPassword) {
+                edtRepeatPassword.error = getString(R.string.password_not_match)
+                return false
+            }
+
+            edtPassword.error = null
+            edtRepeatPassword.error = null
+            return true
+        }
+    }
+
+    private fun register() {
+        with(binding) {
+            btnRegister.setOnClickListener {
+                if (validateForm()) {
+                    registerViewModel.register(
+                        edtUsername.toString(),
+                        edtEmail.toString(),
+                        edtPassword.toString()
+                    )
+                }
+            }
+        }
     }
 }

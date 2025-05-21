@@ -45,7 +45,13 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="required_field">Este campo es obligatorio</string>
+    <string name="email_no_valid_format">El correo electrónico no tiene un formato válido</string>
+    <string name="password_characters_required">La contraseña debe tener al menos 12 caracteres</string>
+    <string name="password_minus_required">La contraseña debe contener al menos una letra mayúscula</string>
+    <string name="password_mayus_required">La contraseña debe contener al menos una letra minúscula</string>
+    <string name="password_number_required">La contraseña debe contener al menos un número</string>
+    <string name="password_not_match">Las contraseñas no coinciden</string>
 
 
 </resources>
