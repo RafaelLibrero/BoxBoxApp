@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardBackgroundColor="?attr/colorSurface"
-    app:cardElevation="8dp"
     app:strokeColor="?attr/colorPrimary"
     app:strokeWidth="2dp">
 
@@ -17,23 +16,21 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            style="@style/Titles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/access"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="20sp"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/box_stroke_selector"
-            app:hintTextAppearance="@style/MyHintTextStyle"
-            app:hintTextColor="@color/onSurface">
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
@@ -41,18 +38,14 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurface" />
+                android:textColor="?attr/colorOnSurface" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/box_stroke_selector"
-            app:hintTextAppearance="@style/MyHintTextStyle"
-            app:hintTextColor="@color/onSurface">
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPassword"
@@ -60,8 +53,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurface" />
+                android:textColor="?attr/colorOnSurface" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -70,9 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/login"
-            android:textColor="?attr/colorOnSecondary"
-            app:backgroundTint="?attr/colorSecondary"
-            app:strokeColor="?attr/colorOnSecondary" />
+            android:textColor="?attr/colorOnPrimary"
+            app:backgroundTint="?attr/colorPrimary"
+            app:strokeColor="?attr/colorOnPrimary" />
 
         <TextView
             android:id="@+id/tvForgotPassword"
@@ -107,7 +99,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/register"
-                android:textColor="@color/secondary"
+                android:textColor="@color/primary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

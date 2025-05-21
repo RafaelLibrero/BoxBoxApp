@@ -3,22 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
-    android:background="@color/primary"
     tools:context=".ui.season.SeasonFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:layout_marginBottom="2dp"
+        app:tabBackground="@android:color/transparent"
         app:tabGravity="center"
-        app:tabBackground="@drawable/tab_background"
-        app:tabIndicatorHeight="0dp"
+        app:tabIndicatorColor="@color/primary"
+        app:tabIndicatorHeight="4dp"
+        app:tabMode="fixed"
         app:tabRippleColor="@color/transparent"
-        app:tabSelectedTextColor="@color/onPrimary"
-        app:tabTextColor="@color/onPrimary"
-        app:tabMode="scrollable"
-        android:elevation="0dp"/>
+        app:tabSelectedTextColor="@color/primary"
+        app:tabTextColor="@color/onBackground" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

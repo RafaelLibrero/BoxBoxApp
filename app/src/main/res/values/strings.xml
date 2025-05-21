@@ -16,7 +16,7 @@
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
-    <string name="access">Acceder</string>
+    <string name="access">Acceso</string>
     <string name="login">Iniciar sesión</string>
     <string name="username">Nombre de usuario</string>
     <string name="repeat_password">Repita la contraseña</string>
