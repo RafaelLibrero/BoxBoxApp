@@ -3,10 +3,12 @@ package com.boxbox.app.data.network
 import com.boxbox.app.data.network.response.DriverResponse
 import com.boxbox.app.data.network.response.LoginRequest
 import com.boxbox.app.data.network.response.LoginResponse
+import com.boxbox.app.data.network.response.PostResponse
 import com.boxbox.app.data.network.response.RaceResponse
 import com.boxbox.app.data.network.response.TeamResponse
 import com.boxbox.app.data.network.response.TopicResponse
 import com.boxbox.app.data.network.response.UserResponse
+import com.boxbox.app.data.network.response.VConversationResponse
 import com.boxbox.app.data.network.response.VTopicResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,6 +26,18 @@ interface ApiService {
 
     @GET("api/topics/{id}")
     suspend fun getTopic(@Path("id") id: Int): TopicResponse
+
+    @GET("api/conversations/get/{position}/{topicId}")
+    suspend fun getVConversations(
+        @Path("position") position: Int,
+        @Path("topicId") topicId: Int
+    ): List<VConversationResponse>
+
+    @GET("api/posts/get/{position}/{conversationId")
+    suspend fun getPosts(
+        @Path("position") position: Int,
+        @Path("conversationId") conversationId: Int
+    ): List<PostResponse>
 
     @POST("api/auth/login")
     suspend fun login(@Body login: LoginRequest): LoginResponse

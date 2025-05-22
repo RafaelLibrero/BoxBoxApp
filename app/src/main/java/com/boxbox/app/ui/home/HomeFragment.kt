@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentHomeBinding
 import com.boxbox.app.ui.home.adapter.TopicAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,4 +83,15 @@ class HomeFragment : Fragment() {
         binding.rvTopics.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun onItemSelected(topicId: Int) {
+        val bundle = Bundle().apply {
+            putInt("", topicId)
+        }
+
+        findNavController().navigate(
+            R.id.conversationsFragment,
+        )
+    }
+
 }

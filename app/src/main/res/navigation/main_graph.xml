@@ -19,4 +19,13 @@
         android:id="@+id/profileFragment"
         android:name="com.boxbox.app.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/conversationsFragment"
+        android:name="com.boxbox.app.ui.conversations.ConversationsFragment"
+        android:label="fragment_conversations"
+        tools:layout="@layout/fragment_conversations">
+        <argument
+            android:name="topic_id"
+            app:argType="int" />
+    </fragment>
 </navigation>
