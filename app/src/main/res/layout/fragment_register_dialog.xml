@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    app:cardBackgroundColor="?attr/colorSurface"
+    style="@style/Widget.Material3.CardView.Elevated"
     app:strokeColor="?attr/colorPrimary"
     app:strokeWidth="2dp">
 

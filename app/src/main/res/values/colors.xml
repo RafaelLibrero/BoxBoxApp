@@ -7,8 +7,8 @@
     <color name="secondaryVariant">#FF9800</color>
     <color name="transparent">#00000000</color>
 
-    <color name="surface">#FAFAFA</color>
-    <color name="onSurface">#111111</color>
+    <color name="surface">#F0F0F0</color>
+    <color name="onSurface">#212121</color>
     <color name="background">#FFFFFF</color>
     <color name="onBackground">#000000</color>
 
