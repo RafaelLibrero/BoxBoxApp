@@ -106,14 +106,14 @@ class LoginDialogFragment : DialogFragment() {
             val email = edtEmail.text.toString().trim()
 
             if (email.isEmpty()) {
-                edtEmail.error = getString(R.string.required_field)
+                tilEmail.error = getString(R.string.required_field)
                 return false
             } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                edtEmail.error = getString(R.string.email_no_valid_format)
+                tilEmail.error = getString(R.string.email_no_valid_format)
                 return false
             }
 
-            edtEmail.error = null
+            tilEmail.error = null
             return true
         }
     }
@@ -123,11 +123,11 @@ class LoginDialogFragment : DialogFragment() {
             val password = edtPassword.text.toString().trim()
 
             if (password.isEmpty()) {
-                edtPassword.error = getString(R.string.required_field)
+                tilPassword.error = getString(R.string.required_field)
                 return false
             }
 
-            edtPassword.error = null
+            tilPassword.error = null
             return true
         }
     }

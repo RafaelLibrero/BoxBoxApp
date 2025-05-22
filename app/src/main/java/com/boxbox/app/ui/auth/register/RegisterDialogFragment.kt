@@ -106,11 +106,11 @@ class RegisterDialogFragment : DialogFragment() {
             val username = edtUsername.text.toString().trim()
 
             if (username.isEmpty()) {
-                edtUsername.error = getString(R.string.required_field)
+                tilUsername.error = getString(R.string.required_field)
                 return false
             }
 
-            edtUsername.error = null
+            tilUsername.error = null
             return true
         }
     }
@@ -120,14 +120,14 @@ class RegisterDialogFragment : DialogFragment() {
             val email = edtEmail.text.toString().trim()
 
             if (email.isEmpty()) {
-                edtEmail.error = getString(R.string.required_field)
+                tilEmail.error = getString(R.string.required_field)
                 return false
             } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                edtEmail.error = getString(R.string.email_no_valid_format)
+                tilEmail.error = getString(R.string.email_no_valid_format)
                 return false
             }
 
-            edtEmail.error = null
+            tilEmail.error = null
             return true
         }
     }
@@ -138,37 +138,37 @@ class RegisterDialogFragment : DialogFragment() {
             val repeatPassword = edtRepeatPassword.text.toString().trim()
 
             if (password.isEmpty()) {
-                edtPassword.error = getString(R.string.required_field)
+                tilPassword.error = getString(R.string.required_field)
                 return false
             }
 
             if (password.length < 12) {
-                edtPassword.error = getString(R.string.password_characters_required)
+                tilPassword.error = getString(R.string.password_characters_required)
                 return false
             }
 
             if (!password.any { it.isUpperCase() }) {
-                edtPassword.error = getString(R.string.password_minus_required)
+                tilPassword.error = getString(R.string.password_minus_required)
                 return false
             }
 
             if (!password.any { it.isLowerCase() }) {
-                edtPassword.error = getString(R.string.password_mayus_required)
+                tilPassword.error = getString(R.string.password_mayus_required)
                 return false
             }
 
             if (!password.any { it.isDigit() }) {
-                edtPassword.error = getString(R.string.password_number_required)
+                tilPassword.error = getString(R.string.password_number_required)
                 return false
             }
 
             if (password != repeatPassword) {
-                edtRepeatPassword.error = getString(R.string.password_not_match)
+                tilRepeatPassword.error = getString(R.string.password_not_match)
                 return false
             }
 
-            edtPassword.error = null
-            edtRepeatPassword.error = null
+            tilPassword.error = null
+            tilRepeatPassword.error = null
             return true
         }
     }

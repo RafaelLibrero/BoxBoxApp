@@ -27,6 +27,7 @@
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUsername"
             style="@style/Inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +43,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
             style="@style/Inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,6 +59,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
             style="@style/Inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,6 +76,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRepeatPassword"
             style="@style/Inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
