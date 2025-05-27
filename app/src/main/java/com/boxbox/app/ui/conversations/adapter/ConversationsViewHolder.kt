@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.boxbox.app.databinding.ItemConversationBinding
 import com.boxbox.app.domain.model.VConversation
+import com.boxbox.app.utils.DateFormatter
 
 class ConversationsViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
@@ -13,7 +14,7 @@ class ConversationsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         with (binding) {
             tvTitle.text = conversation.title
             tvEntryCount.text = conversation.entryCount.toString()
-            tvCreatedAt.text = conversation.createdAt.toString()
+            tvCreatedAt.text = DateFormatter.formatToMinutes(conversation.createdAt)
             tvPostCount.text = conversation.postCount.toString()
         }
 
