@@ -178,9 +178,9 @@ class RegisterDialogFragment : DialogFragment() {
             btnRegister.setOnClickListener {
                 if (validateForm()) {
                     registerViewModel.register(
-                        edtUsername.toString(),
-                        edtEmail.toString(),
-                        edtPassword.toString()
+                        edtUsername.text.toString(),
+                        edtEmail.text.toString(),
+                        edtPassword.text.toString()
                     )
                 }
             }

@@ -12,12 +12,11 @@ import com.boxbox.app.data.network.response.VConversationListResponse
 import com.boxbox.app.data.network.response.VTopicResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -54,11 +53,10 @@ interface ApiService {
     @GET("api/users/profile")
     suspend fun getProfile(@Header("Authorization") token: String): UserResponse
 
-    @FormUrlEncoded
     @POST("api/users")
     suspend fun register(
-        @Field("username") username: String,
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Query("username") username: String,
+        @Query("email") email: String,
+        @Query("password") password: String
     ): Response<Unit>
 }
