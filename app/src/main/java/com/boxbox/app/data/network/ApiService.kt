@@ -3,7 +3,7 @@ package com.boxbox.app.data.network
 import com.boxbox.app.data.network.response.DriverResponse
 import com.boxbox.app.data.network.response.LoginRequest
 import com.boxbox.app.data.network.response.LoginResponse
-import com.boxbox.app.data.network.response.PostResponse
+import com.boxbox.app.data.network.response.PostListResponse
 import com.boxbox.app.data.network.response.RaceResponse
 import com.boxbox.app.data.network.response.TeamResponse
 import com.boxbox.app.data.network.response.TopicResponse
@@ -33,11 +33,11 @@ interface ApiService {
         @Path("topicId") topicId: Int
     ): VConversationListResponse
 
-    @GET("api/posts/get/{position}/{conversationId")
+    @GET("api/posts/get/{position}/{conversationId}")
     suspend fun getPosts(
         @Path("position") position: Int,
         @Path("conversationId") conversationId: Int
-    ): List<PostResponse>
+    ): PostListResponse
 
     @POST("api/auth/login")
     suspend fun login(@Body login: LoginRequest): LoginResponse

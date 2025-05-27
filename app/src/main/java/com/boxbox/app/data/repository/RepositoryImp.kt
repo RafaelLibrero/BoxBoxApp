@@ -42,8 +42,10 @@ class RepositoryImp @Inject constructor(
     }
 
     override suspend fun getPosts(position: Int, conversationId: Int): List<Post>? {
-        runCatching { apiService.getPosts(position, conversationId).map {it.toDomain() }.toMutableList() }
-            .onSuccess { return it }
+        return runCatching {
+            val response = apiService.getPosts(position, conversationId)
+            response.posts.map { it.toDomain() }.toMutableList()
+        }
             .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
             .getOrElse {
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
@@ -86,7 +88,7 @@ class RepositoryImp @Inject constructor(
     }
 
     override suspend fun getProfile(): User? {
-        val token = tokenStorage.getToken()?: throw Exception("Token no encontrado")
+        val token = tokenStorage.getToken() ?: throw Exception("Token no encontrado")
         return runCatching {
             apiService.getProfile("Bearer $token").toDomain()
         }.onFailure {
