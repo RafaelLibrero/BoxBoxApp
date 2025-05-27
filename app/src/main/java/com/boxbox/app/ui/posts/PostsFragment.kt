@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boxbox.app.databinding.FragmentPostsBinding
+import com.boxbox.app.ui.auth.AuthState
+import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.ui.posts.adapter.PostsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
@@ -21,6 +25,7 @@ import kotlin.properties.Delegates
 class PostsFragment : Fragment() {
 
     private val postsViewModel by viewModels<PostsViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
 
     private lateinit var postsAdapter: PostsAdapter
     private var _binding: FragmentPostsBinding? = null
@@ -56,11 +61,20 @@ class PostsFragment : Fragment() {
     private fun initUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                postsViewModel.state.collect { state ->
-                    when (state) {
-                        is PostsState.Error -> errorState(state)
+                combine(
+                    postsViewModel.state,
+                    authViewModel.authState
+                ) { postsState, authState ->
+                    postsState to authState
+                }.collect { (postsState, authState) ->
+                    when (postsState) {
+                        is PostsState.Error -> errorState(postsState)
                         is PostsState.Loading -> loadingState()
-                        is PostsState.Success -> successState(state)
+                        is PostsState.Success -> successState(postsState)
+                    }
+                    when (authState) {
+                        is AuthState.Authenticated -> binding.newPostContainer.visibility = View.VISIBLE
+                        is AuthState.Unauthenticated -> binding.newPostContainer.visibility = View.GONE
                     }
                 }
             }

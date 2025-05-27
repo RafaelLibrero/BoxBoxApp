@@ -14,7 +14,7 @@ class AuthViewModel @Inject constructor(
     private val tokenStorage: TokenStorage
 ) : ViewModel() {
 
-    private val _authState = MutableStateFlow<AuthState>(AuthState.Loading)
+    private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
     val authState: StateFlow<AuthState> = _authState
 
     init {
@@ -23,7 +23,6 @@ class AuthViewModel @Inject constructor(
 
     fun checkToken() {
         viewModelScope.launch {
-            _authState.value = AuthState.Loading
             val token = tokenStorage.getToken()
             if (!token.isNullOrEmpty()) {
                 _authState.value = AuthState.Authenticated
@@ -34,13 +33,11 @@ class AuthViewModel @Inject constructor(
     }
 
     fun saveToken(token: String) {
-        _authState.value = AuthState.Loading
         tokenStorage.saveToken(token)
         _authState.value = AuthState.Authenticated
     }
 
     fun clearToken() {
-        _authState.value = AuthState.Loading
         tokenStorage.clearToken()
         _authState.value = AuthState.Unauthenticated
     }

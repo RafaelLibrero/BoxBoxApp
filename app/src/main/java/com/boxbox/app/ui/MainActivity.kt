@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -53,12 +52,6 @@ class MainActivity : AppCompatActivity() {
                         is AuthState.Unauthenticated -> {
                             invalidateOptionsMenu()
                         }
-                        is AuthState.Loading -> {
-
-                        }
-                        is AuthState.Error -> {
-                            Toast.makeText(this@MainActivity, authState.message, Toast.LENGTH_SHORT).show()
-                        }
                     }
                 }
             }
@@ -75,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             is AuthState.Unauthenticated -> {
                 menuInflater.inflate(R.menu.toolbar_menu_unauthenticated, menu)
             }
-            else -> return false
         }
         return true
     }
