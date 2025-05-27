@@ -10,12 +10,16 @@ class TopicViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private val binding = ItemTopicBinding.bind(view)
 
-    fun render(topic: VTopic) {
+    fun render(topic: VTopic, onItemSelected: (Int) -> Unit) {
         binding.tvTitle.text = topic.title
         binding.tvDescription.text = topic.description
         binding.tvConversations.text =
             binding.tvConversations.context.getString(R.string.conversations, topic.conversations)
         binding.tvPosts.text =
             binding.tvPosts.context.getString(R.string.posts, topic.posts)
+
+        itemView.setOnClickListener{
+            onItemSelected(topic.topicId)
+        }
     }
 }

@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUIState() {
-        topicAdapter = TopicAdapter()
+        topicAdapter = TopicAdapter { onItemSelected(it) }
         binding.rvTopics.apply {
             adapter = topicAdapter
             layoutManager = LinearLayoutManager(context)
@@ -86,11 +86,12 @@ class HomeFragment : Fragment() {
 
     private fun onItemSelected(topicId: Int) {
         val bundle = Bundle().apply {
-            putInt("", topicId)
+            putInt("topic_id", topicId)
         }
 
         findNavController().navigate(
             R.id.conversationsFragment,
+            bundle
         )
     }
 

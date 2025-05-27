@@ -29,8 +29,10 @@ class RepositoryImp @Inject constructor(
     }
 
     override suspend fun getVConversations(position: Int, topicId: Int): List<VConversation>? {
-        runCatching { apiService.getVConversations(position, topicId).map { it.toDomain() }.toMutableList() }
-            .onSuccess { return it }
+        return runCatching {
+            val response = apiService.getVConversations(position, topicId)
+            response.conversations.map { it.toDomain() }.toMutableList()
+        }
             .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
             .getOrElse {
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")

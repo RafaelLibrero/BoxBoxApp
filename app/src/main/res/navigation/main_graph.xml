@@ -26,6 +26,15 @@
         tools:layout="@layout/fragment_conversations">
         <argument
             android:name="topic_id"
-            app:argType="int" />
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="com.boxbox.app.ui.posts.PostsFragment"
+        android:label="fragment_posts"
+        tools:layout="@layout/fragment_posts">
+        <argument
+            android:name="conversation_id"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -7,7 +7,8 @@ import com.boxbox.app.R
 import com.boxbox.app.domain.model.VTopic
 
 class TopicAdapter(
-    private var topicsList: List<VTopic> = mutableListOf()
+    private var topicsList: List<VTopic> = mutableListOf(),
+    private var onItemSelected: (Int) -> Unit
 ) : RecyclerView.Adapter<TopicViewHolder>() {
 
     fun updateList(list: List<VTopic>) {
@@ -24,7 +25,7 @@ class TopicAdapter(
     override fun getItemCount() = topicsList.size
 
     override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
-        holder.render(topicsList[position])
+        holder.render(topicsList[position], onItemSelected)
     }
 
 }

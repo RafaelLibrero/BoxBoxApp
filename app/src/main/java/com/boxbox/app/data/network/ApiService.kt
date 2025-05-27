@@ -8,7 +8,7 @@ import com.boxbox.app.data.network.response.RaceResponse
 import com.boxbox.app.data.network.response.TeamResponse
 import com.boxbox.app.data.network.response.TopicResponse
 import com.boxbox.app.data.network.response.UserResponse
-import com.boxbox.app.data.network.response.VConversationResponse
+import com.boxbox.app.data.network.response.VConversationListResponse
 import com.boxbox.app.data.network.response.VTopicResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -31,7 +31,7 @@ interface ApiService {
     suspend fun getVConversations(
         @Path("position") position: Int,
         @Path("topicId") topicId: Int
-    ): List<VConversationResponse>
+    ): VConversationListResponse
 
     @GET("api/posts/get/{position}/{conversationId")
     suspend fun getPosts(
