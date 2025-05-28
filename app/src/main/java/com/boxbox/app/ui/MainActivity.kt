@@ -102,7 +102,9 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.logout -> {
-                    authViewModel.clearToken()
+                    lifecycleScope.launch {
+                        authViewModel.logout()
+                    }
                     true
                 }
                 else -> false

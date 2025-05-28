@@ -61,8 +61,12 @@ class LoginDialogFragment : DialogFragment() {
                             // Mostrar un spinner o algo similar
                         }
                         is LoginState.Success -> {
-                            authViewModel.saveToken(state.token)
+                            authViewModel.saveUserId(state.profile.userId)
                             dismiss()
+                        }
+                        is LoginState.TokenObtained -> {
+                            authViewModel.saveToken(state.token)
+                            loginViewModel.getProfile()
                         }
                         is LoginState.Error -> {
                             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()

@@ -2,6 +2,7 @@ package com.boxbox.app.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.boxbox.app.data.local.DataStoreManager
 import com.tuapp.data.storage.TokenStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,20 +12,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val tokenStorage: TokenStorage
+    private val tokenStorage: TokenStorage,
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
     val authState: StateFlow<AuthState> = _authState
 
     init {
-        checkToken()
+        checkAuth()
     }
 
-    fun checkToken() {
+    fun checkAuth() {
         viewModelScope.launch {
             val token = tokenStorage.getToken()
-            if (!token.isNullOrEmpty()) {
+            val userId = dataStoreManager.getUserId()
+            if (!token.isNullOrEmpty() && userId != null) {
                 _authState.value = AuthState.Authenticated
             } else {
                 _authState.value = AuthState.Unauthenticated
@@ -34,15 +37,34 @@ class AuthViewModel @Inject constructor(
 
     fun saveToken(token: String) {
         tokenStorage.saveToken(token)
-        _authState.value = AuthState.Authenticated
+        checkIfAuthenticated()
     }
 
-    fun clearToken() {
+    suspend fun saveUserId(id: Int){
+        dataStoreManager.saveUserId(id)
+        checkIfAuthenticated()
+    }
+
+    suspend fun logout() {
         tokenStorage.clearToken()
+        dataStoreManager.clearUserId()
         _authState.value = AuthState.Unauthenticated
     }
 
-    fun getToken(): String? {
-        return tokenStorage.getToken()
+    fun getToken(): String? = tokenStorage.getToken()
+    suspend fun getUserId(): Int? = dataStoreManager.getUserId()
+
+    private fun checkIfAuthenticated() {
+        viewModelScope.launch {
+            val token = getToken()
+            val userId = getUserId()
+            if (!token.isNullOrEmpty() && userId != null) {
+                _authState.value = AuthState.Authenticated
+            } else {
+                _authState.value = AuthState.Unauthenticated
+            }
+        }
     }
+
+
 }

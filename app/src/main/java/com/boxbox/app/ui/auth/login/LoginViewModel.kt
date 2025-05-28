@@ -2,7 +2,6 @@ package com.boxbox.app.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.boxbox.app.data.local.DataStoreManager
 import com.boxbox.app.domain.usecase.GetProfile
 import com.boxbox.app.domain.usecase.Login
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,6 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: Login,
     private val getProfileUseCase: GetProfile,
-    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     private var _state = MutableStateFlow<LoginState>(LoginState.Idle)
@@ -26,18 +24,24 @@ class LoginViewModel @Inject constructor(
             _state.value = LoginState.Loading
             loginUseCase(email, password).fold(
                 onSuccess = { token ->
-                    val profile = getProfileUseCase()
-                    if (profile != null) {
-                        dataStoreManager.saveUserId(profile.userId)
-                        _state.value = LoginState.Success(token, profile)
-                    } else {
-                        _state.value = LoginState.Error("No se pudo obtener perfil")
-                    }
+                    _state.value = LoginState.TokenObtained(token)
                 },
                 onFailure = { error ->
                     _state.value = LoginState.Error(error.message ?: "Error desconocido")
                 }
             )
+        }
+    }
+
+    fun getProfile() {
+        viewModelScope.launch {
+            _state.value = LoginState.Loading
+            val profile = getProfileUseCase()
+            if (profile != null) {
+                _state.value = LoginState.Success(profile)
+            } else {
+                _state.value = LoginState.Error("No se pudo obtener perfil")
+            }
         }
     }
 }
