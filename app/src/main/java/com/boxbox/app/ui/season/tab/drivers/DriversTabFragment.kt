@@ -29,7 +29,6 @@ class DriversTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDriversTabBinding.inflate(layoutInflater, container, false)
-        driversViewModel.getDrivers()
         initUI()
         return binding.root
     }
@@ -40,6 +39,7 @@ class DriversTabFragment : Fragment() {
     }
 
     private fun initUI(){
+        driversViewModel.getDrivers()
         driversAdapter = DriversAdapter()
         binding.rvDrivers.apply {
             adapter = driversAdapter
@@ -49,7 +49,7 @@ class DriversTabFragment : Fragment() {
     }
 
     private fun initUIState() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 driversViewModel.state.collect { state ->
                     when (state) {

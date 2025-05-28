@@ -33,8 +33,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         initUI()
-        homeViewModel.getVTopics()
-
         return binding.root
     }
 
@@ -44,16 +42,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUI() {
-        initUIState()
-    }
-
-    private fun initUIState() {
+        homeViewModel.getVTopics()
         topicAdapter = TopicAdapter { onItemSelected(it) }
         binding.rvTopics.apply {
             adapter = topicAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        lifecycleScope.launch {
+        initUIState()
+    }
+
+    private fun initUIState() {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.state.collect { state ->
                     when (state) {
@@ -64,7 +63,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun loadingState() {

@@ -29,7 +29,6 @@ class RacesTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRacesTabBinding.inflate(layoutInflater, container, false)
-        racesViewModel.getRaces()
         initUI()
         return binding.root
     }
@@ -40,6 +39,7 @@ class RacesTabFragment : Fragment() {
     }
 
     private fun initUI() {
+        racesViewModel.getRaces()
         racesAdapter = RacesAdapter()
         binding.rvRaces.apply {
             adapter = racesAdapter
@@ -49,7 +49,7 @@ class RacesTabFragment : Fragment() {
     }
 
     private fun initUIState() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 racesViewModel.state.collect { state ->
                     when (state) {

@@ -29,7 +29,6 @@ class TeamsTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTeamsTabBinding.inflate(layoutInflater, container, false)
-        teamsViewModel.getRaces()
         initUI()
         return binding.root
     }
@@ -40,6 +39,7 @@ class TeamsTabFragment : Fragment() {
     }
 
     private fun initUI() {
+        teamsViewModel.getRaces()
         teamsAdapter = TeamsAdapter()
         binding.rvTeams.apply {
             adapter = teamsAdapter
@@ -49,7 +49,7 @@ class TeamsTabFragment : Fragment() {
     }
 
     private fun initUIState() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 teamsViewModel.state.collect { state ->
                     when (state) {
