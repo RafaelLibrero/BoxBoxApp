@@ -1,6 +1,7 @@
 package com.boxbox.app.data.network
 
 import android.content.Context
+import com.boxbox.app.data.local.DataStoreManager
 import com.boxbox.app.data.repository.AuthRepositoryImp
 import com.boxbox.app.data.repository.RepositoryImp
 import com.boxbox.app.domain.repository.AuthRepository
@@ -51,5 +52,11 @@ object NetworkModule {
     @Singleton
     fun provideTokenStorage(@ApplicationContext context: Context): TokenStorage {
         return TokenStorage(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager {
+        return DataStoreManager(context)
     }
 }
