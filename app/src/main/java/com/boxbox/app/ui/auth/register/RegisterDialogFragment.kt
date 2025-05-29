@@ -43,18 +43,16 @@ class RegisterDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
+        initUIState()
+    }
 
-        binding.tvLoginClickable.setOnClickListener {
-            dismiss()
-            LoginDialogFragment().show(requireActivity().supportFragmentManager, "loginDialog")
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-        binding.btnClose.setOnClickListener {
-            dismiss()
-        }
-
-        register()
-
+    private fun initUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 registerViewModel.state.collect { state ->
@@ -82,9 +80,33 @@ class RegisterDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initListeners() {
+        with (binding) {
+            binding.tvLoginClickable.setOnClickListener {
+                dismiss()
+                LoginDialogFragment().show(requireActivity().supportFragmentManager, "loginDialog")
+            }
+
+            binding.btnClose.setOnClickListener {
+                dismiss()
+            }
+        }
+
+        register()
+    }
+
+    private fun register() {
+        with(binding) {
+            btnRegister.setOnClickListener {
+                if (validateForm()) {
+                    registerViewModel.register(
+                        edtUsername.text.toString(),
+                        edtEmail.text.toString(),
+                        edtPassword.text.toString()
+                    )
+                }
+            }
+        }
     }
 
     private fun validateForm(): Boolean {
@@ -174,20 +196,6 @@ class RegisterDialogFragment : DialogFragment() {
             tilPassword.error = null
             tilRepeatPassword.error = null
             return true
-        }
-    }
-
-    private fun register() {
-        with(binding) {
-            btnRegister.setOnClickListener {
-                if (validateForm()) {
-                    registerViewModel.register(
-                        edtUsername.text.toString(),
-                        edtEmail.text.toString(),
-                        edtPassword.text.toString()
-                    )
-                }
-            }
         }
     }
 }

@@ -44,18 +44,16 @@ class LoginDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
+        initUIState()
+    }
 
-        login()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-        binding.tvRegisterClickable.setOnClickListener {
-            dismiss()
-            RegisterDialogFragment().show(requireActivity().supportFragmentManager, "registerDialog")
-        }
-
-        binding.btnClose.setOnClickListener {
-            dismiss()
-        }
-
+    private fun initUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.state.collect { state ->
@@ -81,9 +79,17 @@ class LoginDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initListeners() {
+        binding.tvRegisterClickable.setOnClickListener {
+            dismiss()
+            RegisterDialogFragment().show(requireActivity().supportFragmentManager, "registerDialog")
+        }
+
+        binding.btnClose.setOnClickListener {
+            dismiss()
+        }
+
+        login()
     }
 
     private fun login() {
