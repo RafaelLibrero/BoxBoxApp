@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
                     android:id="@+id/edtUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="username"
                     android:hint="@string/username"
                     android:inputType="textPersonName"
                     android:textColor="?attr/colorOnSurface" />
@@ -57,6 +59,7 @@
                     android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="emailAddress"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:textColor="?attr/colorOnSurface" />
@@ -85,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:autofillHints="password"
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -134,6 +138,16 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_loading"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                app:indicatorColor="?attr/colorPrimary"
+                tools:visibility="visible" />
 
         </LinearLayout>
 

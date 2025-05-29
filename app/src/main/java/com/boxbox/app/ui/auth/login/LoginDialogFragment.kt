@@ -20,6 +20,8 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
 import com.boxbox.app.R
 import com.boxbox.app.ui.auth.register.RegisterDialogFragment
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class LoginDialogFragment : DialogFragment() {
@@ -29,6 +31,8 @@ class LoginDialogFragment : DialogFragment() {
 
     private var _binding: FragmentLoginDialogBinding? = null
     private val binding get() = _binding!!
+
+    private var loadingJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,9 +64,10 @@ class LoginDialogFragment : DialogFragment() {
                     when (state) {
                         is LoginState.Idle -> {}
                         is LoginState.Loading -> {
-                            // Mostrar un spinner o algo similar
+                            showLoadingWithDelay()
                         }
                         is LoginState.Success -> {
+                            hideLoading()
                             authViewModel.saveUserId(state.profile.userId)
                             dismiss()
                         }
@@ -71,6 +76,7 @@ class LoginDialogFragment : DialogFragment() {
                             loginViewModel.getProfile()
                         }
                         is LoginState.Error -> {
+                            hideLoading()
                             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -144,5 +150,18 @@ class LoginDialogFragment : DialogFragment() {
             tilPassword.error = null
             return true
         }
+    }
+
+    private fun showLoadingWithDelay() {
+        loadingJob?.cancel()
+        loadingJob = lifecycleScope.launch {
+            delay(500)
+            binding.progressLoading.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoading() {
+        loadingJob?.cancel()
+        binding.progressLoading.visibility = View.GONE
     }
 }

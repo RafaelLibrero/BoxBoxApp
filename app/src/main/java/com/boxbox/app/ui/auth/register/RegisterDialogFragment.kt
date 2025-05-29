@@ -18,6 +18,8 @@ import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentRegisterDialogBinding
 import com.boxbox.app.ui.auth.login.LoginDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -28,6 +30,7 @@ class RegisterDialogFragment : DialogFragment() {
     private var _binding: FragmentRegisterDialogBinding? = null
     private val binding get() = _binding!!
 
+    private var loadingJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,10 +62,11 @@ class RegisterDialogFragment : DialogFragment() {
                     when (state) {
                         is RegisterState.Idle -> {}
                         is RegisterState.Loading -> {
-
+                            showLoadingWithDelay()
                         }
 
                         is RegisterState.Success -> {
+                            hideLoading()
                             dismiss()
                             LoginDialogFragment().show(
                                 requireActivity().supportFragmentManager,
@@ -71,6 +75,7 @@ class RegisterDialogFragment : DialogFragment() {
                         }
 
                         is RegisterState.Error -> {
+                            hideLoading()
                             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
                             Log.e("Register", state.message)
                         }
@@ -81,7 +86,7 @@ class RegisterDialogFragment : DialogFragment() {
     }
 
     private fun initListeners() {
-        with (binding) {
+        with(binding) {
             binding.tvLoginClickable.setOnClickListener {
                 dismiss()
                 LoginDialogFragment().show(requireActivity().supportFragmentManager, "loginDialog")
@@ -197,5 +202,18 @@ class RegisterDialogFragment : DialogFragment() {
             tilRepeatPassword.error = null
             return true
         }
+    }
+
+    private fun showLoadingWithDelay() {
+        loadingJob?.cancel()
+        loadingJob = lifecycleScope.launch {
+            delay(500)
+            binding.progressLoading.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideLoading() {
+        loadingJob?.cancel()
+        binding.progressLoading.visibility = View.GONE
     }
 }
