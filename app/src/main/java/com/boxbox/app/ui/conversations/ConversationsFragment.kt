@@ -30,6 +30,7 @@ class ConversationsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var topicId by Delegates.notNull<Int>()
+    private lateinit var topicTitle: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,14 +48,13 @@ class ConversationsFragment : Fragment() {
     }
 
     private fun initUI() {
-        conversationsViewModel.getVConversations(1, topicId)
+        conversationsViewModel.loadData(1, topicId)
         conversationsAdapter = ConversationsAdapter { onItemSelected(it) }
         binding.rvConversations.apply {
             adapter = conversationsAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        val topicTitle = "Nombre del Topic"
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = topicTitle
+
 
         initUIState()
     }
@@ -81,6 +81,8 @@ class ConversationsFragment : Fragment() {
     private fun successState(state: ConversationsState.Success) {
         binding.progressBar.visibility = View.GONE
         binding.rvConversations.visibility = View.VISIBLE
+        topicTitle = state.topic.title
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = topicTitle
         conversationsAdapter.updateList(state.conversations)
     }
 

@@ -2,6 +2,7 @@ package com.boxbox.app.ui.conversations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.boxbox.app.domain.usecase.GetTopic
 import com.boxbox.app.domain.usecase.GetVConversations
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,18 +14,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConversationsViewModel @Inject constructor(
-    private val getVConversationsUseCase: GetVConversations
-): ViewModel() {
+    private val getVConversationsUseCase: GetVConversations,
+    private val getTopicUseCase: GetTopic
+) : ViewModel() {
     private var _state = MutableStateFlow<ConversationsState>(ConversationsState.Loading)
     val state: StateFlow<ConversationsState> = _state
 
-    fun getVConversations(position: Int, topicId: Int) {
+    fun loadData(position: Int, topicId: Int) {
         viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) {
+            val topicResult = withContext(Dispatchers.IO) { getTopicUseCase(topicId) }
+            val conversationsResult = withContext(Dispatchers.IO) {
                 getVConversationsUseCase(position, topicId)
             }
-            if (result != null) {
-                _state.value = ConversationsState.Success(result)
+            if (topicResult != null && conversationsResult != null) {
+                _state.value = ConversationsState.Success(topicResult, conversationsResult)
             } else {
                 _state.value = ConversationsState.Error("Ha ocurrido un error, intentelo mas tarde")
             }

@@ -6,6 +6,7 @@ import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Post
 import com.boxbox.app.domain.model.Race
 import com.boxbox.app.domain.model.Team
+import com.boxbox.app.domain.model.Topic
 import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.model.VConversation
 import com.boxbox.app.domain.repository.Repository
@@ -26,6 +27,14 @@ class RepositoryImp @Inject constructor(
                 emptyList()
             }
         return null
+    }
+
+    override suspend fun getTopic(id: Int): Topic? {
+        return runCatching {
+            apiService.getTopic(id).toDomain()
+        }.onFailure {
+            Log.e("API Error", "Error en la llamada a la API", it)
+        }.getOrThrow()
     }
 
     override suspend fun getVConversations(position: Int, topicId: Int): List<VConversation>? {
