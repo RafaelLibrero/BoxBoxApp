@@ -124,5 +124,22 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
         navController = navHost.navController
         binding.bottomNavView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val showBackButton = when (destination.id) {
+                R.id.conversationsFragment,
+                R.id.postsFragment,
+                R.id.profileFragment -> true
+                else -> false
+            }
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
+            supportActionBar?.setHomeButtonEnabled(showBackButton)
+        }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
 }
