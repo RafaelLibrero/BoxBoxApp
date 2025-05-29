@@ -49,6 +49,10 @@ class RegisterDialogFragment : DialogFragment() {
             LoginDialogFragment().show(requireActivity().supportFragmentManager, "loginDialog")
         }
 
+        binding.btnClose.setOnClickListener {
+            dismiss()
+        }
+
         register()
 
         viewLifecycleOwner.lifecycleScope.launch {

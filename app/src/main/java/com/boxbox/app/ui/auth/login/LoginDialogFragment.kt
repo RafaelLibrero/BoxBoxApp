@@ -52,6 +52,10 @@ class LoginDialogFragment : DialogFragment() {
             RegisterDialogFragment().show(requireActivity().supportFragmentManager, "registerDialog")
         }
 
+        binding.btnClose.setOnClickListener {
+            dismiss()
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.state.collect { state ->
