@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.boxbox.app.ui.home.HomeFragment"
+        android:label="Inicio">
+        <action
+            android:id="@+id/action_home_to_topic"
+            app:destination="@id/conversationsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/conversationsFragment"
+        android:name="com.boxbox.app.ui.conversations.ConversationsFragment"
+        android:label="Conversaciones">
+        <argument
+            android:name="topic_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_conversations_to_posts"
+            app:destination="@id/postsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="com.boxbox.app.ui.posts.PostsFragment"
+        android:label="Posts">
+        <argument
+            android:name="conversation_id"
+            app:argType="integer" />
+    </fragment>
+</navigation>
