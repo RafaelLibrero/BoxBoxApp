@@ -7,42 +7,6 @@
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="12dp"
-        android:background="@color/primaryVariant"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        android:elevation="4dp">
-
-        <TextView
-            android:id="@+id/tvTopicTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="Título del Topic" />
-
-        <View
-            android:layout_width="48dp"
-            android:layout_height="3dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            android:background="@android:color/white" />
-
-        <TextView
-            android:id="@+id/tvTopicDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            tools:text="Descripción breve del topic" />
-
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvConversations"
         android:layout_width="match_parent"
