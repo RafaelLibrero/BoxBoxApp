@@ -7,7 +7,7 @@ import java.util.Locale
 
 object DateFormatter {
 
-    fun formatToMinutes(date: Date): String {
+    fun formatToMinutes(date: Date?): String {
         val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         return outputFormat.format(date)
     }

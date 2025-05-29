@@ -54,6 +54,18 @@ class RepositoryImp @Inject constructor(
         return null
     }
 
+    override suspend fun createPost(post: Post): Result<Unit> {
+        val token = tokenStorage.getToken() ?: throw Exception("Token no encontrado")
+        return runCatching {
+            val response = apiService.createPost(post.toData(), "Bearer $token")
+            if (response.isSuccessful) {
+                Unit
+            } else {
+                throw Exception(response.errorBody()?.string() ?: "Unknown error")
+            }
+        }
+    }
+
     override suspend fun getTeams(): List<Team>? {
         runCatching { apiService.getTeams().map { it.toDomain() }.toMutableList() }
             .onSuccess { return it }

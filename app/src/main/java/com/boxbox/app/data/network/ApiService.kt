@@ -1,7 +1,8 @@
 package com.boxbox.app.data.network
 
 import com.boxbox.app.data.network.response.DriverResponse
-import com.boxbox.app.data.network.response.LoginRequest
+import com.boxbox.app.data.network.request.LoginRequest
+import com.boxbox.app.data.network.request.PostRequest
 import com.boxbox.app.data.network.response.LoginResponse
 import com.boxbox.app.data.network.response.PostListResponse
 import com.boxbox.app.data.network.response.RaceResponse
@@ -37,6 +38,12 @@ interface ApiService {
         @Path("position") position: Int,
         @Path("conversationId") conversationId: Int
     ): PostListResponse
+
+    @POST("api/posts")
+    suspend fun createPost(
+        @Body post: PostRequest,
+        @Header("Authorization") token: String
+    ): Response<Unit>
 
     @POST("api/auth/login")
     suspend fun login(@Body login: LoginRequest): LoginResponse

@@ -43,6 +43,16 @@ class PostsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        postsViewModel.startAutoRefresh(1, conversationId)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        postsViewModel.stopAutoRefresh()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -54,6 +64,15 @@ class PostsFragment : Fragment() {
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(context)
+        }
+        binding.btnPublish.setOnClickListener {
+            val content = binding.etNewPost.text.toString().trim()
+            if (content.isNotEmpty()) {
+                postsViewModel.createPost(content, 1, conversationId)
+                binding.etNewPost.text.clear()
+            } else {
+                Toast.makeText(requireContext(), "El post no puede estar vacío", Toast.LENGTH_SHORT).show()
+            }
         }
         initUIState()
     }

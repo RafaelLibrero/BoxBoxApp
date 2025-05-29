@@ -12,6 +12,7 @@ interface Repository {
     suspend fun getVTopics(): List<VTopic>?
     suspend fun getVConversations(position: Int, topicId: Int): List<VConversation>?
     suspend fun getPosts(position: Int, conversationId: Int): List<Post>?
+    suspend fun createPost(post: Post): Result<Unit>
     suspend fun getTeams(): List<Team>?
     suspend fun getDrivers(): List<Driver>?
     suspend fun getRaces(): List<Race>?

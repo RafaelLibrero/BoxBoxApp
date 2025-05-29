@@ -1,6 +1,6 @@
 package com.boxbox.app.domain.model
 
-import com.boxbox.app.data.network.response.LoginRequest
+import com.boxbox.app.data.network.request.LoginRequest
 
 data class Login(
     val email: String,

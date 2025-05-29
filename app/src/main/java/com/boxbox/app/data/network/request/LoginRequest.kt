@@ -1,4 +1,4 @@
-package com.boxbox.app.data.network.response
+package com.boxbox.app.data.network.request
 
 import com.google.gson.annotations.SerializedName
 
