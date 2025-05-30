@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentProfileBinding
 import com.boxbox.app.domain.model.User
+import com.boxbox.app.utils.DateFormatter
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -68,11 +70,20 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             progressBar.visibility = View.GONE
-            tvName.text = user.userName
-            tvPosts.text = user.totalPosts.toString()
-            tvRegistrationDate.text = user.registrationDate.toString()
-            tvLastAccess.text = user.lastAccess.toString()
             Picasso.get().load(user.profilePicture).into(ivProfile)
+            tvName.text = user.userName
+            tvRegistrationDate.text = getString(
+                R.string.registered_on,
+                DateFormatter.formatDate(user.registrationDate)
+            )
+            tvLastAccess.text = getString(
+                R.string.last_access,
+                DateFormatter.getLastAccessText(requireContext(), user.lastAccess)
+            )
+            tvPosts.text = getString(
+                R.string.posts_number,
+                user.totalPosts
+            )
         }
     }
 

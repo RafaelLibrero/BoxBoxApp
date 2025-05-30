@@ -37,11 +37,14 @@
     <string name="race_name">GP de %1s</string>
     <string name="race_image_description">Circuito</string>
 
-    <!--Profile -->
+    <!-- Profile  -->
+    <string name="posts_number">Publicaciones: %d</string>
+    <string name="registered_on">Fecha de registro: %s</string>
+    <string name="last_access">Último acceso: %1$s</string>
+
     <string name="profile">Mi perfil</string>
     <string name="settings">Ajustes</string>
     <string name="logout">Cerrar sesión</string>
-
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -54,5 +57,33 @@
     <string name="password_not_match">Las contraseñas no coinciden</string>
     <string name="close_dialog">Cerrar diálogo</string>
 
+
+    <!-- Last access -->
+    <plurals name="minutes_ago">
+        <item quantity="one">hace %d minuto</item>
+        <item quantity="other">hace %d minutos</item>
+    </plurals>
+
+    <plurals name="hours_ago">
+        <item quantity="one">hace %d hora</item>
+        <item quantity="other">hace %d horas</item>
+    </plurals>
+
+    <plurals name="days_ago">
+        <item quantity="one">hace %d día</item>
+        <item quantity="other">hace %d días</item>
+    </plurals>
+
+    <plurals name="months_ago">
+        <item quantity="one">hace %d mes</item>
+        <item quantity="other">hace %d meses</item>
+    </plurals>
+
+    <plurals name="years_ago">
+        <item quantity="one">hace %d año</item>
+        <item quantity="other">hace %d años</item>
+    </plurals>
+
+    <string name="just_now">Justo ahora</string>
 
 </resources>

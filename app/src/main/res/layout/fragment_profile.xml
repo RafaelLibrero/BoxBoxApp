@@ -44,30 +44,30 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Registrado el: 2024-03-11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivProfile" />
+        app:layout_constraintTop_toBottomOf="@id/ivProfile"
+        tools:text="Registrado el: 2024-03-11"/>
 
     <!-- Último acceso -->
     <TextView
         android:id="@+id/tvLastAccess"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Último acceso: 2025-05-09"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRegistrationDate" />
+        app:layout_constraintTop_toBottomOf="@id/tvRegistrationDate"
+        tools:text="Último acceso: 2025-05-09"/>
 
     <!-- Número de posts -->
     <TextView
         android:id="@+id/tvPosts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Posts: 0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLastAccess" />
+        app:layout_constraintTop_toBottomOf="@id/tvLastAccess"
+        tools:text="Posts: 0"/>
 
     <!-- Rol del usuario -->
     <TextView
@@ -75,9 +75,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Rol: Administrador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPosts" />
+        app:layout_constraintTop_toBottomOf="@id/tvPosts"
+        tools:text="Rol: Administrador"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
