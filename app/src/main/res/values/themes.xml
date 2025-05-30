@@ -14,22 +14,26 @@
         <item name="colorOnBackground">@color/onBackground</item>
 
         <item name="android:statusBarColor">@color/primaryVariant</item>
-        <item name="toolbarStyle">@style/Widget.Boxbox.Toolbar</item>
+
+        <item name="toolbarStyle">@style/Widget.BoxBox.Toolbar</item>
     </style>
 
     <style name="Theme.BoxBox" parent="Base.Theme.BoxBox">
         <item name="android:fontFamily">@font/roboto</item>
     </style>
 
-    <style name="Widget.Boxbox.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="titleTextAppearance">@style/TextAppearance.Toolbar.Title</item>
+    <style name="Widget.BoxBox.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.BoxBox.Toolbar.Title</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="contentInsetLeft">0dp</item>
+        <item name="contentInsetRight">0dp</item>
     </style>
 
-    <style name="TextAppearance.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="TextAppearance.BoxBox.Toolbar.Title" parent="TextAppearance.Material3.TitleLarge">
         <item name="fontFamily">@font/bebasneue</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-
 
 </resources>
