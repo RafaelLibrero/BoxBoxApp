@@ -7,6 +7,7 @@ import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
@@ -135,6 +136,10 @@ class MainActivity : AppCompatActivity() {
 
             supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
             supportActionBar?.setHomeButtonEnabled(showBackButton)
+
+            val upArrow = AppCompatResources.getDrawable(this, R.drawable.ic_arrow_back)
+            upArrow?.setTint(resources.getColor(R.color.onPrimary, theme))
+            supportActionBar?.setHomeAsUpIndicator(upArrow)
         }
     }
 

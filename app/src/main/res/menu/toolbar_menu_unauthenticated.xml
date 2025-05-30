@@ -4,5 +4,7 @@
     <item
         android:id="@+id/btnLogin"
         android:title="@string/login"
+        android:icon="@drawable/ic_user_not_logged"
+        app:iconTint="@color/onPrimary"
         app:showAsAction="always"/>
 </menu>

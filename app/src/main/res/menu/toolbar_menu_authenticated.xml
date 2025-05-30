@@ -6,5 +6,6 @@
         android:id="@+id/profile"
         android:title="@string/home"
         android:icon="@drawable/ic_account"
+        app:iconTint="@color/onPrimary"
         app:showAsAction="always"/>
 </menu>
