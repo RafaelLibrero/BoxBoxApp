@@ -69,6 +69,7 @@ class LoginDialogFragment : DialogFragment() {
                         is LoginState.Success -> {
                             hideLoading()
                             authViewModel.saveUserId(state.profile.userId)
+                            authViewModel.saveUserPicture(state.profile.profilePicture)
                             dismiss()
                         }
                         is LoginState.TokenObtained -> {

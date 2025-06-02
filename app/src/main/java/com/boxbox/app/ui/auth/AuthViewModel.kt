@@ -18,6 +18,16 @@ class AuthViewModel @Inject constructor(
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
     val authState: StateFlow<AuthState> = _authState
+    private val _profilePictureUrlState = MutableStateFlow<String?>(null)
+    val profilePictureUrlState: StateFlow<String?> = _profilePictureUrlState
+
+    init {
+        viewModelScope.launch {
+            dataStoreManager.profilePictureUrlFlow.collect { url ->
+                _profilePictureUrlState.value = url
+            }
+        }
+    }
 
     init {
         checkAuth()
@@ -45,6 +55,10 @@ class AuthViewModel @Inject constructor(
         checkIfAuthenticated()
     }
 
+    suspend fun saveUserPicture(picture: String){
+        dataStoreManager.saveProfilePictureUrl(picture)
+    }
+
     suspend fun logout() {
         tokenStorage.clearToken()
         dataStoreManager.clearUserId()
@@ -53,6 +67,7 @@ class AuthViewModel @Inject constructor(
 
     fun getToken(): String? = tokenStorage.getToken()
     suspend fun getUserId(): Int? = dataStoreManager.getUserId()
+    suspend fun getProfilePicture(): String? = dataStoreManager.getProfilePictureUrl()
 
     private fun checkIfAuthenticated() {
         viewModelScope.launch {

@@ -1,5 +1,7 @@
 package com.boxbox.app.ui
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,6 +25,10 @@ import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.ui.auth.login.LoginDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.core.graphics.drawable.toDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -65,6 +71,32 @@ class MainActivity : AppCompatActivity() {
         when (authViewModel.authState.value) {
             is AuthState.Authenticated -> {
                 menuInflater.inflate(R.menu.toolbar_menu_authenticated, menu)
+                val profileItem = menu?.findItem(R.id.profile)
+                val imageUrl = authViewModel.profilePictureUrlState.value
+
+                if (!imageUrl.isNullOrEmpty()) {
+                    Glide.with(this)
+                        .asBitmap()
+                        .load(imageUrl)
+                        .override(100, 100)
+                        .circleCrop()
+                        .into(object : CustomTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                profileItem?.icon = resource.toDrawable(resources)
+                            }
+
+                            override fun onLoadCleared(placeholder: Drawable?) {
+                                profileItem?.setIcon(R.drawable.ic_account)
+                            }
+
+                            override fun onLoadFailed(errorDrawable: Drawable?) {
+                                super.onLoadFailed(errorDrawable)
+                                profileItem?.setIcon(R.drawable.ic_account)
+                            }
+                        })
+                } else {
+                    profileItem?.setIcon(R.drawable.ic_account)
+                }
             }
             is AuthState.Unauthenticated -> {
                 menuInflater.inflate(R.menu.toolbar_menu_unauthenticated, menu)
