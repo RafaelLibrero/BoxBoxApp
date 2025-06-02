@@ -71,6 +71,16 @@ class RacesTabFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
         binding.rvRaces.visibility = View.VISIBLE
         racesAdapter.updateList(state.races)
+        val nextRacePosition = racesAdapter.findNextRaceIndex(state.races)
+
+        if (nextRacePosition >= 0) {
+            val layoutManager = binding.rvRaces.layoutManager as? LinearLayoutManager
+            layoutManager?.let {
+                binding.rvRaces.post {
+                    it.scrollToPositionWithOffset(nextRacePosition, 400)
+                }
+            }
+        }
     }
 
     private fun errorState(state: RacesState.Error) {

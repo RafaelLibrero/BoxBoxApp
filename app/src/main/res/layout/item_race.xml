@@ -15,6 +15,17 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/tvNextRaceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:text="@string/next_race"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +64,7 @@
                     android:layout_marginTop="4dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#666666"
-                    tools:text="Start - End"/>
+                    tools:text="Start - End" />
 
             </LinearLayout>
 

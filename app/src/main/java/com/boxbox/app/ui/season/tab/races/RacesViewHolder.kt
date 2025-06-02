@@ -1,6 +1,8 @@
 package com.boxbox.app.ui.season.tab.races
 
+import android.graphics.Typeface
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.boxbox.app.R
 import com.boxbox.app.databinding.ItemRaceBinding
@@ -11,12 +13,20 @@ import com.squareup.picasso.Picasso
 class RacesViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ItemRaceBinding.bind(view)
 
-    fun render(race: Race) {
+    fun render(race: Race, isNext: Boolean) {
         with (binding) {
             tvName.text = itemView.context.getString(R.string.race_name, race.raceName)
             Picasso.get().load(race.image).into(ivRace)
             tvDate.text = DateFormatter.raceFormat(race)
+
+            if (isNext) {
+                tvNextRaceLabel.visibility = View.VISIBLE
+            } else {
+                tvNextRaceLabel.visibility = View.GONE
+            }
         }
+
+
     }
 
 
