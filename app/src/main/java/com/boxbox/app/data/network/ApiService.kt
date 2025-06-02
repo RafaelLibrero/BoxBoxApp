@@ -57,6 +57,9 @@ interface ApiService {
     @GET("api/races")
     suspend fun getRaces(): List<RaceResponse>
 
+    @GET("api/users/{id}")
+    suspend fun getUser(@Path("id") id: Int): UserResponse
+
     @GET("api/users/profile")
     suspend fun getProfile(@Header("Authorization") token: String): UserResponse
 

@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.boxbox.app.R
-import com.boxbox.app.domain.model.Post
+import com.boxbox.app.domain.model.PostWithUser
 
 class PostsAdapter (
-    private var postsList: List<Post> = mutableListOf()
+    private var postsList: List<PostWithUser> = mutableListOf()
 ) : RecyclerView.Adapter<PostsViewHolder>() {
 
-    fun updateList(list: List<Post>) {
+    fun updateList(list: List<PostWithUser>) {
         postsList = list
         notifyDataSetChanged()
     }

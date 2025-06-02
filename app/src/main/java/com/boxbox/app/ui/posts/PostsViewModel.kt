@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.boxbox.app.data.local.DataStoreManager
 import com.boxbox.app.domain.model.Post
+import com.boxbox.app.domain.model.PostWithUser
 import com.boxbox.app.domain.usecase.CreatePost
 import com.boxbox.app.domain.usecase.GetPosts
+import com.boxbox.app.domain.usecase.GetUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,6 +25,7 @@ import javax.inject.Inject
 class PostsViewModel @Inject constructor(
     private val getPostsUseCase: GetPosts,
     private val createPostUseCase: CreatePost,
+    private val getUserUseCase: GetUser,
     private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
     private var _state = MutableStateFlow<PostsState>(PostsState.Loading)
@@ -32,13 +35,23 @@ class PostsViewModel @Inject constructor(
 
     fun getPosts(position: Int, conversationId: Int) {
         viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) {
+            val posts = withContext(Dispatchers.IO) {
                 getPostsUseCase(position, conversationId)
             }
-            if (result != null) {
-                _state.value = PostsState.Success(result)
-            } else
-                _state.value = PostsState.Error("Ha ocurrido un error, intentelo mas tarde")
+
+            if (posts == null) {
+                _state.value = PostsState.Error("Error cargando posts")
+                return@launch
+            }
+
+            val postWithUsers = posts.map { post ->
+                val user = withContext(Dispatchers.IO) {
+                    getUserUseCase(post.userId)
+                }
+                PostWithUser(post, user)
+            }
+
+            _state.value = PostsState.Success(postWithUsers)
         }
     }
 
@@ -59,9 +72,8 @@ class PostsViewModel @Inject constructor(
             val result = withContext(Dispatchers.IO) {
                 createPostUseCase(newPost)
             }
-            if (result.isSuccess) {
 
-            } else {
+            if (!result.isSuccess) {
                 _state.value = PostsState.Error("Error al crear el post")
                 Log.i("PostsViewModel", result.toString())
             }

@@ -18,5 +18,6 @@ interface Repository {
     suspend fun getTeams(): List<Team>?
     suspend fun getDrivers(): List<Driver>?
     suspend fun getRaces(): List<Race>?
+    suspend fun getUser(id: Int): User?
     suspend fun getProfile(): User?
 }

@@ -108,6 +108,14 @@ class RepositoryImp @Inject constructor(
         return null
     }
 
+    override suspend fun getUser(id: Int): User? {
+        return runCatching {
+            apiService.getUser(id).toDomain()
+        }.onFailure {
+            Log.e("API Error", "Error en la llamada a la API", it)
+        }.getOrThrow()
+    }
+
     override suspend fun getProfile(): User? {
         val token = tokenStorage.getToken() ?: throw Exception("Token no encontrado")
         return runCatching {

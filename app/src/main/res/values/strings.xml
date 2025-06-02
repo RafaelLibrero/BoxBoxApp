@@ -41,6 +41,7 @@
     <string name="posts_number">Publicaciones: %d</string>
     <string name="registered_on">Fecha de registro: %s</string>
     <string name="last_access">Último acceso: %1$s</string>
+    <string name="user_picture">Avatar del usuario</string>
 
     <string name="profile">Mi perfil</string>
     <string name="settings">Ajustes</string>
