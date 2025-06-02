@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentSeasonBinding
 import com.boxbox.app.ui.season.tab.TabsAdapter
@@ -22,6 +23,7 @@ class SeasonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSeasonBinding.inflate(layoutInflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Boxbox"
         return binding.root
     }
 
