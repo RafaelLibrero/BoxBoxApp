@@ -39,7 +39,7 @@ object DateFormatter {
             else -> context.resources.getString(R.string.just_now)
         }
 
-        return context.getString(R.string.last_access, timeText)
+        return timeText
     }
 
     fun raceFormat(race: Race): String {
