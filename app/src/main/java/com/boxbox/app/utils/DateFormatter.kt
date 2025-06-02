@@ -19,10 +19,6 @@ object DateFormatter {
         val sdf = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es", "ES"))
         return sdf.format(date)
     }
-    fun getRegisteredText(context: Context, date: Date): String {
-        val formattedDate = formatDate(date)
-        return context.getString(R.string.registered_on, formattedDate)
-    }
 
     fun getLastAccessText(context: Context, date: Date): String {
         val now = Date()

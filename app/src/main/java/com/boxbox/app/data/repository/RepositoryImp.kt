@@ -19,14 +19,15 @@ class RepositoryImp @Inject constructor(
 ) : Repository {
 
     override suspend fun getVTopics(): List<VTopic>? {
-        runCatching { apiService.getVTopics().map { it.toDomain() }.toMutableList() }
-            .onSuccess { return it }
+        return runCatching {
+            val response = apiService.getVTopics()
+            response.map { it.toDomain() }.toMutableList()
+        }
             .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
             .getOrElse {
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
-        return null
     }
 
     override suspend fun getTopic(id: Int): Topic? {
@@ -47,7 +48,6 @@ class RepositoryImp @Inject constructor(
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
-        return null
     }
 
     override suspend fun getPosts(position: Int, conversationId: Int): List<Post>? {
@@ -60,7 +60,6 @@ class RepositoryImp @Inject constructor(
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
-        return null
     }
 
     override suspend fun createPost(post: Post): Result<Unit> {
@@ -76,36 +75,42 @@ class RepositoryImp @Inject constructor(
     }
 
     override suspend fun getTeams(): List<Team>? {
-        runCatching { apiService.getTeams().map { it.toDomain() }.toMutableList() }
+        return runCatching {
+            val response = apiService.getTeams()
+            response.map { it.toDomain() }.toMutableList()
+        }
             .onSuccess { return it }
             .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
             .getOrElse {
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
-        return null
+
     }
 
     override suspend fun getDrivers(): List<Driver>? {
-        runCatching { apiService.getDrivers().map { it.toDomain() }.toMutableList() }
+        return runCatching {
+            val response = apiService.getDrivers()
+            response.map { it.toDomain() }.toMutableList()
+        }
             .onSuccess { return it }
             .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
             .getOrElse {
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
-        return null
     }
 
     override suspend fun getRaces(): List<Race>? {
-        runCatching { apiService.getRaces().map { it.toDomain() }.toMutableList() }
-            .onSuccess { return it }
+        return runCatching {
+            val response = apiService.getRaces()
+            response.map { it.toDomain() }.toMutableList()
+        }
             .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
             .getOrElse {
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
-        return null
     }
 
     override suspend fun getUser(id: Int): User? {
