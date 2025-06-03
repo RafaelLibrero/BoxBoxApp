@@ -44,7 +44,7 @@ Proyecto Android desarrollado con **Kotlin** siguiendo el patrón de arquitectur
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/usuario/NombreDelProyecto.git
+git clone https://github.com/RafaelLibrero/BoxBoxApp.git
 ```
 2. Ábrelo con Android Studio.
 3. Asegúrate de tener configurado un emulador o dispositivo.
