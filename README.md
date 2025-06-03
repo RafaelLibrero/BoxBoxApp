@@ -6,7 +6,7 @@ Proyecto Android desarrollado con **Kotlin** siguiendo el patrón de arquitectur
 
 <img src="https://img.shields.io/badge/Kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white"/>
 <img src="https://img.shields.io/badge/MVVM-Architecture-blueviolet?style=for-the-badge"/>
-<img src="https://img.shields.io/github/license/usuario/repositorio?style=for-the-badge"/>
+<img src="https://img.shields.io/github/license/rafaellibrero/boxboxapp?style=for-the-badge"/>
 
 </div>
 
