@@ -39,6 +39,17 @@ Proyecto Android desarrollado con **Kotlin** siguiendo el patrón de arquitectur
 
 ---
 
+## 📦 Descargar APK
+
+Puedes descargar la última versión funcional (pre-release) desde aquí:
+
+👉 [Descargar APK desde GitHub Releases](https://github.com/RafaelLibrero/BoxBoxApp/releases/download/v1.0.0/app-debug.apk)
+
+> ⚠️ Esta versión es funcional pero está marcada como pre-release, por lo que podría contener errores.  
+> Úsala para pruebas y feedback.
+
+---
+
 ## 🛠️ Cómo ejecutar
 
 1. Clona el repositorio:
@@ -49,8 +60,4 @@ git clone https://github.com/RafaelLibrero/BoxBoxApp.git
 2. Ábrelo con Android Studio.
 3. Asegúrate de tener configurado un emulador o dispositivo.
 4. Ejecuta el proyecto.
-    
-
-    
-
     
