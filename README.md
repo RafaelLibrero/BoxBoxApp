@@ -25,3 +25,32 @@ Proyecto Android desarrollado con **Kotlin** siguiendo el patrón de arquitectur
 
 ## 🧱 Estructura del proyecto
 
+---
+
+## 🚀 Tecnologías utilizadas
+
+- [Kotlin](https://kotlinlang.org/)
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow)
+- [Retrofit](https://square.github.io/retrofit/)
+- [Hilt](https://dagger.dev/hilt/)
+- [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+- [XML Layouts](https://developer.android.com/guide/topics/ui/declaring-layout)
+
+---
+
+## 🛠️ Cómo ejecutar
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/usuario/NombreDelProyecto.git
+```
+2. Ábrelo con Android Studio.
+3. Asegúrate de tener configurado un emulador o dispositivo.
+4. Ejecuta el proyecto.
+    
+
+    
+
+    
