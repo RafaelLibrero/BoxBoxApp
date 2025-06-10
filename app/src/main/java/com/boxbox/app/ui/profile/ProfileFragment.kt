@@ -72,6 +72,7 @@ class ProfileFragment : Fragment() {
             progressBar.visibility = View.GONE
             Picasso.get().load(user.profilePicture).into(ivProfile)
             tvName.text = user.userName
+            tvBiography.text = user.biography
             tvRegistrationDate.text = getString(
                 R.string.registered_on,
                 DateFormatter.formatDate(user.registrationDate)
