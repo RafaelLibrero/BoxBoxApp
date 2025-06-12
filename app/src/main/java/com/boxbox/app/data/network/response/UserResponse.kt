@@ -9,7 +9,7 @@ import java.util.Date
 data class UserResponse (
     @SerializedName("userId") val userId: Int,
     @SerializedName("userName") val userName: String,
-    @SerializedName("email") val email: String,
+    @SerializedName("email") val email: String?,
     @JsonAdapter(DateJsonAdapter::class) @SerializedName("registrationDate") val registrationDate: Date,
     @JsonAdapter(DateJsonAdapter::class) @SerializedName("lastAccess") val lastAccess: Date,
     @SerializedName("biography") val biography: String?,
