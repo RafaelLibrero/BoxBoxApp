@@ -69,8 +69,8 @@ class ProfileFragment : Fragment() {
 
     private fun successState(state: ProfileState.Success) {
         val user: User = state.data.user
-        val team: Team = state.data.team
-        val driver: Driver = state.data.driver
+        val team: Team? = state.data.team
+        val driver: Driver? = state.data.driver
 
         with(binding) {
             progressBar.visibility = View.GONE
@@ -89,8 +89,19 @@ class ProfileFragment : Fragment() {
                 R.string.posts_number,
                 user.totalPosts
             )
-            tvTeam.text = getString(R.string.favorite_team, team.teamName)
-            tvDriver.text = getString(R.string.favorite_driver, driver.driverName)
+            if (team != null) {
+                tvTeam.visibility = View.VISIBLE
+                tvTeam.text = getString(R.string.favorite_team, team.teamName)
+            } else {
+                tvTeam.visibility = View.GONE
+            }
+
+            if (driver != null) {
+                tvDriver.visibility = View.VISIBLE
+                tvDriver.text = getString(R.string.favorite_driver, driver.driverName)
+            } else {
+                tvDriver.visibility = View.GONE
+            }
         }
     }
 

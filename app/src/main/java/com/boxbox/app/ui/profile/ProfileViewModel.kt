@@ -29,14 +29,10 @@ class ProfileViewModel @Inject constructor(
             val result = withContext(Dispatchers.IO) {
                 val user = getProfileUseCase()
                 if (user != null) {
-                    val team = getTeamUseCase(user.teamId)
-                    val driver = getDriverUseCase(user.driverId)
+                    val team = user.teamId?.let { getTeamUseCase(it) }
+                    val driver = user.driverId?.let { getDriverUseCase(it) }
 
-                    if (team != null && driver != null) {
-                        ProfileState.Success(ProfileData(user, team, driver))
-                    } else {
-                        ProfileState.Error("No se pudo cargar el team o driver.")
-                    }
+                    ProfileState.Success(ProfileData(user, team, driver))
                 } else {
                     ProfileState.Error("Ha ocurrido un error, intentelo más tarde")
                 }

@@ -11,6 +11,6 @@ data class User (
     val biography: String?,
     val profilePicture: String,
     val totalPosts: Int,
-    val teamId: Int,
-    val driverId: Int
+    val teamId: Int?,
+    val driverId: Int?
 )

@@ -99,10 +99,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/roleTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Equipo favorito: Ferrari" />
+        tools:text="Equipo favorito: Ferrari"
+        tools:visibility="visible"/>
 
     <!-- Piloto favorito -->
     <TextView
@@ -110,9 +112,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/tvTeam"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Piloto favorito: Charles Leclerc" />
+        tools:text="Piloto favorito: Charles Leclerc"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

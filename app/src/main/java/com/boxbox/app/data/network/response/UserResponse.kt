@@ -15,8 +15,8 @@ data class UserResponse (
     @SerializedName("biography") val biography: String?,
     @SerializedName("profilePicture") val profilePicture: String,
     @SerializedName("totalPosts") val totalPosts: Int,
-    @SerializedName("teamId") val teamId: Int,
-    @SerializedName("driverId") val driverId: Int
+    @SerializedName("teamId") val teamId: Int?,
+    @SerializedName("driverId") val driverId: Int?
 )
 {
     fun toDomain(): User {
