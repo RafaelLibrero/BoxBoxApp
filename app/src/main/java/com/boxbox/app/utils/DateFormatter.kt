@@ -4,9 +4,11 @@ import android.content.Context
 import com.boxbox.app.R
 import com.boxbox.app.domain.model.Race
 import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
-import java.util.concurrent.TimeUnit
 
 object DateFormatter {
 
@@ -21,12 +23,13 @@ object DateFormatter {
     }
 
     fun getLastAccessText(context: Context, date: Date): String {
-        val now = Date()
-        val diffInMillis = now.time - date.time
+        val lastAccessLocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+        val now = LocalDateTime.now()
+        val duration = Duration.between(lastAccessLocalDateTime, now)
 
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis)
-        val hours = TimeUnit.MILLISECONDS.toHours(diffInMillis)
-        val days = TimeUnit.MILLISECONDS.toDays(diffInMillis)
+        val minutes = duration.toMinutes()
+        val hours = duration.toHours()
+        val days = duration.toDays()
         val months = days / 30
         val years = days / 365
 
