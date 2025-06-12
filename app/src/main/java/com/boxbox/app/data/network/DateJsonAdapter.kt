@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateJsonAdapter : JsonDeserializer<Date> {
-    private val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+    private val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).apply {
+        timeZone = TimeZone.getTimeZone("UTC")
+    }
 
     override fun deserialize(
         json: JsonElement,
