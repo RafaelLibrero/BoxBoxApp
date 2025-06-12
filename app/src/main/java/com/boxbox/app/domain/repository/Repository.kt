@@ -16,7 +16,9 @@ interface Repository {
     suspend fun getPosts(position: Int, conversationId: Int): List<Post>?
     suspend fun createPost(post: Post): Result<Unit>
     suspend fun getTeams(): List<Team>?
+    suspend fun getTeam(id: Int): Team?
     suspend fun getDrivers(): List<Driver>?
+    suspend fun getDriver(id: Int): Driver?
     suspend fun getRaces(): List<Race>?
     suspend fun getUser(id: Int): User?
     suspend fun getProfile(): User?

@@ -51,8 +51,14 @@ interface ApiService {
     @GET("api/teams")
     suspend fun getTeams(): List<TeamResponse>
 
+    @GET("api/teams/{id}")
+    suspend fun getTeam(@Path("id") id: Int): TeamResponse
+
     @GET("api/drivers")
     suspend fun getDrivers(): List<DriverResponse>
+
+    @GET("api/drivers/{id}")
+    suspend fun getDriver(@Path("id") id: Int): DriverResponse
 
     @GET("api/races")
     suspend fun getRaces(): List<RaceResponse>

@@ -88,6 +88,14 @@ class RepositoryImp @Inject constructor(
 
     }
 
+    override suspend fun getTeam(id: Int): Team? {
+        return runCatching {
+            apiService.getTeam(id).toDomain()
+        }.onFailure {
+            Log.e("API Error", "Error en la llamada a la API", it)
+        }.getOrThrow()
+    }
+
     override suspend fun getDrivers(): List<Driver>? {
         return runCatching {
             val response = apiService.getDrivers()
@@ -99,6 +107,14 @@ class RepositoryImp @Inject constructor(
                 Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
                 emptyList()
             }
+    }
+
+    override suspend fun getDriver(id: Int): Driver? {
+        return runCatching {
+            apiService.getDriver(id).toDomain()
+        }.onFailure {
+            Log.e("API Error", "Error en la llamada a la API", it)
+        }.getOrThrow()
     }
 
     override suspend fun getRaces(): List<Race>? {

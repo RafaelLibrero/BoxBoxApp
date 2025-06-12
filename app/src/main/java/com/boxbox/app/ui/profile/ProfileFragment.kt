@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentProfileBinding
+import com.boxbox.app.domain.model.Driver
+import com.boxbox.app.domain.model.Team
 import com.boxbox.app.domain.model.User
 import com.boxbox.app.utils.DateFormatter
 import com.squareup.picasso.Picasso
@@ -66,7 +68,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun successState(state: ProfileState.Success) {
-        val user: User = state.user
+        val user: User = state.data.user
+        val team: Team = state.data.team
+        val driver: Driver = state.data.driver
 
         with(binding) {
             progressBar.visibility = View.GONE
@@ -85,6 +89,8 @@ class ProfileFragment : Fragment() {
                 R.string.posts_number,
                 user.totalPosts
             )
+            tvTeam.text = getString(R.string.favorite_team, team.teamName)
+            tvDriver.text = getString(R.string.favorite_driver, driver.driverName)
         }
     }
 

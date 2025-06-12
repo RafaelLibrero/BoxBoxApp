@@ -12,7 +12,7 @@ data class UserResponse (
     @SerializedName("email") val email: String,
     @JsonAdapter(DateJsonAdapter::class) @SerializedName("registrationDate") val registrationDate: Date,
     @JsonAdapter(DateJsonAdapter::class) @SerializedName("lastAccess") val lastAccess: Date,
-    @SerializedName("biography") val biography: String,
+    @SerializedName("biography") val biography: String?,
     @SerializedName("profilePicture") val profilePicture: String,
     @SerializedName("totalPosts") val totalPosts: Int,
     @SerializedName("teamId") val teamId: Int,

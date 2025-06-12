@@ -8,7 +8,7 @@ data class User (
     val email: String,
     val registrationDate: Date,
     val lastAccess: Date,
-    val biography: String,
+    val biography: String?,
     val profilePicture: String,
     val totalPosts: Int,
     val teamId: Int,
