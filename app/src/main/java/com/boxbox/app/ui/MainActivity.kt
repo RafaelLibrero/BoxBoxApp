@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
 
+    private val fragmentsRequireLogin = setOf(
+        R.id.profileFragment,
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -88,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPopupMenu() {
-        val popupMenu = PopupMenu(this, findViewById(R.id.profile)) // `findViewById(R.id.toolbar)` es la referencia de tu Toolbar
+        val popupMenu = PopupMenu(this, findViewById(R.id.profile))
 
         menuInflater.inflate(R.menu.toolbar_popup_menu, popupMenu.menu)
 
@@ -99,13 +103,10 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.settings -> {
-                    // Acción para la configuración
                     true
                 }
                 R.id.logout -> {
-                    lifecycleScope.launch {
-                        authViewModel.logout()
-                    }
+                    handleLogout()
                     true
                 }
                 else -> false
@@ -113,6 +114,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         popupMenu.show()
+    }
+
+    private fun handleLogout() {
+        lifecycleScope.launch {
+            authViewModel.logout()
+
+            val currentFragmentId = navController.currentDestination?.id
+
+            if (currentFragmentId != null && currentFragmentId in fragmentsRequireLogin) {
+                navController.popBackStack(navController.graph.startDestinationId, false)
+            }
+        }
     }
 
     private fun initUI() {
@@ -146,5 +159,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
 }
