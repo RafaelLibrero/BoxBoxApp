@@ -57,8 +57,9 @@ dependencies {
     //EncryptedSharedPreferences
     implementation(libs.androidx.security.crypto.ktx)
 
-    //Picasso
-    implementation(libs.picasso)
+    //Coil
+    implementation(libs.coil)
+    implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

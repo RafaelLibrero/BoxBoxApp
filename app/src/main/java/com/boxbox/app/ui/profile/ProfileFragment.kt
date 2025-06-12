@@ -11,13 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil3.load
+import coil3.request.crossfade
 import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentProfileBinding
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Team
 import com.boxbox.app.domain.model.User
 import com.boxbox.app.utils.DateFormatter
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,7 +75,7 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             progressBar.visibility = View.GONE
-            Picasso.get().load(user.profilePicture).into(ivProfile)
+            ivProfile.load(user.profilePicture) { crossfade(true) }
             tvName.text = user.userName
             tvBiography.text = user.biography
             tvRegistrationDate.text = getString(
