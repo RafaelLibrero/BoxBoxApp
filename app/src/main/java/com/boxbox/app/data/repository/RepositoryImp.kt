@@ -145,4 +145,16 @@ class RepositoryImp @Inject constructor(
             Log.e("API Error", "Error en la llamada a la API", it)
         }.getOrThrow()
     }
+
+    override suspend fun putUser(user: User): Result<Unit> {
+        val token = tokenStorage.getToken() ?: throw Exception("Token no encontrado")
+        return runCatching {
+            val response = apiService.editUser(user.toData(), "Bearer $token")
+            if (response.isSuccessful) {
+                Unit
+            } else {
+                throw Exception(response.errorBody()?.string() ?: "Unknown error")
+            }
+        }
+    }
 }

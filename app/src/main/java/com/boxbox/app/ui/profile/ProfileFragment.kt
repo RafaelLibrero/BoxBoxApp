@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import coil3.load
 import coil3.request.crossfade
 import com.boxbox.app.R
@@ -47,6 +48,9 @@ class ProfileFragment : Fragment() {
 
     private fun initUI() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Perfil"
+        binding.btnEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.profileEditFragment)
+        }
         initUIState()
     }
 

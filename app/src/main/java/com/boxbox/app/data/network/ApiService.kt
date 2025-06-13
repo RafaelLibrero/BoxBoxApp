@@ -3,6 +3,7 @@ package com.boxbox.app.data.network
 import com.boxbox.app.data.network.response.DriverResponse
 import com.boxbox.app.data.network.request.LoginRequest
 import com.boxbox.app.data.network.request.PostRequest
+import com.boxbox.app.data.network.request.UserRequest
 import com.boxbox.app.data.network.response.LoginResponse
 import com.boxbox.app.data.network.response.PostListResponse
 import com.boxbox.app.data.network.response.RaceResponse
@@ -16,6 +17,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -74,5 +76,11 @@ interface ApiService {
         @Query("username") username: String,
         @Query("email") email: String,
         @Query("password") password: String
+    ): Response<Unit>
+
+    @PUT("api/users")
+    suspend fun editUser(
+        @Body user: UserRequest,
+        @Header("Authorization") token: String
     ): Response<Unit>
 }

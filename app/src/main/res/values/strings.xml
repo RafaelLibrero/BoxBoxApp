@@ -89,5 +89,8 @@
 
     <string name="just_now">Justo ahora</string>
     <string name="next_race">Siguiente carrera</string>
+    <string name="save">Guardar</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="biography">Añade una pequeña biografía</string>
 
 </resources>

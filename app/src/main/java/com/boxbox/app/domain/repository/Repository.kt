@@ -22,4 +22,5 @@ interface Repository {
     suspend fun getRaces(): List<Race>?
     suspend fun getUser(id: Int): User?
     suspend fun getProfile(): User?
+    suspend fun putUser(user: User): Result<Unit>
 }
