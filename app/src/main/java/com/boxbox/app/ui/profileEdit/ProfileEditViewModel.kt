@@ -28,20 +28,19 @@ class ProfileEditViewModel @Inject constructor(
     fun getProfile() {
         viewModelScope.launch {
             _state.value = ProfileEditState.Loading
-            withContext(Dispatchers.IO) {
-                val user = getProfileUseCase()
-                if (user != null) {
-                    val teams = withContext(Dispatchers.IO) {
-                        getTeamsUseCase() ?: emptyList()
+            val result = withContext(Dispatchers.IO) {
+                getProfileUseCase().fold(
+                    onSuccess = { user ->
+                        val teams = getTeamsUseCase().getOrNull() ?: emptyList()
+                        val drivers = getDriversUseCase().getOrNull() ?: emptyList()
+                        ProfileEditState.Ready(user, teams, drivers)
+                    },
+                    onFailure = {
+                        ProfileEditState.Error("Ha ocurrido un error, intentelo más tarde")
                     }
-                    val drivers = withContext(Dispatchers.IO) {
-                        getDriversUseCase() ?: emptyList()
-                    }
-                    _state.value = ProfileEditState.Ready(user, teams, drivers)
-                } else {
-                    _state.value = ProfileEditState.Error("Ha ocurrido un error, intentelo más tarde")
-                }
+                )
             }
+            _state.value = result
         }
     }
 

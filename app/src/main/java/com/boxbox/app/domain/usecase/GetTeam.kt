@@ -5,5 +5,5 @@ import com.boxbox.app.domain.repository.Repository
 import javax.inject.Inject
 
 class GetTeam @Inject constructor(private val repository: Repository) {
-    suspend operator fun invoke(id: Int): Team? = repository.getTeam(id)
+    suspend operator fun invoke(id: Int): Result<Team> = repository.getTeam(id)
 }

@@ -16,17 +16,20 @@ class TeamsViewModel @Inject constructor(private val getTeamsUseCase: GetTeams) 
     private var _state = MutableStateFlow<TeamsState>(TeamsState.Loading)
     val state: StateFlow<TeamsState> = _state
 
-    fun getRaces() {
+    fun getTeams() {
         viewModelScope.launch {
             _state.value = TeamsState.Loading
             val result = withContext(Dispatchers.IO) {
                 getTeamsUseCase()
             }
-            if (result != null) {
-                _state.value = TeamsState.Success(result)
-            } else {
-                _state.value = TeamsState.Error("Ha ocurrido un error, intentelo mas tarde")
-            }
+            result.fold(
+                onSuccess = { teams ->
+                    _state.value = TeamsState.Success(teams)
+                },
+                onFailure = { error ->
+                    _state.value = TeamsState.Error("Ha ocurrido un error: ${error.message}")
+                }
+            )
         }
     }
 }

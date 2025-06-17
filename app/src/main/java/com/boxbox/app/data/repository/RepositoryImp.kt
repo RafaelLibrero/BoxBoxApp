@@ -18,48 +18,31 @@ class RepositoryImp @Inject constructor(
     private val apiService: ApiService, private val tokenStorage: TokenStorage
 ) : Repository {
 
-    override suspend fun getVTopics(): List<VTopic>? {
+    override suspend fun getVTopics(): Result<List<VTopic>> {
         return runCatching {
             val response = apiService.getVTopics()
-            response.map { it.toDomain() }.toMutableList()
+            response.map { it.toDomain() }.toList()
         }
-            .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
-            .getOrElse {
-                Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
-                emptyList()
-            }
     }
 
-    override suspend fun getTopic(id: Int): Topic? {
+    override suspend fun getTopic(id: Int): Result<Topic> {
         return runCatching {
             apiService.getTopic(id).toDomain()
-        }.onFailure {
-            Log.e("API Error", "Error en la llamada a la API", it)
-        }.getOrThrow()
+        }
     }
 
-    override suspend fun getVConversations(position: Int, topicId: Int): List<VConversation>? {
+    override suspend fun getVConversations(position: Int, topicId: Int): Result<List<VConversation>> {
         return runCatching {
             val response = apiService.getVConversations(position, topicId)
             response.conversations.map { it.toDomain() }.toMutableList()
         }
-            .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
-            .getOrElse {
-                Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
-                emptyList()
-            }
     }
 
-    override suspend fun getPosts(position: Int, conversationId: Int): List<Post>? {
+    override suspend fun getPosts(position: Int, conversationId: Int): Result<List<Post>> {
         return runCatching {
             val response = apiService.getPosts(position, conversationId)
             response.posts.map { it.toDomain() }.toMutableList()
         }
-            .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
-            .getOrElse {
-                Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
-                emptyList()
-            }
     }
 
     override suspend fun createPost(post: Post): Result<Unit> {
@@ -74,76 +57,76 @@ class RepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun getTeams(): List<Team>? {
+    override suspend fun getTeams(): Result<List<Team>> {
         return runCatching {
             val response = apiService.getTeams()
             response.map { it.toDomain() }.toMutableList()
         }
-            .onSuccess { return it }
-            .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
-            .getOrElse {
-                Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
-                emptyList()
-            }
-
     }
 
-    override suspend fun getTeam(id: Int): Team? {
+    override suspend fun getTeam(id: Int): Result<Team> {
         return runCatching {
             apiService.getTeam(id).toDomain()
-        }.onFailure {
-            Log.e("API Error", "Error en la llamada a la API", it)
-        }.getOrThrow()
+        }
     }
 
-    override suspend fun getDrivers(): List<Driver>? {
+    override suspend fun getDrivers(): Result<List<Driver>> {
         return runCatching {
             val response = apiService.getDrivers()
             response.map { it.toDomain() }.toMutableList()
         }
-            .onSuccess { return it }
-            .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
-            .getOrElse {
-                Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
-                emptyList()
-            }
     }
 
-    override suspend fun getDriver(id: Int): Driver? {
+    override suspend fun getDriver(id: Int): Result<Driver> {
         return runCatching {
             apiService.getDriver(id).toDomain()
-        }.onFailure {
-            Log.e("API Error", "Error en la llamada a la API", it)
-        }.getOrThrow()
+        }
     }
 
-    override suspend fun getRaces(): List<Race>? {
+    override suspend fun getRaces(): Result<List<Race>> {
         return runCatching {
             val response = apiService.getRaces()
             response.map { it.toDomain() }.toMutableList()
         }
-            .onFailure { Log.e("API Error", "Error en la llamada a la API", it) }
-            .getOrElse {
-                Log.e("API Error", "Error al mapear la respuesta, retornando lista vacía")
-                emptyList()
-            }
     }
 
-    override suspend fun getUser(id: Int): User? {
+    override suspend fun getUser(id: Int): Result<User> {
+        val ghostUser = User(
+            userId = -1,
+            userName = "Usuario eliminado",
+            email = null,
+            registrationDate = null,
+            lastAccess = null,
+            biography = "Este usuario ya no está disponible",
+            profilePicture = "",
+            totalPosts = 0,
+            teamId = null,
+            driverId = null
+        )
+
         return runCatching {
             apiService.getUser(id).toDomain()
-        }.onFailure {
-            Log.e("API Error", "Error en la llamada a la API", it)
-        }.getOrThrow()
+        }.fold(
+            onSuccess = { user ->
+                Result.success(user)
+            },
+            onFailure = { error ->
+                // Aquí decides si devuelves ghostUser o fallas la llamada según el tipo de error
+                // Por ejemplo, si error es 404 o User not found => ghostUser
+                // Si es otro error, podrías hacer return Result.failure(error)
+                // Para simplificar, devolvemos ghostUser siempre:
+                Result.success(ghostUser)
+            }
+        )
     }
 
-    override suspend fun getProfile(): User? {
-        val token = tokenStorage.getToken() ?: throw Exception("Token no encontrado")
+    override suspend fun getProfile(): Result<User> {
+        val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
         return runCatching {
             apiService.getProfile("Bearer $token").toDomain()
         }.onFailure {
             Log.e("API Error", "Error en la llamada a la API", it)
-        }.getOrThrow()
+        }
     }
 
     override suspend fun putUser(user: User): Result<Unit> {

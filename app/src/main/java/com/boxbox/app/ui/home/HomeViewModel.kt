@@ -23,9 +23,13 @@ class HomeViewModel @Inject constructor(private val getVTopicsUseCase: GetVTopic
             val result = withContext(Dispatchers.IO) {
                 getVTopicsUseCase()
             }
-            if(result!=null){
-                _state.value = HomeState.Success(result)
-            }else{
+            result.onSuccess { list ->
+                if (list.isNotEmpty()) {
+                    _state.value = HomeState.Success(list)
+                } else {
+                    _state.value = HomeState.Error("No se encontraron temas")
+                }
+            }.onFailure {
                 _state.value = HomeState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }

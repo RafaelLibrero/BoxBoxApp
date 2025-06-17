@@ -22,11 +22,14 @@ class RacesViewModel @Inject constructor(private val getRacesUseCase: GetRaces) 
             val result = withContext(Dispatchers.IO) {
                 getRacesUseCase()
             }
-            if (result != null) {
-                _state.value = RacesState.Success(result)
-            } else {
-                _state.value = RacesState.Error("Ha ocurrido un error, intentelo mas tarde")
-            }
+            result.fold(
+                onSuccess = { races ->
+                    _state.value = RacesState.Success(races)
+                },
+                onFailure = { error ->
+                    _state.value = RacesState.Error("Ha ocurrido un error: ${error.message}")
+                }
+            )
         }
     }
 }

@@ -39,7 +39,7 @@ class TeamsTabFragment : Fragment() {
     }
 
     private fun initUI() {
-        teamsViewModel.getRaces()
+        teamsViewModel.getTeams()
         teamsAdapter = TeamsAdapter()
         binding.rvTeams.apply {
             adapter = teamsAdapter

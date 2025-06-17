@@ -27,18 +27,18 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = ProfileState.Loading
             val result = withContext(Dispatchers.IO) {
-                val user = getProfileUseCase()
-                if (user != null) {
-                    val team = user.teamId?.let { getTeamUseCase(it) }
-                    val driver = user.driverId?.let { getDriverUseCase(it) }
-
-                    ProfileState.Success(ProfileData(user, team, driver))
-                } else {
-                    ProfileState.Error("Ha ocurrido un error, intentelo más tarde")
-                }
+                getProfileUseCase().fold(
+                    onSuccess = { user ->
+                        val team = user.teamId?.let { getTeamUseCase(it).getOrNull() }
+                        val driver = user.driverId?.let { getDriverUseCase(it).getOrNull() }
+                        ProfileState.Success(ProfileData(user, team, driver))
+                    },
+                    onFailure = {
+                        ProfileState.Error("Ha ocurrido un error, intentelo más tarde")
+                    }
+                )
             }
             _state.value = result
         }
     }
-
 }

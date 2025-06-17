@@ -24,11 +24,14 @@ class DriversViewModel @Inject constructor(private val getDriversUseCase: GetDri
             val result = withContext(Dispatchers.IO) {
                 getDriversUseCase()
             }
-            if (result != null) {
-                _state.value = DriversState.Success(result)
-            } else {
-                _state.value = DriversState.Error("Ha ocurrido un error, intentelo mas tarde")
-            }
+            result.fold(
+                onSuccess = { drivers ->
+                    _state.value = DriversState.Success(drivers)
+                },
+                onFailure = { error ->
+                    _state.value = DriversState.Error("Ha ocurrido un error: ${error.message}")
+                }
+            )
         }
     }
 }

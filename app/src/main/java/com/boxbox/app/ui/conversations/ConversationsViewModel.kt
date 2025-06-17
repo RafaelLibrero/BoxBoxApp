@@ -26,11 +26,23 @@ class ConversationsViewModel @Inject constructor(
             val conversationsResult = withContext(Dispatchers.IO) {
                 getVConversationsUseCase(position, topicId)
             }
-            if (topicResult != null && conversationsResult != null) {
-                _state.value = ConversationsState.Success(topicResult, conversationsResult)
-            } else {
-                _state.value = ConversationsState.Error("Ha ocurrido un error, intentelo mas tarde")
-            }
+
+            topicResult.fold(
+                onSuccess = { topic ->
+                    conversationsResult.fold(
+                        onSuccess = { conversations ->
+                            _state.value = ConversationsState.Success(topic, conversations)
+                        },
+                        onFailure = {
+                            _state.value = ConversationsState.Error("Error cargando conversaciones")
+                        }
+                    )
+                },
+                onFailure = {
+                    _state.value = ConversationsState.Error("Error cargando tema")
+                }
+            )
         }
     }
+
 }

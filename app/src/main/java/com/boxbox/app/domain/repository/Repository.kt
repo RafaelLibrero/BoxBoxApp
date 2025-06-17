@@ -10,17 +10,17 @@ import com.boxbox.app.domain.model.VConversation
 import com.boxbox.app.domain.model.VTopic
 
 interface Repository {
-    suspend fun getVTopics(): List<VTopic>?
-    suspend fun getTopic(id: Int): Topic?
-    suspend fun getVConversations(position: Int, topicId: Int): List<VConversation>?
-    suspend fun getPosts(position: Int, conversationId: Int): List<Post>?
+    suspend fun getVTopics(): Result<List<VTopic>>
+    suspend fun getTopic(id: Int): Result<Topic>
+    suspend fun getVConversations(position: Int, topicId: Int): Result<List<VConversation>>
+    suspend fun getPosts(position: Int, conversationId: Int): Result<List<Post>>
     suspend fun createPost(post: Post): Result<Unit>
-    suspend fun getTeams(): List<Team>?
-    suspend fun getTeam(id: Int): Team?
-    suspend fun getDrivers(): List<Driver>?
-    suspend fun getDriver(id: Int): Driver?
-    suspend fun getRaces(): List<Race>?
-    suspend fun getUser(id: Int): User?
-    suspend fun getProfile(): User?
+    suspend fun getTeams(): Result<List<Team>>
+    suspend fun getTeam(id: Int): Result<Team>
+    suspend fun getDrivers(): Result<List<Driver>>
+    suspend fun getDriver(id: Int): Result<Driver>
+    suspend fun getRaces(): Result<List<Race>>
+    suspend fun getUser(id: Int): Result<User>
+    suspend fun getProfile(): Result<User>
     suspend fun putUser(user: User): Result<Unit>
 }

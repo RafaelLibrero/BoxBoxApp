@@ -5,5 +5,5 @@ import com.boxbox.app.domain.model.VTopic
 import javax.inject.Inject
 
 class GetVTopics @Inject constructor(private val repository: Repository) {
-    suspend operator fun invoke(): List<VTopic>? = repository.getVTopics()
+    suspend operator fun invoke(): Result<List<VTopic>> = repository.getVTopics()
 }

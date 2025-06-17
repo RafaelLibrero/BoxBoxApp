@@ -36,12 +36,15 @@ class LoginViewModel @Inject constructor(
     fun getProfile() {
         viewModelScope.launch {
             _state.value = LoginState.Loading
-            val profile = getProfileUseCase()
-            if (profile != null) {
-                _state.value = LoginState.Success(profile)
-            } else {
-                _state.value = LoginState.Error("No se pudo obtener perfil")
-            }
+            val result = getProfileUseCase()
+            result.fold(
+                onSuccess = { profile ->
+                    _state.value = LoginState.Success(profile)
+                },
+                onFailure = {
+                    _state.value = LoginState.Error("No se pudo obtener perfil")
+                }
+            )
         }
     }
 }

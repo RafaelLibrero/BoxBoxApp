@@ -6,12 +6,15 @@ import androidx.lifecycle.viewModelScope
 import com.boxbox.app.data.local.DataStoreManager
 import com.boxbox.app.domain.model.Post
 import com.boxbox.app.domain.model.PostWithUser
+import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.usecase.CreatePost
 import com.boxbox.app.domain.usecase.GetPosts
 import com.boxbox.app.domain.usecase.GetUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,25 +38,43 @@ class PostsViewModel @Inject constructor(
 
     fun getPosts(position: Int, conversationId: Int) {
         viewModelScope.launch {
-            val posts = withContext(Dispatchers.IO) {
+            val postsResult = withContext(Dispatchers.IO) {
                 getPostsUseCase(position, conversationId)
             }
 
-            if (posts == null) {
-                _state.value = PostsState.Error("Error cargando posts")
-                return@launch
-            }
+            postsResult.fold(
+                onSuccess = { posts ->
+                    val postWithUsers = posts.map { post ->
+                        async(Dispatchers.IO) {
+                            val userResult = getUserUseCase(post.userId)
+                            val user = userResult.getOrElse {
+                                // En caso de error real, también devolvemos ghostUser
+                                User(
+                                    userId = -1,
+                                    userName = "Usuario eliminado",
+                                    email = null,
+                                    registrationDate = null,
+                                    lastAccess = null,
+                                    biography = "Este usuario ya no está disponible",
+                                    profilePicture = "",
+                                    totalPosts = 0,
+                                    teamId = null,
+                                    driverId = null
+                                )
+                            }
+                            PostWithUser(post, user)
+                        }
+                    }.awaitAll()
 
-            val postWithUsers = posts.map { post ->
-                val user = withContext(Dispatchers.IO) {
-                    getUserUseCase(post.userId)
+                    _state.value = PostsState.Success(postWithUsers)
+                },
+                onFailure = {
+                    _state.value = PostsState.Error("Error cargando posts")
                 }
-                PostWithUser(post, user)
-            }
-
-            _state.value = PostsState.Success(postWithUsers)
+            )
         }
     }
+
 
     fun createPost(content: String, position: Int, conversationId: Int) {
         viewModelScope.launch {
