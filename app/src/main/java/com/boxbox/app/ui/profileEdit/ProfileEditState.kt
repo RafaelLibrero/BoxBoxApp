@@ -9,8 +9,8 @@ sealed class ProfileEditState {
 
     data class Ready(
         val user: User,
-        val teams: List<Team>?,
-        val drivers: List<Driver>?
+        val teams: List<Team>,
+        val drivers: List<Driver>
     ) : ProfileEditState()
 
     object Success : ProfileEditState()

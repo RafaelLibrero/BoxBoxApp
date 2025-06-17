@@ -2,6 +2,7 @@ package com.boxbox.app.ui.profileEdit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.usecase.EditUser
 import com.boxbox.app.domain.usecase.GetDrivers
 import com.boxbox.app.domain.usecase.GetProfile
@@ -31,10 +32,10 @@ class ProfileEditViewModel @Inject constructor(
                 val user = getProfileUseCase()
                 if (user != null) {
                     val teams = withContext(Dispatchers.IO) {
-                        getTeamsUseCase()
+                        getTeamsUseCase() ?: emptyList()
                     }
                     val drivers = withContext(Dispatchers.IO) {
-                        getDriversUseCase()
+                        getDriversUseCase() ?: emptyList()
                     }
                     _state.value = ProfileEditState.Ready(user, teams, drivers)
                 } else {
@@ -44,5 +45,18 @@ class ProfileEditViewModel @Inject constructor(
         }
     }
 
+    fun editProfile(user: User) {
+        viewModelScope.launch {
+            _state.value = ProfileEditState.Loading
+            val result = withContext(Dispatchers.IO) {
+                editProfileUseCase(user)
+            }
+            if (!result.isSuccess) {
+                _state.value = ProfileEditState.Error("Error al editar perfil")
+            } else {
+                _state.value = ProfileEditState.Success
+            }
+        }
+    }
 
 }

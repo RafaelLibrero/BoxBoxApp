@@ -7,11 +7,11 @@ data class User (
     val userId: Int,
     val userName: String,
     val email: String?,
-    val registrationDate: Date,
-    val lastAccess: Date,
+    val registrationDate: Date?,
+    val lastAccess: Date?,
     val biography: String?,
     val profilePicture: String,
-    val totalPosts: Int,
+    val totalPosts: Int?,
     val teamId: Int?,
     val driverId: Int?
 ) {

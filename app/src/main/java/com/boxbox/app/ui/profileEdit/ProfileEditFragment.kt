@@ -11,16 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import coil3.load
 import coil3.request.crossfade
 import com.boxbox.app.R
-import com.boxbox.app.databinding.FragmentProfileBinding
 import com.boxbox.app.databinding.FragmentProfileEditBinding
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Team
 import com.boxbox.app.domain.model.User
-import com.boxbox.app.ui.profile.ProfileState
-import com.boxbox.app.utils.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,6 +29,11 @@ class ProfileEditFragment : Fragment() {
 
     private var _binding: FragmentProfileEditBinding? = null
     private val binding get() = _binding!!
+
+    private var teams: List<Team> = emptyList()
+    private var drivers: List<Driver> = emptyList()
+
+    private lateinit var user: User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +52,23 @@ class ProfileEditFragment : Fragment() {
 
     private fun initUI() {
         initUIState()
+        with(binding) {
+            btnSave.setOnClickListener {
+                profileEditViewModel.editProfile(user = User(
+                    userId = user.userId,
+                    userName = etName.text.toString(),
+                    email = user.email,
+                    registrationDate = null,
+                    lastAccess = null,
+                    biography = etBiography.text.toString(),
+                    profilePicture = user.profilePicture,
+                    totalPosts = null,
+                    teamId = teams[spinnerTeam.selectedItemPosition].teamID,
+                    driverId = drivers[spinnerDriver.selectedItemPosition].driverID
+                ))
+            }
+        }
+
     }
 
     private fun initUIState() {
@@ -58,7 +78,7 @@ class ProfileEditFragment : Fragment() {
                     when (state) {
                         is ProfileEditState.Error -> errorState(state)
                         is ProfileEditState.Loading -> loadingState()
-                        is ProfileEditState.Success -> successState(state)
+                        is ProfileEditState.Success -> successState()
                         is ProfileEditState.Ready -> readyState(state)
                     }
                 }
@@ -71,9 +91,9 @@ class ProfileEditFragment : Fragment() {
     }
 
     private fun readyState(state: ProfileEditState.Ready) {
-        val user: User = state.user
-        val teams: List<Team>? = state.teams
-        val drivers: List<Driver>? = state.drivers
+        user = state.user
+        teams = state.teams
+        drivers = state.drivers
 
         with(binding) {
             progressBar.visibility = View.GONE
@@ -81,7 +101,7 @@ class ProfileEditFragment : Fragment() {
             etName.setText(user.userName)
             etBiography.setText(user.biography)
 
-            if (!teams.isNullOrEmpty()) {
+            if (teams.isNotEmpty()) {
                 val teamNames = teams.map { it.teamName }
                 val teamAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, teamNames)
                 teamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -93,7 +113,7 @@ class ProfileEditFragment : Fragment() {
                 }
             }
 
-            if (!drivers.isNullOrEmpty()) {
+            if (drivers.isNotEmpty()) {
                 val driverNames = drivers.map { it.driverName }
                 val driverAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, driverNames)
                 driverAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -107,8 +127,8 @@ class ProfileEditFragment : Fragment() {
         }
     }
 
-    private fun successState(state: ProfileEditState.Success) {
-
+    private fun successState() {
+        findNavController().navigate(R.id.profileFragment)
     }
 
     private fun errorState(state: ProfileEditState.Error) {
