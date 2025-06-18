@@ -1,8 +1,8 @@
 package com.boxbox.app.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -16,6 +16,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import coil3.load
+import coil3.transform.CircleCropTransformation
+import coil3.request.crossfade
+import coil3.request.transformations
 import com.boxbox.app.R
 import com.boxbox.app.databinding.ActivityMainBinding
 import com.boxbox.app.ui.auth.AuthState
@@ -53,9 +57,11 @@ class MainActivity : AppCompatActivity() {
                     when (authState) {
                         is AuthState.Authenticated -> {
                             invalidateOptionsMenu()
+                            updateToolbarIcons(authState)
                         }
                         is AuthState.Unauthenticated -> {
                             invalidateOptionsMenu()
+                            updateToolbarIcons(authState)
                         }
                     }
                 }
@@ -65,34 +71,41 @@ class MainActivity : AppCompatActivity() {
         initUI()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        when (authViewModel.authState.value) {
+    private fun updateToolbarIcons(authState: AuthState) {
+        val profileIcon = binding.toolbar.findViewById<ImageView>(R.id.image_profile)
+        val loginIcon = binding.toolbar.findViewById<ImageView>(R.id.image_login)
+
+        when (authState) {
             is AuthState.Authenticated -> {
-                menuInflater.inflate(R.menu.toolbar_menu_authenticated, menu)
+                loginIcon.visibility = View.GONE
+                profileIcon.visibility = View.VISIBLE
+
+                lifecycleScope.launch {
+                    val imageUrl = authViewModel.fetchUserImageUrlFromApi()
+                    profileIcon.load(imageUrl) {
+                        crossfade(true)
+                        transformations(CircleCropTransformation())
+                    }
+                }
+
+                profileIcon.setOnClickListener {
+                    showPopupMenu(it)
+                }
             }
+
             is AuthState.Unauthenticated -> {
-                menuInflater.inflate(R.menu.toolbar_menu_unauthenticated, menu)
-            }
-        }
-        return true
-    }
+                profileIcon.visibility = View.GONE
+                loginIcon.visibility = View.VISIBLE
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.btnLogin -> {
-                LoginDialogFragment().show(supportFragmentManager, "loginDialog")
-                true
+                loginIcon.setOnClickListener {
+                    LoginDialogFragment().show(supportFragmentManager, "loginDialog")
+                }
             }
-            R.id.profile -> {
-                showPopupMenu()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun showPopupMenu() {
-        val popupMenu = PopupMenu(this, findViewById(R.id.profile))
+    private fun showPopupMenu(view: View) {
+        val popupMenu = PopupMenu(this, view)
 
         menuInflater.inflate(R.menu.toolbar_popup_menu, popupMenu.menu)
 
