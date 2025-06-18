@@ -102,12 +102,12 @@ class PostsFragment : Fragment() {
 
     private fun loadingState() {
         binding.progressBar.visibility = View.VISIBLE
-        binding.rvPosts.visibility = View.GONE
+        binding.container.visibility = View.GONE
     }
 
     private fun successState(state: PostsState.Success) {
         binding.progressBar.visibility = View.GONE
-        binding.rvPosts.visibility = View.VISIBLE
+        binding.container.visibility = View.VISIBLE
         postsAdapter.updateList(state.posts)
     }
 

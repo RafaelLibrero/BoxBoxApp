@@ -92,5 +92,7 @@
     <string name="save">Guardar</string>
     <string name="edit_profile">Editar perfil</string>
     <string name="biography">Añade una pequeña biografía</string>
+    <string name="publish">Publicar</string>
+    <string name="write_your_post">Escribe tu publicación...</string>
 
 </resources>

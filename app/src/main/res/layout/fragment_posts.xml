@@ -40,7 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Escribe tu publicación..."
+                android:hint="@string/write_your_post"
                 android:inputType="textMultiLine"
                 android:maxLines="4"
                 android:minLines="1"
@@ -50,7 +50,7 @@
                 android:id="@+id/btnPublish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Publicar"
+                android:text="@string/publish"
                 android:layout_marginStart="8dp" />
 
         </LinearLayout>
