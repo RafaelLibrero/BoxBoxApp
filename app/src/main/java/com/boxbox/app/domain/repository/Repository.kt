@@ -1,5 +1,6 @@
 package com.boxbox.app.domain.repository
 
+import androidx.paging.PagingData
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Post
 import com.boxbox.app.domain.model.Race
@@ -8,6 +9,7 @@ import com.boxbox.app.domain.model.Topic
 import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.model.VConversation
 import com.boxbox.app.domain.model.VTopic
+import kotlinx.coroutines.flow.Flow
 
 interface Repository {
     suspend fun getVTopics(): Result<List<VTopic>>
@@ -23,4 +25,5 @@ interface Repository {
     suspend fun getUser(id: Int): Result<User>
     suspend fun getProfile(): Result<User>
     suspend fun putUser(user: User): Result<Unit>
+    fun getPagedConversations(topicId: Int): Flow<PagingData<VConversation>>
 }

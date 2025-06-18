@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentConversationsBinding
 import com.boxbox.app.ui.conversations.adapter.ConversationsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
@@ -48,59 +51,52 @@ class ConversationsFragment : Fragment() {
     }
 
     private fun initUI() {
-        conversationsViewModel.loadData(1, topicId)
-        conversationsAdapter = ConversationsAdapter { onItemSelected(it) }
-        binding.rvConversations.apply {
-            adapter = conversationsAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
-
-
-        initUIState()
+        conversationsViewModel.getPagedConversations(topicId)
+        setupRecyclerView()
+        observePagingData()
+        observeAdapterLoadState()
     }
 
-    private fun initUIState() {
+    private fun setupRecyclerView() {
+        conversationsAdapter = ConversationsAdapter { conversationId ->
+            val bundle = Bundle().apply {
+                putInt("conversation_id", conversationId)
+            }
+            findNavController().navigate(R.id.postsFragment, bundle)
+        }
+
+        binding.rvConversations.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = conversationsAdapter
+        }
+    }
+
+    private fun observePagingData() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                conversationsViewModel.state.collect { state ->
-                    when (state) {
-                        is ConversationsState.Error -> errorState(state)
-                        is ConversationsState.Loading -> loadingState()
-                        is ConversationsState.Success -> successState(state)
-                    }
+                conversationsViewModel.getPagedConversations(topicId).collectLatest { pagingData ->
+                    conversationsAdapter.submitData(pagingData)
                 }
             }
         }
     }
 
-    private fun loadingState() {
-        binding.progressBar.visibility = View.VISIBLE
-        binding.rvConversations.visibility = View.GONE
-    }
+    private fun observeAdapterLoadState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                conversationsAdapter.loadStateFlow.collect { loadState ->
+                    val isLoading = loadState.refresh is LoadState.Loading
+                    val isError = loadState.refresh is LoadState.Error
 
-    private fun successState(state: ConversationsState.Success) {
-        binding.progressBar.visibility = View.GONE
-        binding.rvConversations.visibility = View.VISIBLE
-        topicTitle = state.topic.title
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = topicTitle
-        conversationsAdapter.updateList(state.conversations)
-    }
+                    binding.progressBar.isVisible = isLoading
+                    binding.rvConversations.isVisible = !isLoading && !isError
 
-    private fun errorState(state: ConversationsState.Error) {
-        binding.progressBar.visibility = View.GONE
-        binding.rvConversations.visibility = View.GONE
-        Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun onItemSelected(conversationId: Int) {
-        val bundle = Bundle().apply {
-            putInt("conversation_id", conversationId)
+                    if (isError) {
+                        val error = (loadState.refresh as LoadState.Error).error
+                        Toast.makeText(requireContext(), error.message ?: "Error loading", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
-
-        findNavController().navigate(
-            R.id.postsFragment,
-            bundle
-        )
     }
-
 }

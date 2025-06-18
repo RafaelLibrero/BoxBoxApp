@@ -61,6 +61,9 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
 
+    //Paging
+    implementation (libs.androidx.paging.runtime)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

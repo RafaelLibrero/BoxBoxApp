@@ -1,7 +1,11 @@
 package com.boxbox.app.data.repository
 
 import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.boxbox.app.data.network.ApiService
+import com.boxbox.app.data.paging.ConversationsPagingSource
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Post
 import com.boxbox.app.domain.model.Race
@@ -12,6 +16,7 @@ import com.boxbox.app.domain.model.VConversation
 import com.boxbox.app.domain.repository.Repository
 import com.boxbox.app.domain.model.VTopic
 import com.tuapp.data.storage.TokenStorage
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RepositoryImp @Inject constructor(
@@ -140,4 +145,12 @@ class RepositoryImp @Inject constructor(
             }
         }
     }
+
+    override fun getPagedConversations(topicId: Int): Flow<PagingData<VConversation>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = { ConversationsPagingSource(apiService, topicId) }
+        ).flow
+    }
+
 }
