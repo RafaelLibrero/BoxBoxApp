@@ -41,7 +41,6 @@ class ProfileEditFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileEditBinding.inflate(layoutInflater, container, false)
         initUI()
-        profileEditViewModel.getProfile()
         return binding.root
     }
 
@@ -51,24 +50,9 @@ class ProfileEditFragment : Fragment() {
     }
 
     private fun initUI() {
+        profileEditViewModel.getProfile()
         initUIState()
-        with(binding) {
-            btnSave.setOnClickListener {
-                profileEditViewModel.editProfile(user = User(
-                    userId = user.userId,
-                    userName = etName.text.toString(),
-                    email = user.email,
-                    registrationDate = null,
-                    lastAccess = null,
-                    biography = etBiography.text.toString(),
-                    profilePicture = user.profilePicture,
-                    totalPosts = null,
-                    teamId = teams[spinnerTeam.selectedItemPosition].teamID,
-                    driverId = drivers[spinnerDriver.selectedItemPosition].driverID
-                ))
-            }
-        }
-
+        editProfile()
     }
 
     private fun initUIState() {
@@ -107,7 +91,7 @@ class ProfileEditFragment : Fragment() {
                 teamAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinnerTeam.adapter = teamAdapter
 
-                val selectedTeamIndex = teams.indexOfFirst { it.teamID == user.teamId }
+                val selectedTeamIndex = teams.indexOfFirst { it.teamId == user.teamId }
                 if (selectedTeamIndex >= 0) {
                     spinnerTeam.setSelection(selectedTeamIndex)
                 }
@@ -134,5 +118,24 @@ class ProfileEditFragment : Fragment() {
     private fun errorState(state: ProfileEditState.Error) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun editProfile() {
+        with(binding) {
+            btnSave.setOnClickListener {
+                profileEditViewModel.editProfile(user = User(
+                    userId = user.userId,
+                    userName = etName.text.toString(),
+                    email = user.email,
+                    registrationDate = null,
+                    lastAccess = null,
+                    biography = etBiography.text.toString(),
+                    profilePicture = user.profilePicture,
+                    totalPosts = null,
+                    teamId = teams[spinnerTeam.selectedItemPosition].teamId,
+                    driverId = drivers[spinnerDriver.selectedItemPosition].driverID
+                ))
+            }
+        }
     }
 }
