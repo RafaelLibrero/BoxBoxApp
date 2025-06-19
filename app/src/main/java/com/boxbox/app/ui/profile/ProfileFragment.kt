@@ -14,6 +14,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import coil3.load
 import coil3.request.crossfade
+import coil3.request.transformations
+import coil3.transform.CircleCropTransformation
 import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentProfileBinding
 import com.boxbox.app.domain.model.Driver
@@ -79,7 +81,10 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             progressBar.visibility = View.GONE
-            ivProfile.load(user.profilePicture) { crossfade(true) }
+            ivProfile.load(user.profilePicture) {
+                crossfade(true)
+                transformations(CircleCropTransformation())
+            }
             tvName.text = user.userName
             tvBiography.text = user.biography
             tvRegistrationDate.text = getString(
