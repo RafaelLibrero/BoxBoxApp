@@ -4,8 +4,8 @@
     <string name="home">Inicio</string>
 
     <!-- Home -->
-    <string name="conversations">Hilos: %1$d</string>
-    <string name="posts">Publicaciones: %1$d</string>
+    <string name="conversations">Hilos</string>
+    <string name="posts">Posts</string>
 
     <!-- Season -->
     <string name="drivers">Pilotos</string>
