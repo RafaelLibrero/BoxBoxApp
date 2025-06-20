@@ -7,14 +7,27 @@ import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 object DateFormatter {
 
-    fun formatToMinutes(date: Date?): String {
-        val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        return outputFormat.format(date)
+    fun formatToDate(date: Date): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault())
+        val year = calendar.get(Calendar.YEAR)
+
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+        return if (year == currentYear) {
+            "$day $month"
+        } else {
+            "$day $month, $year"
+        }
     }
 
     fun formatDate(date: Date): String {
@@ -40,6 +53,27 @@ object DateFormatter {
             hours > 0 -> context.resources.getQuantityString(R.plurals.hours_ago, hours.toInt(), hours.toInt())
             minutes > 0 -> context.resources.getQuantityString(R.plurals.minutes_ago, minutes.toInt(), minutes.toInt())
             else -> context.resources.getString(R.string.just_now)
+        }
+
+        return timeText
+    }
+
+    fun getCreatedAtText(date: Date): String {
+        val createdAtLocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+        val now = LocalDateTime.now()
+        val duration = Duration.between(createdAtLocalDateTime, now)
+
+        val minutes = duration.toMinutes()
+        val hours = duration.toHours()
+        val days = duration.toDays()
+
+        val timeText = when {
+            days > 0 -> formatToDate(date)
+            hours > 0 -> "${hours}h"
+            minutes > 0 -> "${minutes}min"
+            else -> {
+                "Ahora"
+            }
         }
 
         return timeText
