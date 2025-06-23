@@ -4,6 +4,7 @@ import com.boxbox.app.data.network.response.DriverResponse
 import com.boxbox.app.data.network.request.LoginRequest
 import com.boxbox.app.data.network.request.PostRequest
 import com.boxbox.app.data.network.request.UserRequest
+import com.boxbox.app.data.network.response.ChatResponse
 import com.boxbox.app.data.network.response.LoginResponse
 import com.boxbox.app.data.network.response.PostListResponse
 import com.boxbox.app.data.network.response.RaceResponse
@@ -83,4 +84,16 @@ interface ApiService {
         @Body user: UserRequest,
         @Header("Authorization") token: String
     ): Response<Unit>
+
+    @GET("api/chats/{id}")
+    suspend fun getChat(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): ChatResponse
+
+    @GET("api/chats/user/{userId}")
+    suspend fun getUserChats(
+        @Path("userId") userId: Int,
+        @Header("Authorization") token: String
+    ): List<ChatResponse>
 }

@@ -2,6 +2,7 @@ package com.boxbox.app.data.repository
 
 import android.util.Log
 import com.boxbox.app.data.network.ApiService
+import com.boxbox.app.domain.model.Chat
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Post
 import com.boxbox.app.domain.model.Race
@@ -138,6 +139,23 @@ class RepositoryImp @Inject constructor(
             } else {
                 throw Exception(response.errorBody()?.string() ?: "Unknown error")
             }
+        }
+    }
+
+    override suspend fun getChat(id: Int): Result<Chat> {
+        val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
+        return runCatching {
+            apiService.getChat(id, "Bearer $token").toDomain()
+        }.onFailure {
+            Log.e("API Error", "Error en la llamada a la API", it)
+        }
+    }
+
+    override suspend fun getUserChats(userId: Int): Result<List<Chat>> {
+        val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
+        return runCatching {
+            val response = apiService.getUserChats(userId, "Bearer $token")
+            response.map {it.toDomain() }.toMutableList()
         }
     }
 }
