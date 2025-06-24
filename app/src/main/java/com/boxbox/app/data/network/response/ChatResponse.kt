@@ -9,11 +9,11 @@ data class ChatResponse (
     @SerializedName("user2Id") val user2Id: Int,
     @SerializedName("messages") val messages: List<MessageResponse>?
 ) {
-    fun toDomain(): Chat {
+    fun toDomain(currentUserId: Int): Chat {
+        val otherUserId = if (user1Id == currentUserId) user2Id else user1Id
         return Chat(
             id = id,
-            user1Id = user1Id,
-            user2Id = user2Id,
+            otherUserId = otherUserId,
             messages = messages?.map {it.toDomain()}
         )
     }

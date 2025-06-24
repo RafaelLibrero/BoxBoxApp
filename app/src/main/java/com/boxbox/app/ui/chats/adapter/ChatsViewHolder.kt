@@ -11,7 +11,7 @@ class ChatsViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun render(chat: Chat, onItemSelected: (Int) -> Unit) {
         with(binding) {
-            tvUsername.text = chat.user2Id.toString()
+            tvUsername.text = chat.otherUserId.toString()
         }
     }
 }

@@ -142,10 +142,10 @@ class RepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun getChat(id: Int): Result<Chat> {
+    override suspend fun getChat(id: Int, userId: Int): Result<Chat> {
         val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
         return runCatching {
-            apiService.getChat(id, "Bearer $token").toDomain()
+            apiService.getChat(id, "Bearer $token").toDomain(userId)
         }.onFailure {
             Log.e("API Error", "Error en la llamada a la API", it)
         }
@@ -155,7 +155,7 @@ class RepositoryImp @Inject constructor(
         val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
         return runCatching {
             val response = apiService.getUserChats(userId, "Bearer $token")
-            response.map {it.toDomain() }.toMutableList()
+            response.map {it.toDomain(userId) }.toMutableList()
         }
     }
 }

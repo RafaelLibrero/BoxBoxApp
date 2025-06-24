@@ -24,6 +24,6 @@ interface Repository {
     suspend fun getUser(id: Int): Result<User>
     suspend fun getProfile(): Result<User>
     suspend fun putUser(user: User): Result<Unit>
-    suspend fun getChat(id: Int): Result<Chat>
+    suspend fun getChat(id: Int, userId: Int): Result<Chat>
     suspend fun getUserChats(userId: Int): Result<List<Chat>>
 }

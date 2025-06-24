@@ -5,5 +5,5 @@ import com.boxbox.app.domain.repository.Repository
 import javax.inject.Inject
 
 class GetChat @Inject constructor(private val repository: Repository) {
-    suspend operator fun invoke(id: Int): Result<Chat> = repository.getChat(id)
+    suspend operator fun invoke(id: Int, userId: Int): Result<Chat> = repository.getChat(id, userId)
 }
