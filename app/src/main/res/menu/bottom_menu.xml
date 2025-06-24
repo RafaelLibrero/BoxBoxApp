@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_flag" />
 
     <item
-        android:id="chatsFragment"
+        android:id="@id/chatsFragment"
         android:title="@string/chats"
         android:icon="@drawable/ic_chat" />
 </menu>

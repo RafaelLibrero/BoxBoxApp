@@ -4,5 +4,5 @@ data class Chat(
     val id: Int,
     val user1Id: Int,
     val user2Id: Int,
-    val messages: List<Message>
+    val messages: List<Message>?
 )

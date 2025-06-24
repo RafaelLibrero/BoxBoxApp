@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.boxbox.app.databinding.FragmentChatsBinding
-import com.boxbox.app.ui.chats.adapter.ChatsViewHolder
+import com.boxbox.app.ui.chats.adapter.ChatsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,7 +21,7 @@ class ChatsFragment : Fragment() {
 
     private val chatsViewModel by viewModels<ChatsViewModel>()
 
-    private lateinit var chatsViewHolder: ChatsViewHolder
+    private lateinit var chatsAdapter: ChatsAdapter
 
     private var _binding: FragmentChatsBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +35,7 @@ class ChatsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentChatsBinding.inflate(layoutInflater, container, false)
+        initUI()
         return binding.root
     }
 
@@ -42,7 +45,13 @@ class ChatsFragment : Fragment() {
     }
 
     private fun initUI() {
-
+        chatsViewModel.getUserChats()
+        chatsAdapter = ChatsAdapter() { onItemSelected(it) }
+        binding.rvChats.apply {
+            adapter = chatsAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+        initUIState()
     }
 
     private fun initUIState() {
@@ -50,12 +59,40 @@ class ChatsFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 chatsViewModel.state.collect { state ->
                     when (state) {
-                        is ChatsState.Error -> TODO()
-                        is ChatsState.Loading -> TODO()
-                        is ChatsState.Success -> TODO()
+                        is ChatsState.Error -> errorState(state)
+                        is ChatsState.Loading -> loadingState()
+                        is ChatsState.Success -> successState(state)
                     }
                 }
             }
         }
+    }
+
+    private fun loadingState() {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.rvChats.visibility = View.GONE
+    }
+
+    private fun successState(state: ChatsState.Success) {
+        binding.progressBar.visibility = View.GONE
+        binding.rvChats.visibility = View.VISIBLE
+        chatsAdapter.updateList(state.chats)
+    }
+
+    private fun errorState(state: ChatsState.Error) {
+        binding.progressBar.visibility = View.GONE
+        binding.rvChats.visibility = View.GONE
+        Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onItemSelected(id: Int) {
+        val bundle = Bundle().apply {
+            putInt("id", id)
+        }
+
+        // findNavController().navigate(
+            TODO()
+            // bundle
+        // )
     }
 }

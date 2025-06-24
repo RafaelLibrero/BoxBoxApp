@@ -8,7 +8,7 @@ import com.boxbox.app.R
 import com.boxbox.app.domain.model.Chat
 
 class ChatsAdapter(
-    private var list: List<Chat>,
+    private var list: List<Chat> = emptyList(),
     private var onItemSelected: (Int) -> Unit
 ) : RecyclerView.Adapter<ChatsViewHolder>() {
 
