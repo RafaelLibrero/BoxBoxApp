@@ -13,9 +13,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boxbox.app.databinding.FragmentChatsBinding
+import com.boxbox.app.ui.auth.AuthState
 import com.boxbox.app.ui.auth.AuthViewModel
+import com.boxbox.app.ui.auth.login.LoginDialogFragment
 import com.boxbox.app.ui.chats.adapter.ChatsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
@@ -43,7 +46,12 @@ class ChatsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initUI()
+        setupRecyclerView()
+        initUIState()
+
+        binding.btnLogin.setOnClickListener {
+            LoginDialogFragment().show(parentFragmentManager, "loginDialog")
+        }
     }
 
     override fun onDestroy() {
@@ -51,24 +59,44 @@ class ChatsFragment : Fragment() {
         _binding = null
     }
 
-    private fun initUI() {
-        chatsViewModel.getUserChats()
-        chatsAdapter = ChatsAdapter() { onItemSelected(it) }
+    private fun setupRecyclerView() {
+        chatsAdapter = ChatsAdapter { onItemSelected(it) }
         binding.rvChats.apply {
             adapter = chatsAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        initUIState()
     }
 
     private fun initUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                chatsViewModel.state.collect { state ->
-                    when (state) {
-                        is ChatsState.Error -> errorState(state)
-                        is ChatsState.Loading -> loadingState()
-                        is ChatsState.Success -> successState(state)
+                var wasAuthenticated = false
+                combine(
+                    chatsViewModel.state,
+                    authViewModel.authState
+                ) { chatsState, authState ->
+                    chatsState to authState
+                }.collect { (chatsState, authState) ->
+                    // Detectar transición a autenticado para llamar solo una vez a getUserChats
+                    if (authState is AuthState.Authenticated && !wasAuthenticated) {
+                        chatsViewModel.getUserChats()
+                    }
+                    wasAuthenticated = authState is AuthState.Authenticated
+                    when (authState) {
+                        is AuthState.Unauthenticated -> {
+                            binding.notAuthenticatedContainer.visibility = View.VISIBLE
+                            binding.rvChats.visibility = View.GONE
+                            binding.emptyChatsContainer.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
+                        }
+                        is AuthState.Authenticated -> {
+                            binding.notAuthenticatedContainer.visibility = View.GONE
+                            when (chatsState) {
+                                is ChatsState.Loading -> loadingState()
+                                is ChatsState.Success -> successState(chatsState)
+                                is ChatsState.Error -> errorState(chatsState)
+                            }
+                        }
                     }
                 }
             }
@@ -78,17 +106,25 @@ class ChatsFragment : Fragment() {
     private fun loadingState() {
         binding.progressBar.visibility = View.VISIBLE
         binding.rvChats.visibility = View.GONE
+        binding.emptyChatsContainer.visibility = View.GONE
     }
 
     private fun successState(state: ChatsState.Success) {
         binding.progressBar.visibility = View.GONE
-        binding.rvChats.visibility = View.VISIBLE
-        chatsAdapter.updateList(state.chatsWithUsers)
+        if (state.chatsWithUsers.isEmpty()) {
+            binding.emptyChatsContainer.visibility = View.VISIBLE
+            binding.rvChats.visibility = View.GONE
+        } else {
+            binding.emptyChatsContainer.visibility = View.GONE
+            binding.rvChats.visibility = View.VISIBLE
+            chatsAdapter.updateList(state.chatsWithUsers)
+        }
     }
 
     private fun errorState(state: ChatsState.Error) {
         binding.progressBar.visibility = View.GONE
         binding.rvChats.visibility = View.GONE
+        binding.emptyChatsContainer.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
     }
 

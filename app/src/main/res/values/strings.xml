@@ -95,5 +95,7 @@
     <string name="publish">Publicar</string>
     <string name="write_your_post">Escribe tu publicación...</string>
     <string name="chats">Chats</string>
+    <string name="no_chats">No tienes chats</string>
+    <string name="login_to_see_chats_text">Para ver tus chats debes iniciar sesión</string>
 
 </resources>
