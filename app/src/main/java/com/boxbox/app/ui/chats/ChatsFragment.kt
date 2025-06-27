@@ -6,20 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boxbox.app.databinding.FragmentChatsBinding
+import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.ui.chats.adapter.ChatsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment() {
 
     private val chatsViewModel by viewModels<ChatsViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
 
     private lateinit var chatsAdapter: ChatsAdapter
 
@@ -76,7 +80,7 @@ class ChatsFragment : Fragment() {
     private fun successState(state: ChatsState.Success) {
         binding.progressBar.visibility = View.GONE
         binding.rvChats.visibility = View.VISIBLE
-        chatsAdapter.updateList(state.chats)
+        chatsAdapter.updateList(state.chatsWithUsers)
     }
 
     private fun errorState(state: ChatsState.Error) {

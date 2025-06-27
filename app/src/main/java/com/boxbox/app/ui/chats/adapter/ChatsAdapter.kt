@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.boxbox.app.R
-import com.boxbox.app.domain.model.Chat
+import com.boxbox.app.domain.model.ChatWithUser
 
 class ChatsAdapter(
-    private var list: List<Chat> = emptyList(),
+    private var list: List<ChatWithUser> = emptyList(),
     private var onItemSelected: (Int) -> Unit
 ) : RecyclerView.Adapter<ChatsViewHolder>() {
 
-    fun updateList(newList:List<Chat>) {
+    fun updateList(newList:List<ChatWithUser>) {
         val chatsDiff= ChatsDiffUtil(list, newList)
         val result = DiffUtil.calculateDiff(chatsDiff)
         list = newList

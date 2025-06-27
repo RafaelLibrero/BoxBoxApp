@@ -1,11 +1,11 @@
 package com.boxbox.app.ui.chats.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.boxbox.app.domain.model.Chat
+import com.boxbox.app.domain.model.ChatWithUser
 
 class ChatsDiffUtil(
-    private val oldList: List<Chat>,
-    private val newList: List<Chat>
+    private val oldList: List<ChatWithUser>,
+    private val newList: List<ChatWithUser>
 ): DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
@@ -16,7 +16,7 @@ class ChatsDiffUtil(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean {
-        return oldList[oldItemPosition].id == newList[newItemPosition].id
+        return oldList[oldItemPosition].chat.id == newList[newItemPosition].chat.id
     }
 
     override fun areContentsTheSame(
