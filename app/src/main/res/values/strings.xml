@@ -2,6 +2,7 @@
     <string name="app_name">BoxBox</string>
     <string name="season">Temporada</string>
     <string name="home">Inicio</string>
+    <string name="chats">Chats</string>
 
     <!-- Home -->
     <string name="conversations">Hilos</string>
@@ -36,6 +37,7 @@
     <!-- Races -->
     <string name="race_name">GP de %1s</string>
     <string name="race_image_description">Circuito</string>
+    <string name="next_race">Siguiente carrera</string>
 
     <!-- Profile  -->
     <string name="posts_number">Publicaciones: %d</string>
@@ -44,6 +46,10 @@
     <string name="user_picture">Avatar del usuario</string>
     <string name="favorite_team">Equipo favorito: %s</string>
     <string name="favorite_driver">Piloto favorito: %s</string>
+    <string name="save">Guardar</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="biography">Añade una pequeña biografía</string>
+
 
     <string name="profile">Mi perfil</string>
     <string name="settings">Ajustes</string>
@@ -51,6 +57,8 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Validations -->
     <string name="required_field">Este campo es obligatorio</string>
     <string name="email_no_valid_format">El correo electrónico no tiene un formato válido</string>
     <string name="password_characters_required">La contraseña debe tener al menos 12 caracteres</string>
@@ -58,10 +66,12 @@
     <string name="password_mayus_required">La contraseña debe contener al menos una letra minúscula</string>
     <string name="password_number_required">La contraseña debe contener al menos un número</string>
     <string name="password_not_match">Las contraseñas no coinciden</string>
+
+
     <string name="close_dialog">Cerrar diálogo</string>
 
 
-    <!-- Last access -->
+    <!-- Dates -->
     <plurals name="minutes_ago">
         <item quantity="one">hace %d minuto</item>
         <item quantity="other">hace %d minutos</item>
@@ -88,13 +98,10 @@
     </plurals>
 
     <string name="just_now">Justo ahora</string>
-    <string name="next_race">Siguiente carrera</string>
-    <string name="save">Guardar</string>
-    <string name="edit_profile">Editar perfil</string>
-    <string name="biography">Añade una pequeña biografía</string>
-    <string name="publish">Publicar</string>
-    <string name="write_your_post">Escribe tu publicación...</string>
-    <string name="chats">Chats</string>
+
+
+    <string name="write_your_post">Escribe tu publicación…</string>
+
     <string name="no_chats">No tienes chats</string>
     <string name="login_to_see_chats_text">Para ver tus chats debes iniciar sesión</string>
 
