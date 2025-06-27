@@ -29,8 +29,11 @@ class RacesTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRacesTabBinding.inflate(layoutInflater, container, false)
-        initUI()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUI()
     }
 
     override fun onDestroy() {

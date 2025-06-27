@@ -38,9 +38,12 @@ class PostsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         conversationId = requireArguments().getInt("conversation_id")
         initUI()
-        return binding.root
     }
 
     override fun onStart() {

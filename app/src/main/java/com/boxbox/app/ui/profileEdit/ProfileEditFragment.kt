@@ -40,8 +40,11 @@ class ProfileEditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileEditBinding.inflate(layoutInflater, container, false)
-        initUI()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUI()
     }
 
     override fun onDestroyView() {

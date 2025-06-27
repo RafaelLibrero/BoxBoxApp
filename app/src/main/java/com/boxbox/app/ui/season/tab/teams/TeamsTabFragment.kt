@@ -29,8 +29,11 @@ class TeamsTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTeamsTabBinding.inflate(layoutInflater, container, false)
-        initUI()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUI()
     }
 
     override fun onDestroyView() {

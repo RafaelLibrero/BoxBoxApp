@@ -38,9 +38,11 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
-        initUI()
-        profileViewModel.getProfile()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUI()
     }
 
     override fun onDestroyView() {
@@ -53,6 +55,7 @@ class ProfileFragment : Fragment() {
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.profileEditFragment)
         }
+        profileViewModel.getProfile()
         initUIState()
     }
 

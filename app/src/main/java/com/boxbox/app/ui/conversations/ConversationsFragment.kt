@@ -37,9 +37,12 @@ class ConversationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentConversationsBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         topicId = requireArguments().getInt("topic_id")
         initUI()
-        return binding.root
     }
 
     override fun onDestroyView() {
