@@ -7,7 +7,8 @@ import com.boxbox.app.R
 import com.boxbox.app.domain.model.PostWithUser
 
 class PostsAdapter (
-    private var postsList: List<PostWithUser> = mutableListOf()
+    private var postsList: List<PostWithUser> = mutableListOf(),
+    private var onUserSelected: (Int) -> Unit
 ) : RecyclerView.Adapter<PostsViewHolder>() {
 
     fun updateList(list: List<PostWithUser>) {
@@ -25,7 +26,7 @@ class PostsAdapter (
         holder: PostsViewHolder,
         position: Int
     ) {
-        holder.render(postsList[position])
+        holder.render(postsList[position], onUserSelected)
     }
 
     override fun getItemCount() = postsList.size

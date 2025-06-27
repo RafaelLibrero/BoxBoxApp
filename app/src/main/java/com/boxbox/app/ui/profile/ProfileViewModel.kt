@@ -6,6 +6,7 @@ import com.boxbox.app.domain.model.ProfileData
 import com.boxbox.app.domain.usecase.GetDriver
 import com.boxbox.app.domain.usecase.GetProfile
 import com.boxbox.app.domain.usecase.GetTeam
+import com.boxbox.app.domain.usecase.GetUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,17 +18,24 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfile,
+    private val getUserUseCase: GetUser,
     private val getTeamUseCase: GetTeam,
     private val getDriverUseCase: GetDriver
 ) : ViewModel() {
     private var _state = MutableStateFlow<ProfileState>(ProfileState.Loading)
     val state: StateFlow<ProfileState> = _state
 
-    fun getProfile() {
+    fun getProfile(id: Int? = null) {
         viewModelScope.launch {
             _state.value = ProfileState.Loading
             val result = withContext(Dispatchers.IO) {
-                getProfileUseCase().fold(
+                val profileResult = if (id == null) {
+                    getProfileUseCase()
+                } else {
+                    getUserUseCase(id)
+                }
+
+                profileResult.fold(
                     onSuccess = { user ->
                         val team = user.teamId?.let { getTeamUseCase(it).getOrNull() }
                         val driver = user.driverId?.let { getDriverUseCase(it).getOrNull() }

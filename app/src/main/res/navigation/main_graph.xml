@@ -14,7 +14,12 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.boxbox.app.ui.profile.ProfileFragment"
-        android:label="Perfil" />
+        android:label="Perfil" >
+        <argument
+            android:name="userId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileEditFragment"

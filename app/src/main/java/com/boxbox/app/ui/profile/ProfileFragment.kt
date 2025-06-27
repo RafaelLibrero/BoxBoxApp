@@ -55,7 +55,12 @@ class ProfileFragment : Fragment() {
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.profileEditFragment)
         }
-        profileViewModel.getProfile()
+        val userId = arguments?.getInt("userId", -1)
+        if (userId != null && userId != -1) {
+            profileViewModel.getProfile(userId)
+        } else {
+            profileViewModel.getProfile()
+        }
         initUIState()
     }
 

@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentPostsBinding
 import com.boxbox.app.ui.auth.AuthState
 import com.boxbox.app.ui.auth.AuthViewModel
@@ -63,7 +65,7 @@ class PostsFragment : Fragment() {
 
     private fun initUI() {
         postsViewModel.getPosts(1, conversationId)
-        postsAdapter = PostsAdapter()
+        postsAdapter = PostsAdapter { onUserSelected(it)}
         binding.rvPosts.apply {
             adapter = postsAdapter
             layoutManager = LinearLayoutManager(context)
@@ -118,5 +120,16 @@ class PostsFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
         binding.rvPosts.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onUserSelected(userId: Int) {
+        val bundle = Bundle().apply {
+            putInt("userId", userId)
+        }
+
+        findNavController().navigate(
+            R.id.profileFragment,
+            bundle
+        )
     }
 }
