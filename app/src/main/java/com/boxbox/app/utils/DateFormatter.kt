@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -35,9 +37,10 @@ object DateFormatter {
         }
     }
 
-    fun formatToLongDate(date: Date, context: Context): String {
-        val dateFormat = android.text.format.DateFormat.getMediumDateFormat(context)
-        return dateFormat.format(date)
+    fun formatToLongDate(date: Date): String {
+        val localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(Locale.getDefault())
+        return localDate.format(formatter)
     }
 
     fun getLastAccessText(context: Context, date: Date): String {

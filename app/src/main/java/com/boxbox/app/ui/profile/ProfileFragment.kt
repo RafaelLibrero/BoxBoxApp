@@ -97,7 +97,7 @@ class ProfileFragment : Fragment() {
             tvBiography.text = user.biography
             tvRegistrationDate.text = getString(
                 R.string.registered_on,
-                DateFormatter.formatToLongDate(user.registrationDate!!, requireContext())
+                DateFormatter.formatToLongDate(user.registrationDate!!)
             )
             tvLastAccess.text = getString(
                 R.string.last_access,
