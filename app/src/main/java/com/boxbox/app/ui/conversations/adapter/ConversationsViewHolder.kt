@@ -14,7 +14,7 @@ class ConversationsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         with (binding) {
             tvTitle.text = conversation.title
             tvEntryCount.text = conversation.entryCount.toString()
-            tvCreatedAt.text = DateFormatter.formatToDate(conversation.createdAt)
+            tvCreatedAt.text = DateFormatter.formatToShortDate(conversation.createdAt)
             tvPostCount.text = conversation.postCount.toString()
         }
 

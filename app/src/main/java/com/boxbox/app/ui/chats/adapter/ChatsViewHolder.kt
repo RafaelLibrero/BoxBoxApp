@@ -8,6 +8,7 @@ import coil3.request.transformations
 import coil3.transform.CircleCropTransformation
 import com.boxbox.app.databinding.ItemChatBinding
 import com.boxbox.app.domain.model.ChatWithUser
+import com.boxbox.app.utils.DateFormatter
 
 class ChatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -22,6 +23,8 @@ class ChatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
+            tvLastMessage.text = chat.lastMessage?.content ?: ""
+            tvTimestamp.text = chat.lastMessage?.let { DateFormatter.getLastMessageDate(it.sentAt) }
         }
     }
 }

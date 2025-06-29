@@ -13,7 +13,12 @@ import java.util.Locale
 
 object DateFormatter {
 
-    fun formatToDate(date: Date): String {
+    private fun formatToHourMinutes(date: Date): String {
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return sdf.format(date)
+    }
+
+    fun formatToShortDate(date: Date): String {
         val calendar = Calendar.getInstance()
         calendar.time = date
 
@@ -30,28 +35,20 @@ object DateFormatter {
         }
     }
 
-    fun formatDate(date: Date): String {
-        val sdf = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es", "ES"))
-        return sdf.format(date)
+    fun formatToLongDate(date: Date, context: Context): String {
+        val dateFormat = android.text.format.DateFormat.getMediumDateFormat(context)
+        return dateFormat.format(date)
     }
 
     fun getLastAccessText(context: Context, date: Date): String {
-        val lastAccessLocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
-        val now = LocalDateTime.now()
-        val duration = Duration.between(lastAccessLocalDateTime, now)
-
-        val minutes = duration.toMinutes()
-        val hours = duration.toHours()
-        val days = duration.toDays()
-        val months = days / 30
-        val years = days / 365
+        val units = calculateTimeUnits(date)
 
         val timeText = when {
-            years > 0 -> context.resources.getQuantityString(R.plurals.years_ago, years.toInt(), years.toInt())
-            months > 0 -> context.resources.getQuantityString(R.plurals.months_ago, months.toInt(), months.toInt())
-            days > 0 -> context.resources.getQuantityString(R.plurals.days_ago, days.toInt(), days.toInt())
-            hours > 0 -> context.resources.getQuantityString(R.plurals.hours_ago, hours.toInt(), hours.toInt())
-            minutes > 0 -> context.resources.getQuantityString(R.plurals.minutes_ago, minutes.toInt(), minutes.toInt())
+            units.years > 0 -> context.resources.getQuantityString(R.plurals.years_ago, units.years, units.years)
+            units.months > 0 -> context.resources.getQuantityString(R.plurals.months_ago, units.months, units.months)
+            units.days > 0 -> context.resources.getQuantityString(R.plurals.days_ago, units.days, units.days)
+            units.hours > 0 -> context.resources.getQuantityString(R.plurals.hours_ago, units.hours, units.hours)
+            units.minutes > 0 -> context.resources.getQuantityString(R.plurals.minutes_ago, units.minutes, units.minutes)
             else -> context.resources.getString(R.string.just_now)
         }
 
@@ -59,20 +56,28 @@ object DateFormatter {
     }
 
     fun getCreatedAtText(date: Date): String {
-        val createdAtLocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
-        val now = LocalDateTime.now()
-        val duration = Duration.between(createdAtLocalDateTime, now)
-
-        val minutes = duration.toMinutes()
-        val hours = duration.toHours()
-        val days = duration.toDays()
+        val units = calculateTimeUnits(date)
 
         val timeText = when {
-            days > 0 -> formatToDate(date)
-            hours > 0 -> "${hours}h"
-            minutes > 0 -> "${minutes}min"
+            units.days > 0 -> formatToShortDate(date)
+            units.hours > 0 -> "${units.hours}h"
+            units.minutes > 0 -> "${units.minutes}min"
             else -> {
                 "Ahora"
+            }
+        }
+
+        return timeText
+    }
+
+    fun getLastMessageDate(date: Date): String {
+        val units = calculateTimeUnits(date)
+
+        val timeText = when {
+            units.days > 1 -> formatToShortDate(date)
+            units.days > 0 -> "Ayer"
+            else -> {
+                formatToHourMinutes(date)
             }
         }
 
@@ -91,4 +96,28 @@ object DateFormatter {
 
         return displayText
     }
+
+    private fun calculateTimeDelta(date: Date): Duration {
+        val localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+        val now = LocalDateTime.now()
+        return Duration.between(localDateTime, now)
+    }
+
+    private fun calculateTimeUnits(date: Date): TimeUnits {
+        val delta = calculateTimeDelta(date)
+        val minutes = delta.toMinutes().toInt()
+        val hours = delta.toHours().toInt()
+        val days = delta.toDays().toInt()
+        val months = days / 30
+        val years = days / 365
+        return TimeUnits(minutes, hours, days, months, years)
+    }
+
+    private data class TimeUnits(
+        val minutes: Int,
+        val hours: Int,
+        val days: Int,
+        val months: Int,
+        val years: Int
+    )
 }

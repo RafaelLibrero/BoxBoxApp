@@ -91,9 +91,8 @@ interface ApiService {
         @Header("Authorization") token: String
     ): ChatResponse
 
-    @GET("api/chats/user/{userId}")
+    @GET("api/chats/user")
     suspend fun getUserChats(
-        @Path("userId") userId: Int,
         @Header("Authorization") token: String
     ): List<ChatResponse>
 }

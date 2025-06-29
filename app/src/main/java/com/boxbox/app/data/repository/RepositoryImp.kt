@@ -154,7 +154,7 @@ class RepositoryImp @Inject constructor(
     override suspend fun getUserChats(userId: Int): Result<List<Chat>> {
         val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
         return runCatching {
-            val response = apiService.getUserChats(userId, "Bearer $token")
+            val response = apiService.getUserChats("Bearer $token")
             response.map {it.toDomain(userId) }.toMutableList()
         }
     }
