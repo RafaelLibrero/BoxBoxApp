@@ -4,6 +4,7 @@ import com.boxbox.app.data.network.response.DriverResponse
 import com.boxbox.app.data.network.request.LoginRequest
 import com.boxbox.app.data.network.request.PostRequest
 import com.boxbox.app.data.network.request.UserRequest
+import com.boxbox.app.data.network.response.ChatResponse
 import com.boxbox.app.data.network.response.ChatSummaryResponse
 import com.boxbox.app.data.network.response.LoginResponse
 import com.boxbox.app.data.network.response.PostListResponse
@@ -89,7 +90,7 @@ interface ApiService {
     suspend fun getChat(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): ChatSummaryResponse
+    ): ChatResponse
 
     @GET("api/chats/user")
     suspend fun getUserChats(

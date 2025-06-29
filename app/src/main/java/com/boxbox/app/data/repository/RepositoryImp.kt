@@ -2,6 +2,7 @@ package com.boxbox.app.data.repository
 
 import android.util.Log
 import com.boxbox.app.data.network.ApiService
+import com.boxbox.app.domain.model.Chat
 import com.boxbox.app.domain.model.ChatSummary
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Post
@@ -142,7 +143,7 @@ class RepositoryImp @Inject constructor(
         }
     }
 
-    override suspend fun getChat(id: Int, userId: Int): Result<ChatSummary> {
+    override suspend fun getChat(id: Int, userId: Int): Result<Chat> {
         val token = tokenStorage.getToken() ?: return Result.failure(Exception("Token no encontrado"))
         return runCatching {
             apiService.getChat(id, "Bearer $token").toDomain(userId)
