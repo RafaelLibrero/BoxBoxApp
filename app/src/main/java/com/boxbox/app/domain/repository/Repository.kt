@@ -1,6 +1,6 @@
 package com.boxbox.app.domain.repository
 
-import com.boxbox.app.domain.model.Chat
+import com.boxbox.app.domain.model.ChatSummary
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Post
 import com.boxbox.app.domain.model.Race
@@ -24,6 +24,6 @@ interface Repository {
     suspend fun getUser(id: Int): Result<User>
     suspend fun getProfile(): Result<User>
     suspend fun putUser(user: User): Result<Unit>
-    suspend fun getChat(id: Int, userId: Int): Result<Chat>
-    suspend fun getUserChats(userId: Int): Result<List<Chat>>
+    suspend fun getChat(id: Int, userId: Int): Result<ChatSummary>
+    suspend fun getUserChats(userId: Int): Result<List<ChatSummary>>
 }

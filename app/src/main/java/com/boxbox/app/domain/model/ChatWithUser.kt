@@ -1,6 +1,6 @@
 package com.boxbox.app.domain.model
 
 data class ChatWithUser (
-    val chat: Chat,
+    val chatSummary: ChatSummary,
     val user: User
 )

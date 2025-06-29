@@ -16,7 +16,7 @@ class ChatsDiffUtil(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean {
-        return oldList[oldItemPosition].chat.id == newList[newItemPosition].chat.id
+        return oldList[oldItemPosition].chatSummary.id == newList[newItemPosition].chatSummary.id
     }
 
     override fun areContentsTheSame(

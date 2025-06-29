@@ -15,7 +15,7 @@ class ChatsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ItemChatBinding.bind(view)
 
     fun render(chatWithUser: ChatWithUser, onItemSelected: (Int) -> Unit) {
-        val chat = chatWithUser.chat
+        val chat = chatWithUser.chatSummary
         val user = chatWithUser.user
         with(binding) {
             tvUsername.text = user.userName
