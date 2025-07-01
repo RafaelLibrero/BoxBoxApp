@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/md_theme_background"
     android:orientation="vertical"
     tools:context=".ui.season.SeasonFragment">
 
@@ -17,12 +17,12 @@
         android:layout_marginBottom="2dp"
         app:tabBackground="@android:color/transparent"
         app:tabGravity="center"
-        app:tabIndicatorColor="@color/primary"
+        app:tabIndicatorColor="@color/md_theme_primary"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
-        app:tabRippleColor="@color/transparent"
-        app:tabSelectedTextColor="@color/primary"
-        app:tabTextColor="@color/onBackground" />
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/md_theme_primary"
+        app:tabTextColor="@color/md_theme_onBackground" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

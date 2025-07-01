@@ -134,7 +134,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/login_clickable_text"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/md_theme_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>

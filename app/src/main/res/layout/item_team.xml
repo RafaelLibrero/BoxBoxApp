@@ -23,7 +23,7 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_position"
             android:gravity="center"
-            android:textColor="@color/onSurface"
+            android:textColor="@color/md_theme_surface"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="1" />

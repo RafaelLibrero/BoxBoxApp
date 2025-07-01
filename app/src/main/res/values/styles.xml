@@ -8,8 +8,8 @@
     <style name="Inputs" >
         <item name="boxBackgroundMode">outline</item>
         <item name="boxStrokeColor">@color/box_stroke_selector</item>
-        <item name="hintTextColor">@color/onSurface</item>
-        <item name="cursorColor">@color/secondary</item>
+        <item name="hintTextColor">@color/md_theme_onSurface</item>
+        <item name="cursorColor">@color/md_theme_secondary</item>
     </style>
 
     <style name="UserDetailStyle">
