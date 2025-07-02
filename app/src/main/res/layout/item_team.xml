@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/ivLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:contentDescription="@string/logo_description"
             android:scaleType="centerCrop" />
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000000"
+            android:textStyle="bold"
             tools:text="Team Name" />
 
         <TextView

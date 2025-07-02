@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#666666"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     tools:text="Start - End" />
 
             </LinearLayout>

@@ -50,5 +50,17 @@
         <item name="colorOnCustomColor">@color/colorOnCustomColor</item>
         <item name="colorCustomColorContainer">@color/colorCustomColorContainer</item>
         <item name="colorOnCustomColorContainer">@color/colorOnCustomColorContainer</item>
+
+        <item name="toolbarStyle">@style/Widget.BoxBox.Toolbar</item>
+    </style>
+
+    <style name="Widget.BoxBox.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.BoxBox.Toolbar.Title</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextAppearance.BoxBox.Toolbar.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/bebasneue</item>
+        <item name="android:textSize">25sp</item>
     </style>
 </resources>
