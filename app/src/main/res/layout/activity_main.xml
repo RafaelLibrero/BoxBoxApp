@@ -17,33 +17,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-        app:titleTextColor="@android:color/white" >
+        app:titleTextColor="@android:color/white">
 
-    <ImageView
-        android:id="@+id/image_profile"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="16dp"
-        android:scaleType="centerCrop"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        android:contentDescription="@string/profile" />
+        <ImageView
+            android:id="@+id/image_profile"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/profile"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/image_login"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_user_not_logged"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        android:contentDescription="@string/login" />
+        <ImageView
+            android:id="@+id/image_login"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/login"
+            android:focusable="true"
+            android:src="@drawable/ic_user_not_logged"
+            android:visibility="gone" />
 
     </androidx.appcompat.widget.Toolbar>
 

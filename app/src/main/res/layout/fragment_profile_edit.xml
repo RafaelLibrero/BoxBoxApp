@@ -31,8 +31,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:inputType="textPersonName"
+        android:autofillHints="username"
         android:hint="@string/username"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivProfile"
         app:layout_constraintTop_toTopOf="@id/ivProfile" />
@@ -43,9 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
+        android:hint="@string/biography"
+        android:importantForAutofill="no"
         android:inputType="textMultiLine"
         android:maxLines="3"
-        android:hint="@string/biography"
         app:layout_constraintEnd_toEndOf="@id/etName"
         app:layout_constraintStart_toEndOf="@id/ivProfile"
         app:layout_constraintTop_toBottomOf="@id/etName" />

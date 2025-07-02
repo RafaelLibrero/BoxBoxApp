@@ -18,12 +18,12 @@
             android:id="@+id/tvNextRaceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/md_theme_primary"
+            android:layout_marginBottom="8dp"
             android:text="@string/next_race"
-            android:textStyle="bold"
+            android:textColor="@color/md_theme_primary"
             android:textSize="14sp"
-            android:visibility="gone"
-            android:layout_marginBottom="8dp" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvName"
@@ -89,6 +89,7 @@
                 android:id="@+id/ivWinner"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:contentDescription="@string/gp_winner"
                 android:scaleType="centerCrop" />
 
             <TextView

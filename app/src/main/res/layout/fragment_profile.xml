@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
-    android:background="?android:attr/windowBackground">
+    android:background="?android:attr/windowBackground"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/ivProfile"
@@ -18,26 +18,26 @@
             android:layout_height="120dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:scaleType="centerCrop"
-            android:padding="4dp"
             android:contentDescription="@string/profile"
+            android:padding="4dp"
+            android:scaleType="centerCrop"
             tools:src="@drawable/ic_account" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="?android:textColorPrimary"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="?android:textColorPrimary"
             tools:text="Admin" />
 
         <TextView
             android:id="@+id/tvBiography"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
             android:layout_marginTop="4dp"
+            android:textSize="15sp"
             tools:text="Sobre mí: Fanático de la F1 desde 2005" />
 
         <View
@@ -70,15 +70,15 @@
             android:id="@+id/tvTeam"
             style="@style/UserDetailStyle"
             android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="Equipo favorito: Ferrari" />
+            tools:text="Equipo favorito: Ferrari"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tvDriver"
             style="@style/UserDetailStyle"
             android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="Piloto favorito: Charles Leclerc" />
+            tools:text="Piloto favorito: Charles Leclerc"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/btnEditProfile"
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
     </LinearLayout>
 </ScrollView>
