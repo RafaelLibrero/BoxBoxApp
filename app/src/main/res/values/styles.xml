@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Titles">
-        <item name="android:fontFamily">@font/bebasneue</item>
+        <item name="fontFamily">@font/bebasneue</item>
     </style>
 
     <style name="Inputs" >
