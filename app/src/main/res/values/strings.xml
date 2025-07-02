@@ -13,6 +13,10 @@
     <string name="teams">Constructores</string>
     <string name="calendar">Calendario</string>
 
+    <!-- Chats -->
+    <string name="no_chats">No tienes chats</string>
+    <string name="login_to_see_chats_text">Para ver tus chats debes iniciar sesión</string>
+
     <!-- Login & Register-->
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
@@ -38,6 +42,7 @@
     <string name="race_name">GP de %1s</string>
     <string name="race_image_description">Circuito</string>
     <string name="next_race">Siguiente carrera</string>
+    <string name="gp_winner">Ganador del GP</string>
 
     <!-- Profile  -->
     <string name="posts_number">Publicaciones: %d</string>
@@ -101,8 +106,5 @@
 
 
     <string name="write_your_post">Escribe tu publicación…</string>
-
-    <string name="no_chats">No tienes chats</string>
-    <string name="login_to_see_chats_text">Para ver tus chats debes iniciar sesión</string>
 
 </resources>
