@@ -3,6 +3,7 @@ package com.boxbox.app.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.boxbox.app.data.local.DataStoreManager
+import com.boxbox.app.domain.repository.AuthRepository
 import com.boxbox.app.domain.usecase.GetProfile
 import com.tuapp.data.storage.TokenStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val tokenStorage: TokenStorage,
     private val dataStoreManager: DataStoreManager,
-    private val getProfileUseCase: GetProfile
+    private val getProfileUseCase: GetProfile,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
@@ -75,4 +77,15 @@ class AuthViewModel @Inject constructor(
             onFailure = { null }
         )
     }
+
+    suspend fun isTokenExpiringSoon(token: String): Boolean {
+        return authRepository.isTokenExpiringSoon(token)
+    }
+
+    suspend fun refreshToken(): Boolean {
+        val result = authRepository.refreshToken()
+        return result.isSuccess
+    }
+
+
 }

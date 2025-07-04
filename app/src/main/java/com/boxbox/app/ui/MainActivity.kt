@@ -16,17 +16,22 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import coil3.load
 import coil3.transform.CircleCropTransformation
 import coil3.request.crossfade
 import coil3.request.transformations
 import com.boxbox.app.R
+import com.boxbox.app.data.workers.TokenRefreshWorker
 import com.boxbox.app.databinding.ActivityMainBinding
 import com.boxbox.app.ui.auth.AuthState
 import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.ui.auth.login.LoginDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.Duration
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -58,10 +63,13 @@ class MainActivity : AppCompatActivity() {
                         is AuthState.Authenticated -> {
                             invalidateOptionsMenu()
                             updateToolbarIcons(authState)
+                            checkAndRefreshTokenIfNeeded()
+                            scheduleTokenRefreshWorker()
                         }
                         is AuthState.Unauthenticated -> {
                             invalidateOptionsMenu()
                             updateToolbarIcons(authState)
+                            cancelTokenRefreshWorker()
                         }
                     }
                 }
@@ -171,5 +179,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun scheduleTokenRefreshWorker() {
+        val workRequest = PeriodicWorkRequestBuilder<TokenRefreshWorker>(
+            Duration.ofMinutes(15),
+            Duration.ofMinutes(5)
+        ).build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "token_refresh_work",
+            ExistingPeriodicWorkPolicy.UPDATE,
+            workRequest
+        )
+    }
+
+    private fun cancelTokenRefreshWorker() {
+        WorkManager.getInstance(this).cancelUniqueWork("token_refresh_work")
+    }
+
+    private suspend fun checkAndRefreshTokenIfNeeded() {
+        val token = authViewModel.getToken()
+        if (token != null && authViewModel.isTokenExpiringSoon(token)) {
+            val success = authViewModel.refreshToken()
+            if (!success) {
+                authViewModel.logout()
+            }
+        }
     }
 }

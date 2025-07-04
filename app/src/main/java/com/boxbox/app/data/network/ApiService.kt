@@ -52,6 +52,9 @@ interface ApiService {
     @POST("api/auth/login")
     suspend fun login(@Body login: LoginRequest): LoginResponse
 
+    @POST("api/auth/refresh")
+    suspend fun refreshToken(@Header("Authorization") token: String): LoginResponse
+
     @GET("api/teams")
     suspend fun getTeams(): List<TeamResponse>
 

@@ -8,4 +8,6 @@ interface AuthRepository {
     fun getToken(): String?
     fun logout()
     suspend fun register(username: String, email: String, password: String): Result<Unit>
+    suspend fun isTokenExpiringSoon(token: String): Boolean
+    suspend fun refreshToken(): Result<String>
 }

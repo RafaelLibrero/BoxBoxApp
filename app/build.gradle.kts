@@ -52,6 +52,7 @@ dependencies {
 
     //DaggerHilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.common)
     ksp(libs.hilt.compiler)
 
     //EncryptedSharedPreferences
@@ -60,6 +61,9 @@ dependencies {
     //Coil
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
+
+    //WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
