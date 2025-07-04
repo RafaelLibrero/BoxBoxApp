@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            v.setPadding(systemBars.left, 0, systemBars.right, 0)
             insets
         }
 
@@ -143,6 +143,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUI() {
         setSupportActionBar(binding.toolbar)
+        val statusBarHeight = resources.getDimensionPixelSize(
+            resources.getIdentifier("status_bar_height", "dimen", "android")
+        )
+        binding.toolbar.setPadding(
+            binding.toolbar.paddingLeft,
+            statusBarHeight,
+            binding.toolbar.paddingRight,
+            binding.toolbar.paddingBottom
+        )
         initNavigation()
     }
 
