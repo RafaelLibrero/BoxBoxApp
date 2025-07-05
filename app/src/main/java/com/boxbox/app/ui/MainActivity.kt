@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.isAppearanceLightStatusBars = false
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -142,16 +145,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        setSupportActionBar(binding.toolbar)
-        val statusBarHeight = resources.getDimensionPixelSize(
-            resources.getIdentifier("status_bar_height", "dimen", "android")
-        )
-        binding.toolbar.setPadding(
-            binding.toolbar.paddingLeft,
-            statusBarHeight,
-            binding.toolbar.paddingRight,
-            binding.toolbar.paddingBottom
-        )
+        setupToolbar()
         initNavigation()
     }
 
@@ -175,6 +169,20 @@ class MainActivity : AppCompatActivity() {
             val upArrow = AppCompatResources.getDrawable(this, R.drawable.ic_arrow_back)
             upArrow?.setTint(resources.getColor(R.color.md_theme_onPrimary, theme))
             supportActionBar?.setHomeAsUpIndicator(upArrow)
+        }
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            view.setPadding(
+                view.paddingLeft,
+                statusBarInsets.top,
+                view.paddingRight,
+                view.paddingBottom
+            )
+            insets
         }
     }
 
