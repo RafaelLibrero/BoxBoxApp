@@ -26,6 +26,7 @@ import com.boxbox.app.databinding.ActivityMainBinding
 import com.boxbox.app.ui.auth.AuthState
 import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.ui.auth.login.LoginDialogFragment
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -174,16 +175,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
-            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-            view.setPadding(
-                view.paddingLeft,
-                statusBarInsets.top,
-                view.paddingRight,
-                view.paddingBottom
-            )
+            val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            val layoutParams = view.layoutParams as AppBarLayout.LayoutParams
+            layoutParams.topMargin = statusBarHeight
+            view.layoutParams = layoutParams
             insets
         }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
