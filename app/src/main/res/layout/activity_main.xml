@@ -23,6 +23,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:paddingBottom="5dp"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
             app:titleTextColor="@android:color/white">
 
