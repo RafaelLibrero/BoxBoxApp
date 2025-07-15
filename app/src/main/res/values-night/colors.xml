@@ -32,11 +32,9 @@
     <color name="md_theme_inverseOnSurface">#1C1C1C</color>
     <color name="md_theme_inversePrimary">#D50000</color>
 
-
-    <color name="gold">#FFD700</color>
-    <color name="silver">#C0C0C0</color>
-    <color name="bronze">#CD7F32</color>
-
+    <color name="gold">#B8860B</color>
+    <color name="silver">#808080</color>
+    <color name="bronze">#8B5A2B</color>
 
     <color name="colorCustomColor">#3A608F</color>
     <color name="colorOnCustomColor">#FFFFFF</color>
