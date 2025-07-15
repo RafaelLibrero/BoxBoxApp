@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setHomeButtonEnabled(showBackButton)
 
             val upArrow = AppCompatResources.getDrawable(this, R.drawable.ic_arrow_back)
-            upArrow?.setTint(resources.getColor(R.color.md_theme_onPrimary, theme))
+            upArrow?.setTint(ContextCompat.getColor(this, android.R.color.white))
             supportActionBar?.setHomeAsUpIndicator(upArrow)
         }
     }
