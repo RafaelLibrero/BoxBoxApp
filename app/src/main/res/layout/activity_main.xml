@@ -76,6 +76,7 @@
         app:elevation="0dp"
         app:itemIconTint="@color/bottom_nav_selector"
         app:itemTextColor="@color/bottom_nav_selector"
+        app:itemBackground="@drawable/bottom_nav_active_indicator"
         app:itemActiveIndicatorStyle="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
