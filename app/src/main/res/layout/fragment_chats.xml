@@ -57,7 +57,7 @@
             android:layout_marginBottom="12dp"
             android:text="@string/login_to_see_chats_text"
             android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textColor="?attr/colorOnBackground" />
 
         <Button
             android:id="@+id/btnLogin"
