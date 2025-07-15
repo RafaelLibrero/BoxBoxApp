@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp">
 
@@ -19,7 +20,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/circle_background"
             android:contentDescription="@string/user_picture"
             android:padding="2dp"
             android:scaleType="centerCrop" />
@@ -36,11 +36,13 @@
 
                 <TextView
                     android:id="@+id/tvUsername"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:layout_weight="1"
                     tools:text="usuario123" />
 
                 <TextView
@@ -49,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp"
+                    android:layout_gravity="end"
                     tools:text="5m" />
 
             </LinearLayout>
@@ -58,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"
                 tools:text="Este es el contenido del post." />
         </LinearLayout>
