@@ -3,7 +3,6 @@ package com.boxbox.app.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.PopupMenu
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,10 +36,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val authViewModel: AuthViewModel by viewModels()
-
-    private val fragmentsRequireLogin = setOf(
-        R.id.profileFragment,
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 profileIcon.setOnClickListener {
-                    showPopupMenu(it)
+                    navController.navigate(R.id.profileFragment)
                 }
             }
 
@@ -107,43 +102,6 @@ class MainActivity : AppCompatActivity() {
                 loginIcon.setOnClickListener {
                     LoginDialogFragment().show(supportFragmentManager, "loginDialog")
                 }
-            }
-        }
-    }
-
-    private fun showPopupMenu(view: View) {
-        val popupMenu = PopupMenu(this, view)
-
-        menuInflater.inflate(R.menu.toolbar_popup_menu, popupMenu.menu)
-
-        popupMenu.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.profile -> {
-                    navController.navigate(R.id.profileFragment)
-                    true
-                }
-                R.id.settings -> {
-                    true
-                }
-                R.id.logout -> {
-                    handleLogout()
-                    true
-                }
-                else -> false
-            }
-        }
-
-        popupMenu.show()
-    }
-
-    private fun handleLogout() {
-        lifecycleScope.launch {
-            authViewModel.logout()
-
-            val currentFragmentId = navController.currentDestination?.id
-
-            if (currentFragmentId != null && currentFragmentId in fragmentsRequireLogin) {
-                navController.popBackStack(navController.graph.startDestinationId, false)
             }
         }
     }

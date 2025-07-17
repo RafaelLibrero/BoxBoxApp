@@ -45,12 +45,13 @@
     <string name="gp_winner">Ganador del GP</string>
 
     <!-- Profile  -->
-    <string name="posts_number">Publicaciones: %d</string>
-    <string name="registered_on">Fecha de registro: %s</string>
-    <string name="last_access">Último acceso: %1$s</string>
+    <string name="posts_number">Publicaciones</string>
+    <string name="registered_on">Fecha de registro</string>
+    <string name="last_access">Último acceso</string>
     <string name="user_picture">Avatar del usuario</string>
-    <string name="favorite_team">Equipo favorito: %s</string>
-    <string name="favorite_driver">Piloto favorito: %s</string>
+    <string name="rol">Rol</string>
+    <string name="favorite_team">Equipo favorito</string>
+    <string name="favorite_driver">Piloto favorito</string>
     <string name="save">Guardar</string>
     <string name="edit_profile">Editar perfil</string>
     <string name="biography">Añade una pequeña biografía</string>

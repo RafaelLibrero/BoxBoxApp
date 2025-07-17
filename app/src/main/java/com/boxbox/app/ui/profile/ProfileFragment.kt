@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -21,6 +22,7 @@ import com.boxbox.app.databinding.FragmentProfileBinding
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Team
 import com.boxbox.app.domain.model.User
+import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.utils.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,6 +31,7 @@ import kotlinx.coroutines.launch
 class ProfileFragment : Fragment() {
 
     private val profileViewModel by viewModels<ProfileViewModel>()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -62,6 +65,7 @@ class ProfileFragment : Fragment() {
             profileViewModel.getProfile()
         }
         initUIState()
+        handleLogout()
     }
 
     private fun initUIState() {
@@ -95,28 +99,19 @@ class ProfileFragment : Fragment() {
             }
             tvName.text = user.userName
             tvBiography.text = user.biography
-            tvRegistrationDate.text = getString(
-                R.string.registered_on,
-                DateFormatter.formatToLongDate(user.registrationDate!!)
-            )
-            tvLastAccess.text = getString(
-                R.string.last_access,
-                DateFormatter.getLastAccessText(requireContext(), user.lastAccess!!)
-            )
-            tvPosts.text = getString(
-                R.string.posts_number,
-                user.totalPosts
-            )
+            tvRegistrationDate.text = DateFormatter.formatToLongDate(user.registrationDate!!)
+            tvLastAccess.text = DateFormatter.getLastAccessText(requireContext(), user.lastAccess!!)
+            tvPosts.text = user.totalPosts.toString()
             if (team != null) {
                 tvTeam.visibility = View.VISIBLE
-                tvTeam.text = getString(R.string.favorite_team, team.teamName)
+                tvTeam.text = team.teamName
             } else {
                 tvTeam.visibility = View.GONE
             }
 
             if (driver != null) {
                 tvDriver.visibility = View.VISIBLE
-                tvDriver.text = getString(R.string.favorite_driver, driver.driverName)
+                tvDriver.text = driver.driverName
             } else {
                 tvDriver.visibility = View.GONE
             }
@@ -126,5 +121,14 @@ class ProfileFragment : Fragment() {
     private fun errorState(state: ProfileState.Error) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleLogout() {
+        binding.cvLogout.setOnClickListener {
+            lifecycleScope.launch {
+                authViewModel.logout()
+                findNavController().navigate(R.id.action_global_homeGraph)
+            }
+        }
     }
 }
