@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/no_chats"
             android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textColor="?attr/colorOnBackground" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,7 +63,9 @@
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:text="@string/login"
+            android:textColor="@color/md_theme_onSecondaryContainer"
+            android:backgroundTint="@color/md_theme_secondaryContainer"/>
     </LinearLayout>
 
 </FrameLayout>

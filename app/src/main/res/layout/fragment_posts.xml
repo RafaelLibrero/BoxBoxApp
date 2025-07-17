@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:background="?attr/colorSurface"
                 android:padding="8dp">
 
                 <EditText
@@ -53,7 +54,8 @@
                     android:maxLines="4"
                     android:minLines="1"
                     android:padding="8dp"
-                    android:textColor="?android:textColorPrimary"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="@android:color/darker_gray"
                     android:textSize="15sp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -61,7 +63,6 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
-                    android:backgroundTint="?attr/colorPrimary"
                     android:padding="0dp"
                     app:cornerRadius="24dp"
                     app:icon="@drawable/ic_send"
