@@ -1,4 +1,4 @@
-package com.boxbox.app.ui.auth.register
+package com.boxbox.app.ui.register
 
 sealed class RegisterState {
     object Idle : RegisterState()

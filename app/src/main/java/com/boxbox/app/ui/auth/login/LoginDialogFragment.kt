@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
 import com.boxbox.app.R
-import com.boxbox.app.ui.auth.register.RegisterDialogFragment
+import com.boxbox.app.ui.register.RegisterFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -90,7 +90,6 @@ class LoginDialogFragment : DialogFragment() {
     private fun initListeners() {
         binding.tvRegisterClickable.setOnClickListener {
             dismiss()
-            RegisterDialogFragment().show(requireActivity().supportFragmentManager, "registerDialog")
         }
 
         binding.btnClose.setOnClickListener {

@@ -1,4 +1,4 @@
-package com.boxbox.app.ui.auth.register
+package com.boxbox.app.ui.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,6 +15,17 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
     private var _state = MutableStateFlow<RegisterState>(RegisterState.Idle)
     val state: StateFlow<RegisterState> = _state
 
+    private val _formData = MutableStateFlow(RegisterFormData())
+    val formData: StateFlow<RegisterFormData> = _formData
+
+    fun setStepOneData(username: String, email: String, password: String) {
+        _formData.value = _formData.value.copy(
+            username = username,
+            email = email,
+            password = password
+        )
+    }
+
     fun register(username: String, email: String, password: String) {
         viewModelScope.launch {
             _state.value = RegisterState.Loading
@@ -28,3 +39,9 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
         }
     }
 }
+
+data class RegisterFormData(
+    val username: String = "",
+    val email: String = "",
+    val password: String = "",
+)
