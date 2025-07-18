@@ -1,11 +1,11 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.CardView.Elevated"
+    style="@style/MyCardStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    app:strokeColor="?attr/colorPrimary"
+    app:strokeColor="@color/md_theme_inversePrimary"
     app:strokeWidth="2dp">
 
     <FrameLayout
@@ -71,8 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/login"
-                android:textColor="?attr/colorOnPrimary"
-                app:backgroundTint="?attr/colorPrimary"
+                android:textColor="@color/md_theme_onPrimary"
+                app:backgroundTint="@color/md_theme_primary"
                 app:strokeColor="?attr/colorOnPrimary" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:text="@string/forgot_password"
-                android:textColor="?attr/colorOnBackground" />
+                android:textColor="@color/md_theme_onBackground" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="2dp"
                     android:text="@string/no_account_register_prefix"
-                    android:textColor="?attr/colorOnBackground" />
+                    android:textColor="@color/md_theme_onBackground" />
 
                 <TextView
                     android:id="@+id/tvRegisterClickable"
@@ -121,7 +121,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginTop="4dp"
                 android:visibility="gone"
-                app:indicatorColor="?attr/colorPrimary"
+                app:indicatorColor="@color/md_theme_primary"
                 tools:visibility="visible" />
 
         </LinearLayout>
@@ -135,7 +135,7 @@
             android:contentDescription="@string/close_dialog"
             android:padding="8dp"
             android:src="@drawable/ic_close"
-            app:tint="@android:color/black" />
+            app:tint="@color/md_theme_onSurface" />
     </FrameLayout>
 
 </com.google.android.material.card.MaterialCardView>

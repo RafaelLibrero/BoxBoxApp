@@ -68,7 +68,7 @@
                     app:icon="@drawable/ic_send"
                     app:iconGravity="textStart"
                     app:iconPadding="0dp"
-                    app:iconTint="@android:color/white" />
+                    app:iconTint="?attr/colorSurface" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

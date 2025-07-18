@@ -55,7 +55,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:background="@drawable/bg_stat_pill"
                 android:orientation="horizontal"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="2dp">
@@ -68,7 +67,8 @@
                     android:background="@drawable/bg_stat_circle"
                     android:gravity="center"
                     android:padding="4dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="?attr/colorOnSurfaceInverse"
+                    android:textStyle="bold"
                     android:textSize="12sp"
                     tools:text="12" />
 
@@ -76,14 +76,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/conversations"
-                    android:textColor="@android:color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_stat_pill"
                 android:orientation="horizontal"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="2dp">
@@ -96,7 +95,8 @@
                     android:background="@drawable/bg_stat_circle"
                     android:gravity="center"
                     android:padding="4dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="?attr/colorOnSurfaceInverse"
+                    android:textStyle="bold"
                     android:textSize="12sp"
                     tools:text="34" />
 
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/posts"
-                    android:textColor="@android:color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

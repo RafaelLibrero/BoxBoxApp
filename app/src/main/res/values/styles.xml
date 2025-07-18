@@ -29,5 +29,16 @@
         <item name="android:alpha">0.7</item>
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
+    <style name="MyCardStyle" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="cardElevation">0dp</item>
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
 
 </resources>

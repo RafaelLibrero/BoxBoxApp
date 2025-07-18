@@ -34,6 +34,8 @@ class LoginDialogFragment : DialogFragment() {
 
     private var loadingJob: Job? = null
 
+    override fun getTheme(): Int = R.style.MyDialogTheme
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
