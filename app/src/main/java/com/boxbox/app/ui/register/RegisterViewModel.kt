@@ -26,6 +26,12 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
         )
     }
 
+    fun setStepTwoData(fullName: String) {
+        _formData.value = _formData.value.copy(
+            fullName = fullName
+        )
+    }
+
     fun register(username: String, email: String, password: String) {
         viewModelScope.launch {
             _state.value = RegisterState.Loading
@@ -44,4 +50,5 @@ data class RegisterFormData(
     val username: String = "",
     val email: String = "",
     val password: String = "",
+    val fullName: String = "",
 )

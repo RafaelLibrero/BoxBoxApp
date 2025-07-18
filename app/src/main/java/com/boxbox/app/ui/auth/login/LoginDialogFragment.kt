@@ -18,8 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.boxbox.app.R
-import com.boxbox.app.ui.register.RegisterFragment
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -90,6 +90,8 @@ class LoginDialogFragment : DialogFragment() {
     private fun initListeners() {
         binding.tvRegisterClickable.setOnClickListener {
             dismiss()
+            val navController = requireActivity().findNavController(R.id.fragment_container_view)
+            navController.navigate(R.id.registerFragment)
         }
 
         binding.btnClose.setOnClickListener {

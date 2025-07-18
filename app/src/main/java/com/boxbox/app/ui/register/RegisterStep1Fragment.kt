@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.boxbox.app.R
 import com.boxbox.app.databinding.FragmentRegisterStep1Binding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterStep1Fragment: Fragment() {
 
     private var _binding: FragmentRegisterStep1Binding? = null
@@ -24,11 +26,6 @@ class RegisterStep1Fragment: Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             btnNextStep.setOnClickListener {
@@ -39,10 +36,19 @@ class RegisterStep1Fragment: Fragment() {
                         password = edtPassword.text.toString()
                     )
 
-                    (parentFragment as? RegisterFragment)?.goToNextStep()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.registerStepContainer, RegisterStep2Fragment())
+                        .addToBackStack(null)
+                        .commit()
+
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun validateForm(): Boolean {

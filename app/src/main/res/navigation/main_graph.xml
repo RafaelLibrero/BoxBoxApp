@@ -4,6 +4,12 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/home_graph">
 
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.boxbox.app.ui.register.RegisterFragment"
+        android:label="Register" >
+    </fragment>
+
     <action
         android:id="@+id/action_global_homeGraph"
         app:destination="@id/home_graph"
