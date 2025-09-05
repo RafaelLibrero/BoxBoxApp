@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 profileIcon.setOnClickListener {
-                    navController.navigate(R.id.profileFragment)
+                    navController.navigate(R.id.action_global_profileFragment)
                 }
             }
 

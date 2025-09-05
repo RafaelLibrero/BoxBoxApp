@@ -18,6 +18,13 @@
         android:name="com.boxbox.app.ui.season.SeasonFragment"
         android:label="Temporada" />
 
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/main_graph"
+        app:popUpToInclusive="false" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.boxbox.app.ui.profile.ProfileFragment"
