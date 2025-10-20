@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -30,7 +29,6 @@ class ConversationsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var topicId by Delegates.notNull<Int>()
-    private lateinit var topicTitle: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,8 +82,6 @@ class ConversationsFragment : Fragment() {
     private fun successState(state: ConversationsState.Success) {
         binding.progressBar.visibility = View.GONE
         binding.rvConversations.visibility = View.VISIBLE
-        topicTitle = state.topic.title
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = topicTitle
         conversationsAdapter.updateList(state.conversations)
     }
 

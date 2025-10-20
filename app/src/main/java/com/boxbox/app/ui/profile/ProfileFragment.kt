@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -54,7 +53,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initUI() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Perfil"
         binding.btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.profileEditFragment)
         }

@@ -121,8 +121,21 @@ class MainActivity : AppCompatActivity() {
             val showBackButton = when (destination.id) {
                 R.id.conversationsFragment,
                 R.id.postsFragment,
-                R.id.profileFragment -> true
+                R.id.profileFragment,
+                R.id.profileEditFragment -> true
                 else -> false
+            }
+
+            when (destination.id) {
+                R.id.conversationsFragment,
+                R.id.postsFragment,
+                R.id.profileFragment,
+                R.id.profileEditFragment -> {
+                    binding.toolbarLogo.visibility = View.INVISIBLE
+                }
+                else -> {
+                    binding.toolbarLogo.visibility = View.VISIBLE
+                }
             }
 
             supportActionBar?.setDisplayHomeAsUpEnabled(showBackButton)
@@ -136,6 +149,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top

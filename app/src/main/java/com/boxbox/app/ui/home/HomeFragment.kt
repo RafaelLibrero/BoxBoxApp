@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +45,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUI() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Boxbox"
         homeViewModel.getVTopics()
         topicAdapter = TopicAdapter { onItemSelected(it) }
         binding.rvTopics.apply {
