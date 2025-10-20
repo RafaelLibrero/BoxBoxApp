@@ -3,7 +3,7 @@ package com.boxbox.app.data.repository
 import com.boxbox.app.data.network.ApiService
 import com.boxbox.app.domain.repository.AuthRepository
 import com.boxbox.app.domain.model.Login
-import com.tuapp.data.storage.TokenStorage
+import com.boxbox.app.data.local.TokenStorage
 import javax.inject.Inject
 
 class AuthRepositoryImp @Inject constructor(

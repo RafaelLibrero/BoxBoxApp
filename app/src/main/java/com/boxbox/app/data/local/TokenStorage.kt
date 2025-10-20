@@ -1,4 +1,4 @@
-package com.tuapp.data.storage
+package com.boxbox.app.data.local
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

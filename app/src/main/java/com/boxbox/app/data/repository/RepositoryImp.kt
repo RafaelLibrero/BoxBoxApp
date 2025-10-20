@@ -13,7 +13,7 @@ import com.boxbox.app.domain.model.User
 import com.boxbox.app.domain.model.VConversation
 import com.boxbox.app.domain.repository.Repository
 import com.boxbox.app.domain.model.VTopic
-import com.tuapp.data.storage.TokenStorage
+import com.boxbox.app.data.local.TokenStorage
 import javax.inject.Inject
 
 class RepositoryImp @Inject constructor(

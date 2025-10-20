@@ -6,7 +6,7 @@ import com.boxbox.app.data.repository.AuthRepositoryImp
 import com.boxbox.app.data.repository.RepositoryImp
 import com.boxbox.app.domain.repository.AuthRepository
 import com.boxbox.app.domain.repository.Repository
-import com.tuapp.data.storage.TokenStorage
+import com.boxbox.app.data.local.TokenStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

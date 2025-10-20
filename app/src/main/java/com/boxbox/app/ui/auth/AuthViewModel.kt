@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.boxbox.app.data.local.DataStoreManager
 import com.boxbox.app.domain.usecase.GetProfile
-import com.tuapp.data.storage.TokenStorage
+import com.boxbox.app.data.local.TokenStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
