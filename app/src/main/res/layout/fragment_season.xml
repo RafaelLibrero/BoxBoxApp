@@ -21,6 +21,7 @@
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
         app:tabRippleColor="@null"
+        app:tabTextAppearance="@style/Tabs"
         app:tabSelectedTextColor="@color/md_theme_primary"
         app:tabTextColor="@color/md_theme_onBackground" />
 

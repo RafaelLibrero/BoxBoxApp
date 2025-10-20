@@ -40,5 +40,11 @@
         <item name="elevationOverlayEnabled">false</item>
     </style>
 
+    <style name="Tabs" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/bebasneue</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/md_theme_onBackground</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>
