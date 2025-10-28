@@ -76,6 +76,7 @@
                 android:layout_height="100dp"
                 android:layout_marginStart="12dp"
                 android:layout_weight="1"
+                app:tint="@color/md_theme_onBackground"
                 android:contentDescription="@string/race_image_description"
                 android:scaleType="fitCenter" />
         </LinearLayout>
