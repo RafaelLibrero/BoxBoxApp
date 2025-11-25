@@ -50,12 +50,12 @@ class PostsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        postsViewModel.startAutoRefresh(1, conversationId)
+        postsViewModel.connectToConversation(conversationId)
     }
 
     override fun onStop() {
         super.onStop()
-        postsViewModel.stopAutoRefresh()
+        postsViewModel.disconnect()
     }
 
     override fun onDestroyView() {

@@ -1,6 +1,7 @@
 package com.boxbox.app.data.network
 
 import android.content.Context
+import com.boxbox.app.BuildConfig
 import com.boxbox.app.data.local.DataStoreManager
 import com.boxbox.app.data.repository.AuthRepositoryImp
 import com.boxbox.app.data.repository.RepositoryImp
@@ -25,7 +26,7 @@ object NetworkModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit
             .Builder()
-            .baseUrl("https://boxboxapi.azurewebsites.net/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -59,4 +60,11 @@ object NetworkModule {
     fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager {
         return DataStoreManager(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideSignalRService(): SignalRService {
+        return SignalRService(BuildConfig.BASE_URL)
+    }
+
 }
