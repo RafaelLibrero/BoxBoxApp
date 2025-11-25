@@ -16,6 +16,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "BASE_URL", "\"${project.property("BASE_URL")}\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,8 +37,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    viewBinding {
-        enable = true
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -61,6 +65,10 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
     implementation(libs.coil.svg)
+
+    //SignalR
+    implementation(libs.signalr)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
