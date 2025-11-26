@@ -113,13 +113,32 @@ class PostsFragment : Fragment() {
     private fun successState(state: PostsState.Success) {
         binding.progressBar.visibility = View.GONE
         binding.container.visibility = View.VISIBLE
-        postsAdapter.updateList(state.posts)
+        postsAdapter.updateList(state.posts) {
+            if (shouldAutoScroll()) scrollToBottom()
+        }
     }
 
     private fun errorState(state: PostsState.Error) {
         binding.progressBar.visibility = View.GONE
         binding.rvPosts.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun scrollToBottom() {
+        binding.rvPosts.post {
+            val itemCount = postsAdapter.itemCount
+            if (itemCount > 0) {
+                binding.rvPosts.scrollToPosition(itemCount - 1)
+            }
+        }
+    }
+
+    private fun shouldAutoScroll(): Boolean {
+        val layoutManager = binding.rvPosts.layoutManager as LinearLayoutManager
+        val lastVisible = layoutManager.findLastVisibleItemPosition()
+        val itemCount = postsAdapter.itemCount
+
+        return lastVisible >= itemCount - 2
     }
 
     private fun onUserSelected(userId: Int) {

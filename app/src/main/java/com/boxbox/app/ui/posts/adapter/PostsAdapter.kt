@@ -11,9 +11,10 @@ class PostsAdapter (
     private var onUserSelected: (Int) -> Unit
 ) : RecyclerView.Adapter<PostsViewHolder>() {
 
-    fun updateList(list: List<PostWithUser>) {
+    fun updateList(list: List<PostWithUser>, onComplete: () -> Unit) {
         postsList = list
         notifyDataSetChanged()
+        onComplete.invoke()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
