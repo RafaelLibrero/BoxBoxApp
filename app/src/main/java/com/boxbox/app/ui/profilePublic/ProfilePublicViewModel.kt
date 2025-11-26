@@ -1,11 +1,11 @@
-package com.boxbox.app.ui.profile
+package com.boxbox.app.ui.profilePublic
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.boxbox.app.domain.model.ProfileData
 import com.boxbox.app.domain.usecase.GetDriver
-import com.boxbox.app.domain.usecase.GetProfile
 import com.boxbox.app.domain.usecase.GetTeam
+import com.boxbox.app.domain.usecase.GetUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,28 +15,28 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
-    private val getProfileUseCase: GetProfile,
+class ProfilePublicViewModel @Inject constructor(
+    private val getUserUseCase: GetUser,
     private val getTeamUseCase: GetTeam,
     private val getDriverUseCase: GetDriver
 ) : ViewModel() {
-    private var _state = MutableStateFlow<ProfileState>(ProfileState.Loading)
-    val state: StateFlow<ProfileState> = _state
+    private var _state = MutableStateFlow<ProfilePublicState>(ProfilePublicState.Loading)
+    val state: StateFlow<ProfilePublicState> = _state
 
-    fun getProfile() {
+    fun getProfile(id: Int) {
         viewModelScope.launch {
-            _state.value = ProfileState.Loading
+            _state.value = ProfilePublicState.Loading
             val result = withContext(Dispatchers.IO) {
-                val profileResult = getProfileUseCase()
+                val profileResult = getUserUseCase(id)
 
                 profileResult.fold(
                     onSuccess = { user ->
                         val team = user.teamId?.let { getTeamUseCase(it).getOrNull() }
                         val driver = user.driverId?.let { getDriverUseCase(it).getOrNull() }
-                        ProfileState.Success(ProfileData(user, team, driver))
+                        ProfilePublicState.Success(ProfileData(user, team, driver))
                     },
                     onFailure = {
-                        ProfileState.Error("Ha ocurrido un error, intentelo más tarde")
+                        ProfilePublicState.Error("Ha ocurrido un error, intentelo más tarde")
                     }
                 )
             }
