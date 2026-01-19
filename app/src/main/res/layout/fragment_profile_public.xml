@@ -85,7 +85,7 @@
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
-                                    android:src="@drawable/ic_settings"
+                                    android:src="@drawable/ic_chat"
                                     app:tint="?attr/colorOnSurface" />
 
                                 <TextView
@@ -120,7 +120,7 @@
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
-                                    android:src="@drawable/ic_logout"
+                                    android:src="@drawable/ic_flag"
                                     app:tint="?attr/colorOnSurface" />
 
                                 <TextView
