@@ -1,45 +1,41 @@
-package com.boxbox.app.ui.profile
+package com.boxbox.app.ui.profilePublic
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import coil3.load
 import coil3.request.crossfade
 import coil3.request.transformations
 import coil3.transform.CircleCropTransformation
-import com.boxbox.app.R
-import com.boxbox.app.databinding.FragmentProfileBinding
+import com.boxbox.app.databinding.FragmentProfilePublicBinding
 import com.boxbox.app.domain.model.Driver
 import com.boxbox.app.domain.model.Team
 import com.boxbox.app.domain.model.User
-import com.boxbox.app.ui.auth.AuthViewModel
 import com.boxbox.app.utils.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfilePublicFragment : Fragment() {
 
-    private val profileViewModel by viewModels<ProfileViewModel>()
-    private val authViewModel: AuthViewModel by activityViewModels()
+    private val profilePublicViewModel by viewModels<ProfilePublicViewModel>()
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentProfilePublicBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentProfilePublicBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -53,22 +49,19 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initUI() {
-        binding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.profileEditFragment)
-        }
-        profileViewModel.getProfile()
+        val userId = arguments?.getInt("userId", -1)
+        profilePublicViewModel.getProfile(userId!!)
         initUIState()
-        handleLogout()
     }
 
     private fun initUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                profileViewModel.state.collect { state ->
+                profilePublicViewModel.state.collect { state ->
                     when (state) {
-                        is ProfileState.Error -> errorState(state)
-                        is ProfileState.Loading -> loadingState()
-                        is ProfileState.Success -> successState(state)
+                        is ProfilePublicState.Error -> errorState(state)
+                        is ProfilePublicState.Loading -> loadingState()
+                        is ProfilePublicState.Success -> successState(state)
                     }
                 }
             }
@@ -79,7 +72,7 @@ class ProfileFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun successState(state: ProfileState.Success) {
+    private fun successState(state: ProfilePublicState.Success) {
         val user: User = state.data.user
         val team: Team? = state.data.team
         val driver: Driver? = state.data.driver
@@ -111,17 +104,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun errorState(state: ProfileState.Error) {
+    private fun errorState(state: ProfilePublicState.Error) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun handleLogout() {
-        binding.cvLogout.setOnClickListener {
-            lifecycleScope.launch {
-                authViewModel.logout()
-                findNavController().navigate(R.id.action_global_homeGraph)
-            }
-        }
     }
 }

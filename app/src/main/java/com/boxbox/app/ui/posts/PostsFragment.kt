@@ -128,7 +128,7 @@ class PostsFragment : Fragment() {
         }
 
         findNavController().navigate(
-            R.id.profileFragment,
+            R.id.profilePublicFragment,
             bundle
         )
     }
