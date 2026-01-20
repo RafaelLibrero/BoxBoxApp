@@ -38,7 +38,7 @@ class PostsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -67,8 +67,10 @@ class PostsFragment : Fragment() {
         postsViewModel.getPosts(1, conversationId)
         postsAdapter = PostsAdapter { onUserSelected(it)}
         binding.rvPosts.apply {
+            layoutManager = LinearLayoutManager(context).apply {
+                stackFromEnd = true
+            }
             adapter = postsAdapter
-            layoutManager = LinearLayoutManager(context)
         }
         binding.btnPublish.setOnClickListener {
             val content = binding.etNewPost.text.toString().trim()
