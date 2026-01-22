@@ -38,7 +38,7 @@ class PostsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPostsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -50,12 +50,12 @@ class PostsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        postsViewModel.startAutoRefresh(1, conversationId)
+        postsViewModel.connectToConversation(conversationId)
     }
 
     override fun onStop() {
         super.onStop()
-        postsViewModel.stopAutoRefresh()
+        postsViewModel.disconnect()
     }
 
     override fun onDestroyView() {
@@ -67,8 +67,10 @@ class PostsFragment : Fragment() {
         postsViewModel.getPosts(1, conversationId)
         postsAdapter = PostsAdapter { onUserSelected(it)}
         binding.rvPosts.apply {
+            layoutManager = LinearLayoutManager(context).apply {
+                stackFromEnd = true
+            }
             adapter = postsAdapter
-            layoutManager = LinearLayoutManager(context)
         }
         binding.btnPublish.setOnClickListener {
             val content = binding.etNewPost.text.toString().trim()
@@ -113,13 +115,32 @@ class PostsFragment : Fragment() {
     private fun successState(state: PostsState.Success) {
         binding.progressBar.visibility = View.GONE
         binding.container.visibility = View.VISIBLE
-        postsAdapter.updateList(state.posts)
+        postsAdapter.updateList(state.posts) {
+            if (shouldAutoScroll()) scrollToBottom()
+        }
     }
 
     private fun errorState(state: PostsState.Error) {
         binding.progressBar.visibility = View.GONE
         binding.rvPosts.visibility = View.GONE
         Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun scrollToBottom() {
+        binding.rvPosts.post {
+            val itemCount = postsAdapter.itemCount
+            if (itemCount > 0) {
+                binding.rvPosts.scrollToPosition(itemCount - 1)
+            }
+        }
+    }
+
+    private fun shouldAutoScroll(): Boolean {
+        val layoutManager = binding.rvPosts.layoutManager as LinearLayoutManager
+        val lastVisible = layoutManager.findLastVisibleItemPosition()
+        val itemCount = postsAdapter.itemCount
+
+        return lastVisible >= itemCount - 2
     }
 
     private fun onUserSelected(userId: Int) {
