@@ -1,5 +1,6 @@
 package com.boxbox.app.data.network
 
+import com.boxbox.app.domain.model.Post
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import javax.inject.Inject
@@ -12,27 +13,26 @@ class SignalRService @Inject constructor(
 
     private var hubConnection: HubConnection? = null
 
-    @Suppress("CheckResult")
     fun connect(
         hubPath: String,
-        onConnected: (() -> Unit)? = null,
-        onError: ((Throwable) -> Unit)? = null,
-        onEvent: ((Any) -> Unit)? = null
+        conversationId: Int,
+        onError: ((Throwable) -> Unit),
+        onNewPost: (Post) -> Unit,
     ) {
         val fullUrl = if (hubPath.isNotEmpty()) "$baseUrl/$hubPath" else baseUrl
 
         hubConnection = HubConnectionBuilder.create(fullUrl).build()
 
-        hubConnection?.on("ReceiveEvent", { data -> onEvent?.invoke(data) }, Any::class.java)
+        hubConnection?.on("NewPost",
+            { post -> onNewPost(post) },
+            Post::class.java)
 
         hubConnection?.start()
-            ?.subscribe({
-                println("✅ Conectado a $fullUrl")
-                onConnected?.invoke()
-            }, { error ->
-                error.printStackTrace()
-                onError?.invoke(error)
-            })
+            ?.doOnComplete {
+                hubConnection?.send("JoinConversation", conversationId)
+            }
+            ?.doOnError { onError(it) }
+            ?.subscribe()
     }
 
     fun <T> subscribe(eventName: String, clazz: Class<T>, onEvent: (T) -> Unit) {

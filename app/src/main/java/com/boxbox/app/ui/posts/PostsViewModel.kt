@@ -85,17 +85,19 @@ class PostsViewModel @Inject constructor(
         if (isConnectedToConversation) return
 
         signalRService.connect(
-            hubPath = "conversations/$conversationId",
-            onEvent = { event ->
-                val newPost = event as Post
+            hubPath = "hubs/conversation",
+            conversationId = conversationId,
+            onNewPost = { newPost ->
                 viewModelScope.launch {
                     val user = getUserSafe(newPost.userId)
                     val current = (_state.value as? PostsState.Success)?.posts ?: emptyList()
-                    _state.value = PostsState.Success(current + PostWithUser(newPost, user))
+                    _state.value = PostsState.Success(
+                        current + PostWithUser(newPost, user)
+                    )
                 }
             },
-            onError = { error ->
-                Log.e("PostsViewModel", "Error SignalR", error)
+            onError = {
+                Log.e("PostsViewModel", "SignalR error", it)
             }
         )
         isConnectedToConversation = true
