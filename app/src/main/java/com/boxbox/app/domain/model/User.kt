@@ -5,7 +5,7 @@ import java.util.Date
 
 data class User (
     val userId: Int,
-    val userName: String,
+    val name: String,
     val email: String?,
     val registrationDate: Date?,
     val lastAccess: Date?,
@@ -13,7 +13,8 @@ data class User (
     val profilePicture: String,
     val totalPosts: Int?,
     val teamId: Int?,
-    val driverId: Int?
+    val driverId: Int?,
+    val userName: String
 ) {
     fun toData(): UserRequest {
         return UserRequest(

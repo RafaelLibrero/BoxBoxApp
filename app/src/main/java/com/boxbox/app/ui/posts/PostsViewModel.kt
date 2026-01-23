@@ -113,7 +113,7 @@ class PostsViewModel @Inject constructor(
             getUserUseCase(userId).getOrElse {
                 User(
                     userId = -1,
-                    userName = "Usuario eliminado",
+                    userName = "@deleted",
                     email = null,
                     registrationDate = null,
                     lastAccess = null,
@@ -121,7 +121,8 @@ class PostsViewModel @Inject constructor(
                     profilePicture = "",
                     totalPosts = 0,
                     teamId = null,
-                    driverId = null
+                    driverId = null,
+                    name = "Usuario eliminado"
                 )
             }
         }

@@ -95,7 +95,7 @@ class RepositoryImp @Inject constructor(
     override suspend fun getUser(id: Int): Result<User> {
         val ghostUser = User(
             userId = -1,
-            userName = "Usuario eliminado",
+            userName = "@deleted",
             email = null,
             registrationDate = null,
             lastAccess = null,
@@ -103,7 +103,8 @@ class RepositoryImp @Inject constructor(
             profilePicture = "",
             totalPosts = 0,
             teamId = null,
-            driverId = null
+            driverId = null,
+            name = "Usuario eliminado"
         )
 
         return runCatching {

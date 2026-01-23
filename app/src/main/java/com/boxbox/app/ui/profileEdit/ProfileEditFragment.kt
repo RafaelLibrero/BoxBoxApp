@@ -38,7 +38,7 @@ class ProfileEditFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentProfileEditBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -128,7 +128,8 @@ class ProfileEditFragment : Fragment() {
             btnSave.setOnClickListener {
                 profileEditViewModel.editProfile(user = User(
                     userId = user.userId,
-                    userName = etName.text.toString(),
+                    name = etName.text.toString(),
+                    userName = user.userName,
                     email = user.email,
                     registrationDate = null,
                     lastAccess = null,

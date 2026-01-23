@@ -8,7 +8,7 @@ import java.util.Date
 
 data class UserResponse (
     @SerializedName("userId") val userId: Int,
-    @SerializedName("userName") val userName: String,
+    @SerializedName("name") val name: String,
     @SerializedName("email") val email: String?,
     @JsonAdapter(DateJsonAdapter::class) @SerializedName("registrationDate") val registrationDate: Date,
     @JsonAdapter(DateJsonAdapter::class) @SerializedName("lastAccess") val lastAccess: Date,
@@ -16,13 +16,14 @@ data class UserResponse (
     @SerializedName("profilePicture") val profilePicture: String,
     @SerializedName("totalPosts") val totalPosts: Int,
     @SerializedName("teamId") val teamId: Int?,
-    @SerializedName("driverId") val driverId: Int?
+    @SerializedName("driverId") val driverId: Int?,
+    @SerializedName("userName") val userName: String
 )
 {
     fun toDomain(): User {
         return User(
             userId = userId,
-            userName = userName,
+            name = name,
             email = email,
             registrationDate = registrationDate,
             lastAccess = lastAccess,
@@ -30,7 +31,8 @@ data class UserResponse (
             profilePicture = profilePicture,
             totalPosts = totalPosts,
             teamId = teamId,
-            driverId = driverId
+            driverId = driverId,
+            userName = userName
         )
     }
 }
